@@ -5,13 +5,14 @@ import copy
 import json
 from datetime import datetime, timezone
 from uuid import uuid4
+from .catalog_models import CATALOG_TABLES
 
 TABLES = (
     "profiles", "areas", "learning_tracks", "resources", "track_resources", "units", "track_units", "unit_progress",
     "topics", "skills", "resource_topics", "track_topics", "topic_skills", "track_skills", "learning_goals", "goal_phases",
     "phase_tracks", "study_sessions", "session_skills", "topic_events", "learning_evidence", "evidence_skills", "skill_rubrics",
     "skill_assessments", "milestones", "credentials", "import_jobs", "attachments", "daily_plans", "plan_blocks",
-)
+) + CATALOG_TABLES
 
 
 class RepositoryError(RuntimeError):
@@ -68,6 +69,8 @@ class MemoryRepository:
             else:
                 raise RepositoryError("INVALID_OPERATION")
         # Useful invariant in the demo; the real database enforces this independently.
+        if sum(r['status'] == 'running' for r in candidate['discovery_runs']) > 1:
+            raise RepositoryError('DISCOVERY_ALREADY_RUNNING')
         for session in candidate["study_sessions"]:
             total = sum(a["allocated_minutes"] for a in candidate["session_skills"] if a["session_id"] == session["id"])
             if total > session["duration_minutes"]:

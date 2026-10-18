@@ -1,4 +1,16 @@
-# Verificación de la entrega · 17 de octubre de 2026
+# Verificación de la entrega
+
+## Catálogo persistente · 18 de octubre de 2026
+
+**Resultado vigente: 121 pruebas aprobadas y 1 omitida en 31,53 segundos**, Python 3.12 y PostgreSQL WebAssembly (PGlite). La omisión sigue siendo la prueba de dos conexiones PostgreSQL; el workflow de CI la ejecuta con un servidor PostgreSQL 17. Las comprobaciones del paquete también pasaron y el archivo 001 original no cambió.
+
+Se probaron las migraciones 001 + 002, carga inicial repetible de 17 oportunidades sin actividad inventada, actualizaciones con historial, conservación de favoritos y progreso adoptado, packs con componentes, asociación a fases, rechazo de referencias entre usuarios y protección RLS. Las pruebas HTTP simuladas cubren errores 429/503/404, red, respuesta inválida, citas/precios sin respaldo, fallback a Flash-Lite sin repetir búsquedas, fallo de ambos modelos, cambio de enfoque y omisión de revisión semanal reciente/desactivada.
+
+Streamlit AppTest verifica las once secciones y, además, la confirmación antes de adoptar, un pack añadido a una fase y el aviso cuando falta la migración. Los enlaces del catálogo inicial se investigaron en páginas públicas; la integración de Tavily y Gemini se prueba con respuestas simuladas, sin consumir claves del usuario.
+
+**Pendiente externo para esta actualización:** instalar el 002 en Supabase, commit/push y CI, guardar las claves, comprobar una actualización real y habilitar el workflow semanal. No se ejecutó SQL en producción ni se publicó esta versión desde las herramientas del agente. Pasos en [DISCOVERY_SETUP.md](DISCOVERY_SETUP.md).
+
+## Entrega original · 17 de octubre de 2026
 
 **85 pruebas aprobadas y 1 omitida justificadamente** en Python 3.12.14. Dependencias directas fijadas a las instaladas; `pip check` no encontró incompatibilidades.
 

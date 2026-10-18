@@ -58,7 +58,7 @@ def minutes(value):
     return f"{h} h {m:02d} min" if h else f"{m} min"
 
 
-KIND = {"course": "Curso", "certification": "Certificación", "topic": "Tema / ruta", "project": "Proyecto", "lab": "Laboratorio", "paper": "Paper"}
+KIND = {"course": "Curso", "certification": "Certificación", "topic": "Tema / ruta", "project": "Proyecto", "lab": "Laboratorio", "paper": "Paper", "pack": "Learning Pack"}
 STATUS = {"planned": "Por empezar", "active": "En curso", "paused": "En pausa", "completed": "Completado", "archived": "Archivado"}
 ENERGY = {"low": "Con calma", "medium": "A buen ritmo", "high": "Con energía"}
 ACTIVITY = {"study": "Estudio", "review": "Repaso", "work_practice": "Práctica en el trabajo"}

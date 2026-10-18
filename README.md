@@ -14,8 +14,9 @@ Tracker personal de aprendizaje en **Streamlit + Supabase**, con el tema claro, 
 - Relacionar temas y habilidades con cursos; registrar práctica laboral, evidencias y autoevaluaciones comparables.
 - Mantener un mapa de temas aprendidos y sugerencias de repaso con colores orientativos.
 - Generar un plan del día de hasta tres bloques; registrar sólo el tiempo que realmente realizaste.
-- Explorar fuentes de comunidad y oficiales, incluidas Cisco, Exercism, OSSU, Nand2Tetris, pandas y PostgreSQL.
-- Consultar bajo demanda novedades de GitHub y arXiv, con la fecha de consulta visible.
+- Explorar un catálogo persistente de oportunidades oficiales y comunitarias: temarios, habilidades, precios, fuentes, favoritos e historial.
+- Añadir oportunidades y Learning Packs a tu aprendizaje o a una fase de tu ruta.
+- Investigar novedades bajo demanda o semanalmente con Tavily y Gemini, con fallback y conservación del catálogo ante fallos. Actívalo siguiendo [docs/DISCOVERY_SETUP.md](docs/DISCOVERY_SETUP.md).
 - Importar PDF, DOCX, TXT, MD o JSON con lectura, propuesta, revisión y aprobación. Gemini es opcional; la captura manual funciona sin IA.
 - Registrar credenciales sin confundirlas con completar un curso, y exportar tus registros en JSON.
 
@@ -48,7 +49,8 @@ atlas/repository.py         Supabase real / demo en memoria
 atlas/auth.py               Inicio y cierre de sesión
 atlas/importing.py          Extracción y propuestas con Gemini
 atlas/extract_worker.py     Proceso limitado para leer documentos
-atlas/discovery.py          Fuentes públicas bajo demanda
+atlas/catalog*.py           Catálogo, historial y adopción explícita
+atlas/research.py            Tavily y fallback Gemini
 atlas/seed.py, data/         Plantillas y selección editorial
 supabase/migrations/         Instalación SQL inicial
 tests/                      Pruebas de contratos, SQL e interfaz
@@ -75,7 +77,7 @@ El workflow de GitHub Actions prepara PostgreSQL 17 desechable y ejecuta tambié
 
 ## Límites de esta versión
 
-El plan del día usa reglas, y las recomendaciones iniciales son editoriales. El radar se actualiza cuando pulsas el botón; no promete sincronización continua. El asistente Gemini organiza documentos y siempre requiere revisión. No hay OCR integrado, verificación automática de credenciales, integración privada con Coursera ni medición científica de memoria. DuckDB y un calendario externo no son necesarios para este tamaño de aplicación.
+El plan del día usa reglas. Descubrir combina una selección inicial revisada con propuestas de IA basadas en fuentes; la revisión semanal requiere activar el workflow y sus secretos. No promete sincronización continua ni investigación exhaustiva. El asistente Gemini organiza documentos y siempre requiere revisión. No hay OCR integrado, verificación automática de credenciales, integración privada con Coursera ni medición científica de memoria. DuckDB y un calendario externo no son necesarios para este tamaño de aplicación.
 
 Los adjuntos son privados; las sesiones de acceso se conservan en el servidor para esa conexión del navegador. Una recarga completa puede pedir iniciar sesión de nuevo. Las correcciones de tiempo se hacen anulando la sesión y registrando la correcta, conservando el historial. El JSON de exportación sirve como respaldo de registros, no como restauración automática ni como copia de los archivos binarios.
 

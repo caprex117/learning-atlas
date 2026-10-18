@@ -1,6 +1,6 @@
 # Modelo de datos implementado
 
-La fuente ejecutable es `supabase/migrations/001_learning_atlas.sql`, generada por `scripts/build_schema.py`. Hay **30 tablas de aplicación y una de recibos de operaciones**. Todas las entidades tienen UUID, `user_id`, fecha de creación y una clave única compuesta `(user_id, id)`; las relaciones usan esa clave para impedir enlaces entre cuentas.
+Las fuentes ejecutables son `supabase/migrations/001_learning_atlas.sql` y `002_discovery_catalog.sql`, con generadores en `scripts/`. Hay **37 tablas de aplicación y una de recibos de operaciones**. Todas las entidades tienen UUID, `user_id`, fecha de creación y una clave única compuesta `(user_id, id)`; las relaciones usan esa clave para impedir enlaces entre cuentas.
 
 ## División de información
 
@@ -22,7 +22,23 @@ La fuente ejecutable es `supabase/migrations/001_learning_atlas.sql`, generada p
 | Día libre | `daily_plans`, `plan_blocks` | Fecha, presupuesto, energía, generador; bloques ordenados, motivo y sesión realizada opcional. |
 | Control de escritura | `mutation_receipts` | Usuario + ID de solicitud, intención y resultado confirmado. No contiene credenciales. |
 
-`phase_tracks` y el destino de adjunto de credencial quedan disponibles en el esquema; la interfaz inicial vincula las sesiones directamente a fases y los documentos a recursos/evidencias. No se presentan como flujos de edición que ya estén disponibles.
+`phase_tracks` se utiliza al adoptar oportunidades desde Descubrir: vincula el aprendizaje a una fase activa. Al registrar una sesión, se propone esa fase si el aprendizaje tiene una sola asociación. El destino de adjunto de credencial sigue disponible sólo en el esquema.
+
+## Catálogo persistente de oportunidades
+
+| Tabla | Qué conserva |
+|---|---|
+| `discovery_settings` | Enfoque profesional actual, etiquetas prioritarias y relacionadas, consentimiento y activación semanal. Una fila por usuario. |
+| `discovery_runs` | Cada intento, origen, estado, inicio/fin, enfoque usado, modelo, intentos de fallback, uso disponible y error resumido. Sólo una ejecución activa por usuario. |
+| `opportunities` | Ficha vigente: nombre, proveedor, tipo, URL, resumen, motivo, temas, skills, idioma, requisitos, duración, modalidad de precio, importe/moneda y fechas. Identidad estable por URL; packs por nombre normalizado. |
+| `opportunity_sources` | URLs públicas que sustentan cada ficha, cita breve y fecha de comprobación. |
+| `opportunity_versions` | Copia estructurada de cada versión que cambió, campos modificados y ejecución que la produjo. |
+| `pack_components` | Recursos ordenados que forman un Learning Pack y propósito de cada componente. |
+| `opportunity_choices` | Favorito, interesado/descartado/añadido y referencia al aprendizaje creado. Se separa de los datos investigados para conservar las decisiones personales. |
+
+Temas, etiquetas y habilidades del catálogo son listas JSON de descriptores públicos, todavía no entidades de aprendizaje personal. Al adoptar una ficha se reutilizan/crean los registros normalizados de `topics` y `skills`, con relaciones de cobertura; no se crea práctica ni dominio declarado. Fuentes, componentes, versiones y decisiones tienen relaciones compuestas por propietario.
+
+Flujo: **enfoque → búsqueda y lectura pública → propuesta tipada → validación de fuentes → publicación atómica del catálogo → revisión y adopción explícita → aprendizaje y fase opcional**. Actualizar una ficha nunca edita el aprendizaje que ya adoptaste. Consultar una fuente tampoco prueba que esa fuente haya cambiado: `checked_at` y `provider_updated_on` son hechos distintos.
 
 ```mermaid
 flowchart LR

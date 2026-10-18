@@ -1,0 +1,907 @@
+{
+  "checked_at": "2026-10-18T00:00:00+00:00",
+  "note": "Investigación inicial manual del 18 de octubre de 2026. Hora convencional; no representa hora exacta de navegación. Resúmenes propios; consulta fuentes para condiciones y temario completo.",
+  "opportunities": [
+    {
+      "title": "Microsoft Power BI Data Analyst — PL-300",
+      "kind": "certification",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
+      "description": "Guía oficial para orientar la preparación del examen de análisis de datos con Power BI.",
+      "reason": "Conecta tu experiencia de dashboards con modelos y controles reutilizables para indicadores operativos.",
+      "area": "Data & BI",
+      "tags": [
+        "Power BI",
+        "datos",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Preparación y limpieza de datos",
+        "Modelado dimensional",
+        "Relaciones y medidas DAX",
+        "Visualización y análisis",
+        "Administración y seguridad"
+      ],
+      "skills": [
+        "Power Query",
+        "DAX",
+        "Power BI",
+        "Modelado dimensional",
+        "RLS"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "La guía espera familiaridad con Power Query y DAX.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Guía pública; examen y formación de pago se cotizan aparte según región. Importe no confirmado.",
+      "price_evidence": "",
+      "provider_updated_on": "2026-03-20",
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
+          "title": "Microsoft Power BI Data Analyst — PL-300",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Cisco Certified Network Associate — CCNA",
+      "kind": "certification",
+      "provider": "Cisco",
+      "url": "https://cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
+      "description": "Certificación de fundamentos de redes empresariales mediante el examen 200-301.",
+      "reason": "Base para entender la conectividad entre equipos, aplicaciones y redes de operaciones; no sustituye formación específica en OT.",
+      "area": "Redes",
+      "tags": [
+        "redes",
+        "sistemas",
+        "automatización",
+        "ciberseguridad"
+      ],
+      "topics": [
+        "Fundamentos de redes",
+        "Acceso a la red",
+        "Conectividad IP",
+        "Servicios IP",
+        "Fundamentos de seguridad",
+        "Automatización y programabilidad"
+      ],
+      "skills": [
+        "Redes IP",
+        "Diagnóstico de conectividad",
+        "Seguridad de redes",
+        "Automatización de redes"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Cisco no declara requisitos formales para presentarse.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "one_time",
+      "price_amount": 300.0,
+      "currency": "USD",
+      "price_note": "USD 300 para el examen según Cisco al consultar; formación y posibles cargos locales aparte. Los 120 minutos publicados son del examen, no del estudio.",
+      "price_evidence": "Cost: $US300",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
+          "title": "Cisco Certified Network Associate — CCNA",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "The Python Tutorial",
+      "kind": "resource",
+      "provider": "Python Software Foundation",
+      "url": "https://docs.python.org/3/tutorial",
+      "description": "Tutorial oficial para adquirir soltura con el lenguaje y su biblioteca estándar.",
+      "reason": "Sirve de referencia al construir scripts para limpiar archivos y automatizar tareas de operaciones.",
+      "area": "Programación",
+      "tags": [
+        "Python",
+        "software",
+        "automatización"
+      ],
+      "topics": [
+        "Control de flujo y funciones",
+        "Estructuras de datos",
+        "Módulos",
+        "Entrada y salida",
+        "Excepciones",
+        "Clases",
+        "Biblioteca estándar",
+        "Entornos virtuales"
+      ],
+      "skills": [
+        "Python",
+        "Funciones",
+        "Manejo de archivos",
+        "Depuración"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Pensado para quienes ya conocen conceptos básicos de programación.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial",
+          "title": "The Python Tutorial",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "pandas — Getting started tutorials",
+      "kind": "resource",
+      "provider": "pandas / NumFOCUS",
+      "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+      "description": "Tutoriales oficiales de manipulación de datos tabulares en Python.",
+      "reason": "Aplicable a transformar registros de producción y preparar conjuntos de datos antes de analizarlos.",
+      "area": "Data & BI",
+      "tags": [
+        "Python",
+        "pandas",
+        "datos",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Tipos de datos tabulares",
+        "Lectura y escritura",
+        "Selección de filas y columnas",
+        "Gráficos",
+        "Columnas derivadas",
+        "Estadísticas",
+        "Reestructuración",
+        "Unión de tablas",
+        "Series temporales",
+        "Texto"
+      ],
+      "skills": [
+        "pandas",
+        "Preparación de datos",
+        "Agregaciones",
+        "Series temporales"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Python básico.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "title": "pandas — Getting started tutorials",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "PostgreSQL — Tutorial",
+      "kind": "resource",
+      "provider": "PostgreSQL Global Development Group",
+      "url": "https://postgresql.org/docs/current/tutorial.html",
+      "description": "Introducción práctica a PostgreSQL y al modelo relacional.",
+      "reason": "Refuerza SQL directamente sobre la tecnología de Supabase y facilita consultar datos operativos.",
+      "area": "Bases de datos",
+      "tags": [
+        "SQL",
+        "datos",
+        "sistemas"
+      ],
+      "topics": [
+        "Instalación y arquitectura",
+        "Creación de bases y tablas",
+        "Inserciones y consultas",
+        "Joins",
+        "Agregaciones",
+        "Actualizaciones y borrados",
+        "Vistas",
+        "Claves foráneas",
+        "Transacciones",
+        "Funciones de ventana"
+      ],
+      "skills": [
+        "SQL",
+        "PostgreSQL",
+        "Integridad relacional",
+        "Consultas analíticas"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "title": "PostgreSQL — Tutorial",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "CS50’s Introduction to Databases with SQL",
+      "kind": "course",
+      "provider": "Harvard / CS50",
+      "url": "https://cs50.harvard.edu/sql",
+      "description": "Curso abierto con siete bloques de contenidos, ejercicios y un proyecto final de bases de datos.",
+      "reason": "Te ayuda a convertir SQL práctico en un proceso de diseño, consulta y optimización con evidencia de proyecto.",
+      "area": "Bases de datos",
+      "tags": [
+        "SQL",
+        "datos",
+        "software"
+      ],
+      "topics": [
+        "Consultas",
+        "Relaciones",
+        "Diseño",
+        "Escritura",
+        "Vistas",
+        "Optimización",
+        "Escalabilidad",
+        "Proyecto final"
+      ],
+      "skills": [
+        "SQL",
+        "Modelado relacional",
+        "Normalización",
+        "Índices",
+        "SQLite"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "OpenCourseWare gratuito. Las opciones verificadas de edX y de crédito académico tienen condiciones independientes; no se confirmó su precio.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://cs50.harvard.edu/sql",
+          "title": "CS50’s Introduction to Databases with SQL",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "OSSU — Computer Science curriculum",
+      "kind": "resource",
+      "provider": "Open Source Society University",
+      "url": "https://github.com/ossu/computer-science",
+      "description": "Ruta comunitaria amplia de fundamentos de computación, con cursos enlazados y proyecto final.",
+      "reason": "Úsala como mapa para explorar sistemas y fundamentos; completarla entera excede tu ruta de 8 horas semanales actual.",
+      "area": "Fundamentos de computación",
+      "tags": [
+        "software",
+        "sistemas",
+        "ciberseguridad",
+        "Python"
+      ],
+      "topics": [
+        "Programación",
+        "Matemáticas",
+        "Herramientas de desarrollo",
+        "Sistemas",
+        "Teoría",
+        "Seguridad",
+        "Aplicaciones",
+        "Ética",
+        "Especialización",
+        "Proyecto final"
+      ],
+      "skills": [
+        "Razonamiento computacional",
+        "Diseño de software",
+        "Arquitectura de sistemas"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Matemáticas de escuela superior para el núcleo; requisitos adicionales por curso.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "El currículo es público y casi todo el material es gratuito. Algunos proveedores cobran evaluaciones o certificados.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://github.com/ossu/computer-science",
+          "title": "OSSU — Computer Science curriculum",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Nand to Tetris — Projects",
+      "kind": "course",
+      "provider": "Nand to Tetris",
+      "url": "https://nand2tetris.org/course",
+      "description": "Secuencia de doce proyectos para construir las capas de un computador desde lógica hasta software.",
+      "reason": "Opción de exploración de bajo nivel para comprender qué ocurre debajo de Python y de las herramientas empresariales.",
+      "area": "Fundamentos de computación",
+      "tags": [
+        "sistemas",
+        "software",
+        "low level"
+      ],
+      "topics": [
+        "Lógica booleana",
+        "Aritmética binaria",
+        "Memoria",
+        "Lenguaje máquina",
+        "Arquitectura",
+        "Ensamblador",
+        "Máquina virtual: pila",
+        "Máquina virtual: control",
+        "Lenguaje de alto nivel",
+        "Análisis sintáctico",
+        "Generación de código",
+        "Sistema operativo"
+      ],
+      "skills": [
+        "Lógica digital",
+        "Arquitectura de computadores",
+        "Ensamblador",
+        "Compiladores"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Guías y diapositivas públicas; libro y certificados de plataformas externas no incluidos.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://nand2tetris.org/course",
+          "title": "Nand to Tetris — Projects",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Docker — Get started",
+      "kind": "resource",
+      "provider": "Docker",
+      "url": "https://docs.docker.com/get-started",
+      "description": "Punto de entrada oficial para ejecutar una aplicación en contenedores y construir una imagen.",
+      "reason": "Puede hacer reproducibles tus herramientas de análisis y laboratorios locales.",
+      "area": "Herramientas de desarrollo",
+      "tags": [
+        "software",
+        "sistemas",
+        "automatización"
+      ],
+      "topics": [
+        "Instalación",
+        "Ejecución de contenedores",
+        "Aplicaciones con varios servicios",
+        "Construcción de imágenes",
+        "Publicación en Docker Hub"
+      ],
+      "skills": [
+        "Contenedores",
+        "Docker",
+        "Reproducibilidad"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Documentación pública. Comprueba licencias de Docker Desktop y cuotas de servicios antes de un uso empresarial.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.docker.com/get-started",
+          "title": "Docker — Get started",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Node-RED — Tutorials",
+      "kind": "resource",
+      "provider": "OpenJS Foundation / Node-RED",
+      "url": "https://nodered.org/docs/tutorials",
+      "description": "Tutoriales introductorios para construir flujos de datos basados en eventos.",
+      "reason": "Entrada práctica a integrar fuentes externas con lógica visual para prototipos de Factory Enablement.",
+      "area": "Automatización",
+      "tags": [
+        "automatización",
+        "datos",
+        "OT",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Editor de flujos",
+        "Nodos Inject y Debug",
+        "Nodo Function",
+        "Primer flujo",
+        "Datos desde fuentes externas"
+      ],
+      "skills": [
+        "Node-RED",
+        "Integración de datos",
+        "Programación por eventos"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Tutoriales públicos; las ofertas de Academy enlazadas tienen condiciones propias.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://nodered.org/docs/tutorials",
+          "title": "Node-RED — Tutorials",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "MQTT Essentials",
+      "kind": "resource",
+      "provider": "HiveMQ",
+      "url": "https://hivemq.com/mqtt",
+      "description": "Guía de mensajería MQTT, sus conceptos y patrones para conectar dispositivos y aplicaciones.",
+      "reason": "Complementa redes y automatización al estudiar cómo circulan datos de sensores en entornos IoT/IIoT.",
+      "area": "Integración industrial",
+      "tags": [
+        "OT",
+        "redes",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Publicación y suscripción",
+        "Clientes y broker",
+        "Topics",
+        "Calidad de servicio",
+        "Sesiones persistentes",
+        "Mensajes retenidos",
+        "Last Will",
+        "Keep Alive",
+        "Seguridad MQTT"
+      ],
+      "skills": [
+        "MQTT",
+        "Mensajería por eventos",
+        "Diseño de topics",
+        "Fiabilidad de comunicación"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura de la guía pública sin coste. Brokers administrados y servicios comerciales se contratan aparte.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://hivemq.com/mqtt",
+          "title": "MQTT Essentials",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+      "kind": "resource",
+      "provider": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+      "description": "Referencia de seguridad para sistemas OT y sus requisitos de fiabilidad y seguridad física. La página anuncia un borrador de revisión 4; no es todavía una revisión final.",
+      "reason": "Conecta tu formación en ciberseguridad con decisiones sobre sistemas y datos industriales.",
+      "area": "Ciberseguridad OT",
+      "tags": [
+        "OT",
+        "ciberseguridad",
+        "redes",
+        "sistemas",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Topologías OT",
+        "Amenazas y vulnerabilidades",
+        "Riesgos",
+        "Controles y contramedidas",
+        "Fiabilidad y seguridad física",
+        "Sistemas de control industrial"
+      ],
+      "skills": [
+        "Análisis de riesgos OT",
+        "Arquitectura OT",
+        "Selección de controles"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Publicación pública gratuita. Fecha mostrada: nota de la página; el documento Rev. 3 fue publicado en 2023.",
+      "price_evidence": "",
+      "provider_updated_on": "2026-09-21",
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "GitHub Skills — Introduction to GitHub",
+      "kind": "lab",
+      "provider": "GitHub",
+      "url": "https://github.com/skills/introduction-to-github",
+      "description": "Ejercicio guiado para crear una rama, un commit y un pull request que se integra al repositorio.",
+      "reason": "Refuerza el mismo flujo que usas para publicar cambios de Learning Atlas y conservar evidencia de proyectos.",
+      "area": "Herramientas de desarrollo",
+      "tags": [
+        "Git",
+        "software",
+        "automatización"
+      ],
+      "topics": [
+        "Repositorios",
+        "Ramas",
+        "Commits",
+        "Pull requests",
+        "Merge",
+        "README en Markdown"
+      ],
+      "skills": [
+        "GitHub",
+        "Control de versiones",
+        "Pull requests"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": 60,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Ejercicio público. El proveedor estima menos de una hora; se usa 60 min como límite orientativo. En repositorios privados pueden consumirse minutos de Actions.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://github.com/skills/introduction-to-github",
+          "title": "GitHub Skills — Introduction to GitHub",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Microsoft Fabric Data Engineer — DP-700",
+      "kind": "certification",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
+      "description": "Guía de ingeniería de datos en Fabric. Ya publica objetivos con entrada en vigor el 19 de octubre de 2026; comprueba la versión correspondiente a tu examen.",
+      "reason": "Paso posterior a SQL y Power BI si tu dirección profesional incorpora plataformas de datos y procesamiento continuo.",
+      "area": "Ingeniería de datos",
+      "tags": [
+        "SQL",
+        "Python",
+        "datos",
+        "automatización"
+      ],
+      "topics": [
+        "Administración de soluciones analíticas",
+        "Seguridad y gobierno",
+        "Orquestación",
+        "Cargas completas e incrementales",
+        "Ingesta y transformación por lotes",
+        "Streaming",
+        "Monitoreo",
+        "Optimización"
+      ],
+      "skills": [
+        "Microsoft Fabric",
+        "PySpark",
+        "SQL",
+        "KQL",
+        "Orquestación de datos"
+      ],
+      "language": "en",
+      "level": "advanced",
+      "prerequisites": "La guía presupone manejo de SQL, PySpark y KQL, y conocimientos de arquitecturas de datos.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Guía pública; examen y capacidad de Fabric pueden tener coste. Precio regional no confirmado.",
+      "price_evidence": "",
+      "provider_updated_on": "2026-08-16",
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
+          "title": "Microsoft Fabric Data Engineer — DP-700",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Power Automate — Microsoft Learn",
+      "kind": "resource",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
+      "description": "Colección oficial de rutas para automatizar procesos entre aplicaciones y en el escritorio.",
+      "reason": "Se relaciona con tu experiencia en procesos de negocio y con reducir tareas repetitivas de operaciones.",
+      "area": "Automatización",
+      "tags": [
+        "automatización",
+        "Factory Enablement",
+        "software",
+        "datos"
+      ],
+      "topics": [
+        "Flujos entre aplicaciones",
+        "Sincronización de archivos",
+        "Notificaciones",
+        "Recopilación de datos",
+        "Procesos automatizados",
+        "Power Automate para escritorio",
+        "RPA"
+      ],
+      "skills": [
+        "Power Automate",
+        "Diseño de flujos",
+        "RPA",
+        "Automatización de procesos"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Catálogo y lecturas públicas. Licencias, conectores y servicios utilizados en las prácticas pueden tener coste.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
+          "title": "Power Automate — Microsoft Learn",
+          "evidence": ""
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — De registros operativos a datos utilizables",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Propuesta personal de integración: practicar Python, preparar tablas con pandas y consultarlas en PostgreSQL.",
+      "reason": "Une competencias de tu ruta Factory Enablement en un entregable acotado, sin exigir otro programa completo.",
+      "area": "Factory Enablement",
+      "tags": [
+        "Python",
+        "SQL",
+        "datos",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Definir un conjunto de datos ficticios de producción",
+        "Leer y validar registros",
+        "Preparar tablas limpias",
+        "Diseñar y consultar una tabla SQL",
+        "Proyecto: pipeline reproducible con resultados y notas"
+      ],
+      "skills": [
+        "Python",
+        "pandas",
+        "SQL",
+        "Validación de datos"
+      ],
+      "language": "en/es",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial",
+          "title": "The Python Tutorial",
+          "evidence": ""
+        },
+        {
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "title": "pandas — Getting started tutorials",
+          "evidence": ""
+        },
+        {
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "title": "PostgreSQL — Tutorial",
+          "evidence": ""
+        }
+      ],
+      "components": [
+        {
+          "title": "The Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial",
+          "purpose": "Repasar únicamente funciones y archivos que necesite tu ejercicio."
+        },
+        {
+          "title": "pandas — Getting started tutorials",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "purpose": "Transformar una tabla de registros ficticios y documentar las reglas de limpieza."
+        },
+        {
+          "title": "PostgreSQL — Tutorial",
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "purpose": "Cargar el resultado y producir consultas de agregación."
+        }
+      ]
+    },
+    {
+      "title": "Learning Pack — Primer mapa de integración OT/IT",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Propuesta de laboratorio conceptual: mensajería, flujo de eventos y revisión de riesgos en un entorno local simulado.",
+      "reason": "Explora la conexión entre software y operaciones industriales sin necesitar acceso a equipos de una planta.",
+      "area": "Factory Enablement",
+      "tags": [
+        "OT",
+        "redes",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Dibujar productor, broker y consumidor",
+        "Elegir topics y entrega de mensajes",
+        "Diseñar un flujo con datos simulados",
+        "Identificar riesgos y controles",
+        "Proyecto: diagrama y demostración local documentada"
+      ],
+      "skills": [
+        "MQTT",
+        "Node-RED",
+        "Análisis de riesgos OT",
+        "Documentación técnica"
+      ],
+      "language": "en/es",
+      "level": "mixed",
+      "prerequisites": "",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://hivemq.com/mqtt",
+          "title": "MQTT Essentials",
+          "evidence": ""
+        },
+        {
+          "url": "https://nodered.org/docs/tutorials",
+          "title": "Node-RED — Tutorials",
+          "evidence": ""
+        },
+        {
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "evidence": ""
+        }
+      ],
+      "components": [
+        {
+          "title": "MQTT Essentials",
+          "url": "https://hivemq.com/mqtt",
+          "purpose": "Comprender el intercambio de mensajes y sus garantías."
+        },
+        {
+          "title": "Node-RED — Tutorials",
+          "url": "https://nodered.org/docs/tutorials",
+          "purpose": "Crear un flujo introductorio con entradas simuladas."
+        },
+        {
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "purpose": "Anotar riesgos y controles aplicables al diseño; no presentarlo como auditoría."
+        }
+      ]
+    }
+  ]
+}

@@ -13,7 +13,6 @@ import streamlit as st
 
 from . import domain
 from .auth import configuration, get_repository, logout
-from .discovery import SOURCES, fetch_feed
 from .importing import extract_document, file_metadata, propose_with_gemini
 from .models import ImportProposal, RouteDraft, SessionDraft, TrackDraft, canonical_hash
 from .repository import RepositoryError, StaleData, export_json
@@ -132,7 +131,9 @@ def session_dialog(service, track_id=None, topic_id=None, block=None):
         duration = b.number_input("Minutos reales", 1, 1440, block["planned_minutes"] if block else 25, step=1)
         activity = c.selectbox("Actividad", list(ACTIVITY), index=1 if topic_id else 0, format_func=ACTIVITY.get)
         area_id = select_record("Área de esta sesión", data["areas"], default=area_default, key="sess_area_"+str(selected_track)+str(topic_id))
-        phase_id = select_record("Fase de la ruta (opcional)", data["goal_phases"], field="title", optional=True, key="sess_phase")
+        linked_phases = [r["phase_id"] for r in data["phase_tracks"] if r["track_id"] == selected_track]
+        phase_id = select_record("Fase de la ruta (opcional)", data["goal_phases"], field="title", optional=True,
+                                 default=linked_phases[0] if len(linked_phases)==1 else None, key="sess_phase_"+str(selected_track))
         topic_ids = multi_records("Temas practicados", data["topics"], default=selected_topics, key="sess_topics_"+str(selected_track)+str(topic_id))
         skill_ids = multi_records("Habilidades practicadas", data["skills"], default=list(dict.fromkeys(selected_skills)), key="sess_skills_"+str(selected_track)+str(topic_id))
         st.caption("El tiempo se reparte entre las habilidades seleccionadas; nunca se multiplica. Los temas no cuentan como aprendidos automáticamente.")
@@ -226,6 +227,10 @@ def track_details(service, track):
                 save_and_refresh("edit_"+tid, lambda rid: service.update_track(tid, dict(title=title, status=status, priority=priority,
                     target_on=target.isoformat() if target else None, official_name=official, platform=platform, issuer=issuer, code=code,
                     source_url=url or None, estimated_minutes=est or None, notes=notes), rid))
+        for linked_resource in [r for r in data["resources"] if r.get("kind") == "link" and
+                                any(l["track_id"] == tid and l["resource_id"] == r["id"] for l in data["track_resources"])]:
+            st.link_button(linked_resource["title"], linked_resource["url"])
+            st.caption(linked_resource.get("notes", ""))
         resources = {l["resource_id"] for l in data["track_resources"] if l["track_id"] == tid}
         for attachment in [a for a in data["attachments"] if a.get("resource_id") in resources]:
             download_attachment(service, attachment)
@@ -319,6 +324,10 @@ def route_page(service):
                 pills([f"PASO {i+1:02d}", "Margen" if phase["is_buffer"] else minutes(phase["budget_minutes"]), "Aceptado" if ms and ms.get("accepted_on") else "Pendiente"])
                 st.subheader(phase["title"])
                 st.caption(f"{phase['starts_on']} → {phase['ends_on']} · {phase['topics']}")
+                linked_ids = {r["track_id"] for r in data["phase_tracks"] if r["phase_id"] == phase["id"]}
+                for learning_track in data["learning_tracks"]:
+                    if learning_track["id"] in linked_ids:
+                        st.write("Aprendizaje vinculado: "+learning_track["title"])
                 if ms:
                     with st.expander("Entregable · " + ms["title"]):
                         st.text(ms["criteria"])
@@ -489,55 +498,8 @@ def activity_page(service):
 
 
 def discovery_page(service):
-    heading("MANTÉN LA CURIOSIDAD", "Hay más caminos por explorar.", "Fuentes oficiales y de comunidad para ampliar tu mapa, desde análisis de datos hasta redes, sistemas y automatización.")
-    catalog, radar = st.tabs(["Selección para tu ruta", "Radar de novedades"])
-    with catalog:
-        stage = st.radio("Cuándo podría servirte", ["now", "support", "later"], format_func=lambda x:{"now":"Ahora, en tu ruta", "support":"Apoyo puntual", "later":"Más adelante"}[x], horizontal=True)
-        st.caption("Selección editorial revisada en octubre de 2026. Abre la fuente para confirmar disponibilidad, temario y condiciones actuales.")
-        skill_catalog = {s["id"]:s for s in read_data("skillCatalog")}
-        for item in [x for x in read_data("suggestions") if x["stage"] == stage]:
-            with st.container(border=True):
-                pills([item["area"], item.get("origin", "Referencia oficial"), KIND[item["kind"]]])
-                st.subheader(item["title"])
-                st.write(item["desc"])
-                st.caption(item["why"])
-                a,b=st.columns(2)
-                a.link_button("Explorar fuente ↗", item["url"], width="stretch")
-                exists=any(t.get("source_key")==item["id"] for t in service.data["learning_tracks"])
-                if b.button("En tu biblioteca" if exists else "Guardar para aprender", disabled=exists, key="suggest_"+item["id"], width="stretch"):
-                    payload={"title":item["title"],"kind":item["kind"],"area":item["area"],"platform":item["provider"],"source_url":item["url"],"code":item.get("code",""),
-                        "topics":[{"name":name} for name in item.get("topics",[])],"skills":[{"name":skill_catalog[s]["name"],"definition":skill_catalog[s]["definition"]} for s in item.get("skills",[])],"notes":item["why"]}
-                    save_and_refresh("suggest_"+item["id"],lambda rid,p=payload,key=item["id"]:service.create_track(TrackDraft.model_validate(p),rid,source_key=key),"Guardado sin añadir carga ni progreso a tu ruta.")
-    with radar:
-        st.write("Consulta publicaciones recientes cuando las necesites. Cada resultado muestra cuándo consultaste la fuente y cuándo se publicó.")
-        source=st.selectbox("Fuente",list(SOURCES))
-        if st.button("Consultar novedades",type="primary"):
-            try:
-                with st.spinner("Consultando la fuente pública…"):
-                    st.session_state.radar_result=fetch_feed(source)
-            except Exception:
-                st.warning("La fuente no respondió. Conservamos la última consulta; puedes volver a intentarlo más tarde.")
-        result=st.session_state.get("radar_result")
-        if result:
-            st.caption(f"{result['source']} · Consulta UTC: {result['checked_at']}. Actualización bajo demanda; no es sincronización continua.")
-            if not result["items"]:
-                st.info("La fuente respondió sin publicaciones nuevas en su ventana actual. Puedes consultarla otro día.")
-            for i,item in enumerate(result["items"]):
-                with st.container(border=True):
-                    st.subheader(item["title"])
-                    st.caption("Publicado: "+item["published"])
-                    st.write(item["summary"])
-                    # Reject unexpected schemes even though these URLs came from a fixed public feed.
-                    from .models import safe_url
-                    try:
-                        safe_url(item["url"])
-                    except ValueError:
-                        continue
-                    st.link_button("Leer publicación ↗",item["url"],key=f"radar_link_{i}")
-                    key="radar:"+sha256(item["url"].encode()).hexdigest()[:32]
-                    exists=any(t.get("source_key")==key for t in service.data["learning_tracks"])
-                    if st.button("Guardado" if exists else "Guardar como tema de exploración",disabled=exists,key=f"radar_save_{i}"):
-                        save_and_refresh(f"radar_{i}",lambda rid,row=item,k=key:service.create_track(TrackDraft(title=row["title"][:180],kind=row["kind"],area="Exploración tecnológica",source_url=row["url"],notes=row["summary"]),rid,source_key=k))
+    from .catalog_ui import render
+    render(service)
 
 
 def day_page(service):

@@ -1,4 +1,4 @@
-# Contrato de comportamiento implementado · v1
+# Contrato de comportamiento implementado · v1.1
 
 Propósito: acompañar el crecimiento personal del usuario. La aplicación organiza intención, contenido, práctica y evidencia como hechos distintos. El contrato se verifica con ejemplos de entrada y resultados esperados en `tests/`.
 
@@ -33,4 +33,22 @@ Las pruebas con PGlite ejecutan SQL real en PostgreSQL WebAssembly, con Auth y t
 
 ## Fuera de esta versión
 
-OCR, sincronización periódica sin intervención, conexiones privadas a plataformas educativas, comprobación externa de certificados, importación automática sin revisión y un modelo validado de memoria. El plan del día usa reglas; las sugerencias de catálogo son editoriales. Estas distinciones se muestran en la app.
+OCR, conexiones privadas a plataformas educativas, comprobación externa de certificados, importación automática sin revisión y un modelo validado de memoria. El plan del día usa reglas. Descubrir requiere configurar APIs y workflow para investigar semanalmente; su selección inicial también funciona sin claves.
+
+## Descubrir · contrato añadido
+
+| Regla | Resultado verificable |
+|---|---|
+| Investigación separada de actividad | Cargar las 17 fichas iniciales no crea aprendizajes, horas, eventos ni credenciales. Repetirlo no duplica fichas ni sustituye investigación posterior. |
+| Actualización acotada | Cuatro búsquedas, hasta doce páginas leídas y hasta doce propuestas por ejecución; el catálogo acumulado no se limita a tres resultados. |
+| Respaldo de fuentes | Se rechazan URLs no leídas, citas ausentes, precios sin cita y fechas de actualización futuras. La validación no garantiza la exactitud semántica de toda la ficha. |
+| Continuidad | 3.8 Flash tiene un reintento ante saturación/red y pasa a 3.5 Flash-Lite. Se reutilizan las fuentes. Si ambos fallan, no cambia el catálogo ni su fecha de comprobación. |
+| Versiones | Mismo enlace actualiza la ficha existente; cambios de contenido crean versión, una comprobación sin cambios no crea otra versión. Favoritos y aprendizaje se conservan. |
+| Adopción | Sólo tras revisión explícita se crea aprendizaje planificado. Una segunda adopción reutiliza su ID. Vincular a ruta no altera fechas, presupuesto, entregables ni progreso. |
+| Learning Pack | Al menos dos componentes con fuentes. Una unidad por componente; no se presenta como título oficial. |
+| Relevancia orientativa | Hasta 40 puntos por etiquetas prioritarias, 20 por relacionadas, 20 por habilidades sin autonomía declarada, 10 por fecha de consulta y 10 por duración dentro del presupuesto semanal. No es una medida de demanda laboral ni de calidad. |
+| Vigencia | Fecha de revisión y fecha de actualización del proveedor se muestran por separado. Ausencia de precio, fecha o duración se conserva como desconocida. |
+| Horario | Se requiere activación en app y GitHub. Una revisión manual exitosa en los seis días anteriores evita repetir la semanal. Un intento fallido no cuenta como revisión exitosa. |
+| Concurrencia y privacidad | Reserva de ejecución por usuario, expiración tras 15 minutos, publicación transaccional y relaciones con RLS. Un cambio de enfoque durante la búsqueda impide publicar resultados del enfoque anterior. |
+
+Los casos se ejecutan en `tests/test_catalog.py` y `tests/test_ui.py`. La conexión real con proveedores y Supabase se comprueba después de guardar las claves en las cuentas del usuario.

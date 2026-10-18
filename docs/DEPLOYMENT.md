@@ -7,7 +7,7 @@ El trabajo de código está preparado. Lo que falta de tu parte es **crear un pr
 1. Entra a [Supabase](https://supabase.com/dashboard) con tu cuenta y crea un **proyecto nuevo** para Learning Atlas. Guarda su contraseña de base de datos en tu gestor de contraseñas; la app no la necesita.
 2. Abre **SQL Editor** y crea una consulta nueva.
 3. Copia **todo** el contenido de `supabase/migrations/001_learning_atlas.sql` y ejecútalo una vez. Crea 30 tablas de aplicación, una tabla de recibos, funciones transaccionales, políticas por usuario y el bucket privado `learning-documents`.
-4. Confirma que aparecen `profiles`, `learning_tracks`, `study_sessions` e `import_jobs` en el explorador de tablas. En Storage, `learning-documents` debe ser **privado**.
+4. Ejecuta también supabase/migrations/002_discovery_catalog.sql una vez para el catálogo. Si ya usabas la app, ejecuta únicamente el 002 y sigue [DISCOVERY_SETUP.md](DISCOVERY_SETUP.md). Confirma que aparecen `profiles`, `learning_tracks`, `study_sessions` e `import_jobs` en el explorador de tablas. En Storage, `learning-documents` debe ser **privado**.
 5. En **Authentication → Users**, crea tu usuario con correo y contraseña. Usa la opción para que el correo quede confirmado si la pantalla la ofrece. Si lo creas sin confirmar, completa la confirmación antes de entrar.
 6. En la configuración de Authentication, deshabilita el registro de usuarios nuevos para este tracker personal. La app sólo ofrece inicio de sesión; el bloqueo del registro también debe quedar en Supabase.
 7. En **Project Settings / API**, copia la **Project URL** y la clave **publishable** (`sb_publishable_…`), o la antigua clave pública **anon** si tu proyecto usa ese formato.

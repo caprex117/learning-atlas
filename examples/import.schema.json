@@ -227,7 +227,8 @@
             "topic",
             "paper",
             "project",
-            "lab"
+            "lab",
+            "pack"
           ],
           "title": "Kind",
           "type": "string"

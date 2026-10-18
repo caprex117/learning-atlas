@@ -103,3 +103,41 @@ def test_sign_in_and_sign_out_clear_session_data(monkeypatch):
     assert not app.exception
     assert calls==[{"scope":"local"}]
     assert "repository" not in app.session_state
+
+
+def test_catalog_review_then_adopt_to_route_and_filter():
+    app=start_demo()
+    app.radio(key='navigation').set_value('Descubrir').run()
+    app.button(key='catalog_seed').click().run()
+    assert not app.exception
+    repo=app.session_state['repository']
+    assert len(repo.data['opportunities'])==17
+    app.text_input(key='catalog_search').set_value('Primer mapa de integración').run()
+    item=next(o for o in repo.data['opportunities'] if 'Primer mapa' in o['title'])
+    oid=item['id']
+    before=len(repo.data['learning_tracks'])
+    # A form must be submittable before checkbox state is sent to the server.
+    submit=next(b for b in app.button if b.label=='Añadir aprendizaje')
+    assert not submit.disabled
+    submit.click().run()
+    assert len(repo.data['learning_tracks'])==before
+    app.checkbox(key='catreview_'+oid).check()
+    phase=repo.data['goal_phases'][0]['id']
+    app.selectbox(key='catphase_'+oid).set_value(phase)
+    next(b for b in app.button if b.label=='Añadir aprendizaje').click().run()
+    assert not app.exception, [x.message for x in app.exception]
+    assert len(repo.data['learning_tracks'])==before+1
+    choice=next(c for c in repo.data['opportunity_choices'] if c['opportunity_id']==oid)
+    assert any(r['track_id']==choice['track_id'] and r['phase_id']==phase for r in repo.data['phase_tracks'])
+    assert domain.progress(repo.data,choice['track_id'])['percent']==0
+    app.radio(key='navigation').set_value('Mi ruta').run()
+    assert not app.exception
+
+
+def test_catalog_missing_migration_shows_setup_help():
+    app=start_demo()
+    repo=app.session_state['repository']
+    del repo.data['opportunities']
+    app.radio(key='navigation').set_value('Descubrir').run()
+    assert not app.exception
+    assert any('002_discovery_catalog.sql' in i.value for i in app.info)

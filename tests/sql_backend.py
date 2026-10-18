@@ -34,7 +34,8 @@ class SQLHarness:
             if not ready or not json.loads(ready).get("ready"):
                 raise RuntimeError("PostgreSQL test engine did not start.")
         self.exec((ROOT/"tests/bootstrap.sql").read_text(encoding="utf-8"))
-        self.exec((ROOT/"supabase/migrations/001_learning_atlas.sql").read_text(encoding="utf-8"))
+        for migration in sorted((ROOT/"supabase/migrations").glob('*.sql')):
+            self.exec(migration.read_text(encoding="utf-8"))
 
     def request(self,sql,params=None,exec=False):
         if self.process:

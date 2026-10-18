@@ -11,7 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 Name = Annotated[str, Field(min_length=1, max_length=180)]
 Minutes = Annotated[int, Field(ge=1, le=600_000, strict=True)]
-Kind = Literal["certification", "course", "topic", "paper", "project", "lab"]
+Kind = Literal["certification", "course", "topic", "paper", "project", "lab", "pack"]
 
 
 def safe_url(value: str | None) -> str | None:
