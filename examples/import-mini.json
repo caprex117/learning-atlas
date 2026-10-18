@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "title": "Python: una práctica pequeña",
+      "kind": "course",
+      "area": "Python",
+      "official_name": "",
+      "platform": "",
+      "issuer": "",
+      "code": "",
+      "source_url": null,
+      "target_on": null,
+      "estimated_minutes": null,
+      "notes": "",
+      "units": [
+        {
+          "key": "m1",
+          "title": "Fundamentos",
+          "parent_key": null,
+          "estimated_minutes": null,
+          "required": true,
+          "weight": 1.0
+        },
+        {
+          "key": "u1",
+          "title": "Validar un número",
+          "parent_key": "m1",
+          "estimated_minutes": 20,
+          "required": true,
+          "weight": 1.0
+        },
+        {
+          "key": "u2",
+          "title": "Conservar valores válidos",
+          "parent_key": "m1",
+          "estimated_minutes": null,
+          "required": true,
+          "weight": 1.0
+        }
+      ],
+      "topics": [
+        {
+          "name": "Funciones y colecciones",
+          "skills": [
+            "Programar en Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "name": "Programar en Python",
+          "definition": "Resolver un problema con funciones y estructuras de datos."
+        }
+      ]
+    }
+  ],
+  "route": null,
+  "evidence": [],
+  "warnings": []
+}

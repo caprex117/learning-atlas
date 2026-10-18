@@ -1,0 +1,7 @@
+{
+  "name": "learning-atlas-sql-tests",
+  "private": true,
+  "type": "module",
+  "description": "Development-only PostgreSQL WASM harness; not needed by the Streamlit application",
+  "dependencies": { "@electric-sql/pglite": "0.3.14" }
+}

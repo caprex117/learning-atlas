@@ -1,0 +1,138 @@
+[
+  {
+    "id": "p1",
+    "start": "2026-10-12",
+    "end": "2026-10-25",
+    "hours": 16,
+    "title": "Python con una base que puedas explicar",
+    "area": "Python + Git",
+    "topics": "Funciones · condicionales · listas · bucles · diccionarios · CSV · pruebas",
+    "result": "Validador CSV y 13 ejercicios de Python",
+    "criteria": [
+      "Resolver y explicar los 13 ejercicios indicados en el plan.",
+      "Validar el CSV, conservar rechazos con motivos y comprobar seis casos.",
+      "Guardar código y README reproducible en Git."
+    ],
+    "skills": [
+      "python-code",
+      "data-quality",
+      "git-test"
+    ]
+  },
+  {
+    "id": "p2",
+    "start": "2026-10-26",
+    "end": "2026-11-08",
+    "hours": 16,
+    "title": "De eventos crudos a datos confiables",
+    "area": "pandas + SQL",
+    "topics": "Limpieza · zona horaria · retests · relaciones · cinco consultas",
+    "result": "Pipeline trazable y consultas de manufactura",
+    "criteria": [
+      "Conservar los eventos originales sin modificarlos.",
+      "Explicar claves, zona horaria y tratamiento de retests.",
+      "Comprobar cinco consultas sobre tablas relacionadas."
+    ],
+    "skills": [
+      "data-quality",
+      "sql-query"
+    ]
+  },
+  {
+    "id": "p3",
+    "start": "2026-11-09",
+    "end": "2026-11-22",
+    "hours": 16,
+    "title": "Métricas que cuentan la misma historia",
+    "area": "Power BI + operaciones",
+    "topics": "Power Query · esquema estrella · DAX · FPY · final yield · downtime",
+    "result": "Informe de dos páginas con métricas comprobadas",
+    "criteria": [
+      "Definir y documentar el grano y el denominador de cada métrica.",
+      "Comprobar FPY, final yield y downtime a mano y con SQL.",
+      "Preparar dos páginas de Power BI con una explicación útil."
+    ],
+    "skills": [
+      "bi-model",
+      "factory",
+      "sql-query"
+    ]
+  },
+  {
+    "id": "p4",
+    "start": "2026-11-23",
+    "end": "2026-12-06",
+    "hours": 16,
+    "title": "Conectar el mundo físico, en una simulación",
+    "area": "Ignition + OPC UA + redes",
+    "topics": "Tags · calidad · timestamps · alarmas · historial · Perspective · diagnóstico",
+    "result": "Máquina simulada con señales e historial",
+    "criteria": [
+      "Conectar una máquina simulada y distinguir valor, calidad y timestamp.",
+      "Probar alarma, historial y una vista de Perspective.",
+      "Documentar un fallo de comunicación y cómo diagnosticarlo."
+    ],
+    "skills": [
+      "ot",
+      "network",
+      "security"
+    ]
+  },
+  {
+    "id": "p5",
+    "start": "2026-12-07",
+    "end": "2026-12-13",
+    "hours": 8,
+    "title": "Elegir tecnología por el problema que resuelve",
+    "area": "Sistemas industriales + evaluación",
+    "topics": "MES · ERP · PLM · CMMS · RTLS · evaluación de IA",
+    "result": "Mapa de sistemas y comparación de tres mejoras",
+    "criteria": [
+      "Explicar los límites e intercambios entre los sistemas.",
+      "Comparar tres oportunidades por valor, riesgos y esfuerzo.",
+      "Justificar una recomendación sin prometer una implantación real."
+    ],
+    "skills": [
+      "requirements",
+      "delivery"
+    ]
+  },
+  {
+    "id": "p6",
+    "start": "2026-12-14",
+    "end": "2026-12-27",
+    "hours": 16,
+    "title": "Cerrar el piloto y hacerlo reproducible",
+    "area": "Entrega + Lean + comunicación",
+    "topics": "Demo · prueba de fallo · despliegue · handoff · relato STAR",
+    "result": "Demo reproducible y paquete de entrega",
+    "criteria": [
+      "Ejecutar la demo desde las instrucciones y probar un fallo.",
+      "Entregar checklist, riesgos y recomendación de siguientes pasos.",
+      "Explicar lo aprendido distinguiendo simulación de experiencia industrial real."
+    ],
+    "skills": [
+      "git-test",
+      "delivery",
+      "requirements"
+    ]
+  },
+  {
+    "id": "p7",
+    "start": "2026-12-28",
+    "end": "2027-01-03",
+    "hours": 8,
+    "title": "Dejar margen para consolidar",
+    "area": "Repaso y preparación",
+    "topics": "Cerrar brechas · reproducir · explicar · preparar preguntas",
+    "result": "Revisión de preparación y brechas pendientes",
+    "criteria": [
+      "Revisar los entregables y corregir las brechas de mayor impacto.",
+      "Reproducir el piloto y explicar sus limitaciones.",
+      "Evitar incorporar una plataforma nueva a última hora."
+    ],
+    "skills": [
+      "delivery"
+    ]
+  }
+]

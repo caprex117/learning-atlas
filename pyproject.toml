@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["postgres: requires ATLAS_TEST_DATABASE_URL pointing to a disposable database"]

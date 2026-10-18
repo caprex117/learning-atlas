@@ -1,0 +1,74 @@
+[
+  {
+    "id": "python-code",
+    "name": "Programar en Python",
+    "area": "Python",
+    "definition": "Resolver un problema con funciones y estructuras de datos."
+  },
+  {
+    "id": "data-quality",
+    "name": "Validar calidad de datos",
+    "area": "Data Analytics",
+    "definition": "Detectar, explicar y tratar datos inválidos sin perder trazabilidad."
+  },
+  {
+    "id": "sql-query",
+    "name": "Consultar datos con SQL",
+    "area": "SQL",
+    "definition": "Resolver una pregunta y comprobar el grano de sus resultados."
+  },
+  {
+    "id": "bi-model",
+    "name": "Modelar y comunicar con BI",
+    "area": "Power BI",
+    "definition": "Construir un modelo coherente y explicar sus medidas."
+  },
+  {
+    "id": "git-test",
+    "name": "Versionar y probar software",
+    "area": "Software y herramientas",
+    "definition": "Reproducir una solución con Git, pruebas y documentación."
+  },
+  {
+    "id": "network",
+    "name": "Diagnosticar redes",
+    "area": "Redes y ciberseguridad",
+    "definition": "Localizar un fallo de conectividad y justificar los pasos de diagnóstico."
+  },
+  {
+    "id": "security",
+    "name": "Aplicar controles de seguridad",
+    "area": "Redes y ciberseguridad",
+    "definition": "Evaluar un riesgo y elegir controles proporcionales."
+  },
+  {
+    "id": "ot",
+    "name": "Integrar señales industriales",
+    "area": "Automatización industrial",
+    "definition": "Interpretar tags, calidad y timestamps en una simulación."
+  },
+  {
+    "id": "factory",
+    "name": "Interpretar métricas de manufactura",
+    "area": "Operaciones y proyectos",
+    "definition": "Calcular yield o downtime con definiciones y grano explícitos."
+  },
+  {
+    "id": "delivery",
+    "name": "Planificar y entregar un piloto",
+    "area": "Operaciones y proyectos",
+    "definition": "Definir aceptación, riesgos y una entrega reproducible."
+  },
+  {
+    "id": "systems",
+    "name": "Entender sistemas de computación",
+    "area": "Fundamentos de computación",
+    "definition": "Relacionar memoria, sistema operativo y ejecución de programas."
+  },
+  {
+    "id": "requirements",
+    "name": "Traducir necesidades a requisitos",
+    "area": "Operaciones y proyectos",
+    "definition": "Convertir una necesidad de usuario en un criterio comprobable."
+  }
+]

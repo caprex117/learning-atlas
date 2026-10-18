@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.log
+*.zip
+uploads/
+private/
+test-results/
+.DS_Store
+node_modules/

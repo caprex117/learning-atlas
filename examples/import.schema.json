@@ -1,0 +1,452 @@
+{
+  "$defs": {
+    "EvidenceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "maxLength": 3000,
+          "title": "Description",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "occurred_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred On"
+        },
+        "period_label": {
+          "default": "",
+          "maxLength": 100,
+          "title": "Period Label",
+          "type": "string"
+        },
+        "skills": {
+          "items": {
+            "maxLength": 180,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Skills",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "EvidenceDraft",
+      "type": "object"
+    },
+    "PhaseDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "starts_on": {
+          "format": "date",
+          "title": "Starts On",
+          "type": "string"
+        },
+        "ends_on": {
+          "format": "date",
+          "title": "Ends On",
+          "type": "string"
+        },
+        "budget_minutes": {
+          "maximum": 600000,
+          "minimum": 1,
+          "title": "Budget Minutes",
+          "type": "integer"
+        },
+        "milestone": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Milestone",
+          "type": "string"
+        },
+        "criteria": {
+          "maxLength": 3000,
+          "minLength": 1,
+          "title": "Criteria",
+          "type": "string"
+        },
+        "topics": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Topics",
+          "type": "string"
+        },
+        "is_buffer": {
+          "default": false,
+          "title": "Is Buffer",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "title",
+        "starts_on",
+        "ends_on",
+        "budget_minutes",
+        "milestone",
+        "criteria"
+      ],
+      "title": "PhaseDraft",
+      "type": "object"
+    },
+    "RouteDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "outcome": {
+          "default": "",
+          "maxLength": 2000,
+          "title": "Outcome",
+          "type": "string"
+        },
+        "weekly_minutes": {
+          "default": 480,
+          "maximum": 10080,
+          "minimum": 10,
+          "title": "Weekly Minutes",
+          "type": "integer"
+        },
+        "phases": {
+          "items": {
+            "$ref": "#/$defs/PhaseDraft"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Phases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "phases"
+      ],
+      "title": "RouteDraft",
+      "type": "object"
+    },
+    "SkillDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "definition": {
+          "default": "",
+          "maxLength": 700,
+          "title": "Definition",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "SkillDraft",
+      "type": "object"
+    },
+    "TopicDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "skills": {
+          "items": {
+            "maxLength": 180,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Skills",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "TopicDraft",
+      "type": "object"
+    },
+    "TrackDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "kind": {
+          "default": "topic",
+          "enum": [
+            "certification",
+            "course",
+            "topic",
+            "paper",
+            "project",
+            "lab"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "area": {
+          "default": "General",
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Area",
+          "type": "string"
+        },
+        "official_name": {
+          "default": "",
+          "maxLength": 240,
+          "title": "Official Name",
+          "type": "string"
+        },
+        "platform": {
+          "default": "",
+          "maxLength": 180,
+          "title": "Platform",
+          "type": "string"
+        },
+        "issuer": {
+          "default": "",
+          "maxLength": 180,
+          "title": "Issuer",
+          "type": "string"
+        },
+        "code": {
+          "default": "",
+          "maxLength": 60,
+          "title": "Code",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "target_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target On"
+        },
+        "estimated_minutes": {
+          "anyOf": [
+            {
+              "maximum": 600000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Minutes"
+        },
+        "notes": {
+          "default": "",
+          "maxLength": 5000,
+          "title": "Notes",
+          "type": "string"
+        },
+        "units": {
+          "items": {
+            "$ref": "#/$defs/UnitDraft"
+          },
+          "maxItems": 150,
+          "title": "Units",
+          "type": "array"
+        },
+        "topics": {
+          "items": {
+            "$ref": "#/$defs/TopicDraft"
+          },
+          "maxItems": 80,
+          "title": "Topics",
+          "type": "array"
+        },
+        "skills": {
+          "items": {
+            "$ref": "#/$defs/SkillDraft"
+          },
+          "maxItems": 40,
+          "title": "Skills",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "TrackDraft",
+      "type": "object"
+    },
+    "UnitDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "maxLength": 60,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Key",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 180,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "parent_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Key"
+        },
+        "estimated_minutes": {
+          "anyOf": [
+            {
+              "maximum": 600000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Minutes"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "weight": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "key",
+        "title"
+      ],
+      "title": "UnitDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "tracks": {
+      "items": {
+        "$ref": "#/$defs/TrackDraft"
+      },
+      "maxItems": 8,
+      "title": "Tracks",
+      "type": "array"
+    },
+    "route": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RouteDraft"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceDraft"
+      },
+      "maxItems": 20,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "maxLength": 700,
+        "type": "string"
+      },
+      "maxItems": 30,
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "title": "ImportProposal",
+  "type": "object"
+}

@@ -1,0 +1,198 @@
+[
+  {
+    "id": "exercism",
+    "kind": "course",
+    "area": "Python",
+    "title": "Python · práctica en Exercism",
+    "provider": "Exercism",
+    "url": "https://exercism.org/tracks/python",
+    "stage": "now",
+    "origin": "Comunidad · código abierto",
+    "desc": "Ejercicios con pruebas para construir y explicar soluciones pequeñas.",
+    "why": "Ya forma parte de la primera fase de tu plan. Usa los ejercicios seleccionados; no necesitas completar toda la plataforma.",
+    "topics": [
+      "Funciones",
+      "Colecciones",
+      "Control de flujo",
+      "Pruebas"
+    ],
+    "skills": [
+      "python-code",
+      "git-test"
+    ]
+  },
+  {
+    "id": "cisco-basics",
+    "kind": "course",
+    "area": "Redes y ciberseguridad",
+    "title": "Networking Basics · Cisco",
+    "provider": "Cisco Networking Academy",
+    "url": "https://www.netacad.com/courses/networking-basics?courseLang=en-US",
+    "stage": "support",
+    "origin": "Oficial · curso gratuito",
+    "desc": "Una entrada a redes para fortalecer el diagnóstico y la conectividad.",
+    "why": "Encaja con soporte TI y el bloque de redes/OT. Es apoyo dentro del tiempo disponible; no se añade un curso completo al presupuesto.",
+    "topics": [
+      "Fundamentos de redes",
+      "Conectividad"
+    ],
+    "skills": [
+      "network"
+    ]
+  },
+  {
+    "id": "iu",
+    "kind": "course",
+    "area": "Automatización industrial",
+    "title": "Ignition · Inductive University",
+    "provider": "Inductive Automation",
+    "url": "https://inductiveuniversity.com/about/",
+    "stage": "now",
+    "origin": "Oficial · formación gratuita",
+    "desc": "Formación del fabricante para acompañar una pequeña simulación con Ignition.",
+    "why": "Selecciona las lecciones necesarias para la fase 4. La credencial de IU y la certificación Ignition son logros diferentes.",
+    "topics": [
+      "Tags",
+      "Calidad",
+      "Historial",
+      "Perspective"
+    ],
+    "skills": [
+      "ot",
+      "network"
+    ]
+  },
+  {
+    "id": "missing",
+    "kind": "course",
+    "area": "Software y herramientas",
+    "title": "The Missing Semester",
+    "provider": "MIT CSAIL",
+    "url": "https://missing.csail.mit.edu/",
+    "stage": "support",
+    "origin": "Universidad · acceso público",
+    "desc": "Herramientas de trabajo como terminal, control de versiones y depuración.",
+    "why": "Complementa lo que ya haces con Git y desarrollo. Elige la herramienta que necesites para el piloto.",
+    "topics": [
+      "Shell",
+      "Git",
+      "Depuración"
+    ],
+    "skills": [
+      "git-test",
+      "systems"
+    ]
+  },
+  {
+    "id": "roadmaps",
+    "kind": "topic",
+    "area": "Software y herramientas",
+    "title": "roadmap.sh · mapas para orientarte",
+    "provider": "roadmap.sh",
+    "url": "https://roadmap.sh/",
+    "stage": "support",
+    "origin": "Comunidad · enlazar contenido",
+    "desc": "Rutas por rol y habilidad para detectar huecos y comparar direcciones.",
+    "why": "Úsalo como mapa, no como una lista de obligaciones. Su contenido tiene restricciones de redistribución; guardaremos enlaces y notas propias.",
+    "topics": [
+      "Rutas por rol",
+      "Fundamentos de software"
+    ],
+    "skills": []
+  },
+  {
+    "id": "ccst",
+    "kind": "certification",
+    "code": "100-150",
+    "area": "Redes y ciberseguridad",
+    "title": "CCST Networking · Cisco",
+    "provider": "Cisco",
+    "url": "https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccst-networking.html",
+    "stage": "later",
+    "origin": "Oficial · examen separado",
+    "desc": "Certificación de fundamentos de redes; Cisco la presenta como un paso hacia CCNA.",
+    "why": "Evalúala si quieres formalizar esta base después del piloto. El curso gratuito no incluye automáticamente la certificación.",
+    "topics": [
+      "Dispositivos",
+      "Protocolos",
+      "Diagnóstico de redes"
+    ],
+    "skills": [
+      "network"
+    ]
+  },
+  {
+    "id": "ossu",
+    "kind": "topic",
+    "area": "Fundamentos de computación",
+    "title": "OSSU · Computer Science",
+    "provider": "Open Source Society University",
+    "url": "https://github.com/ossu/computer-science",
+    "stage": "later",
+    "origin": "Comunidad · currículo abierto",
+    "desc": "Un currículo amplio de ciencias de la computación para aprendizaje autónomo.",
+    "why": "Sirve como horizonte de largo plazo. Selecciona fundamentos que complementen Sistemas de Información; no cabe completo en esta ruta.",
+    "topics": [
+      "Programación",
+      "Algoritmos",
+      "Sistemas",
+      "Matemáticas"
+    ],
+    "skills": [
+      "systems"
+    ]
+  },
+  {
+    "id": "nand",
+    "kind": "course",
+    "area": "Fundamentos de computación",
+    "title": "Nand2Tetris · de hardware a software",
+    "provider": "Nand2Tetris",
+    "url": "https://www.nand2tetris.org/",
+    "stage": "later",
+    "origin": "Proyecto educativo · materiales públicos",
+    "desc": "Proyectos para entender cómo se construyen las capas de un computador.",
+    "why": "Una opción para tu interés en bajo nivel. No es un requisito previo para terminar el piloto de manufactura.",
+    "topics": [
+      "Lógica digital",
+      "Arquitectura",
+      "Compilación"
+    ],
+    "skills": [
+      "systems"
+    ]
+  },
+  {
+    "id": "pandas",
+    "kind": "topic",
+    "area": "Python",
+    "title": "Tutoriales de pandas",
+    "provider": "Documentación oficial de pandas",
+    "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/",
+    "desc": "Material de consulta para construir tus propias prácticas de manipulación y análisis de datos.",
+    "why": "Complementa tu ruta de Python con ejemplos de la biblioteca que estás utilizando.",
+    "stage": "now"
+  },
+  {
+    "id": "postgres",
+    "kind": "topic",
+    "area": "SQL",
+    "title": "Tutorial de PostgreSQL",
+    "provider": "PostgreSQL",
+    "url": "https://www.postgresql.org/docs/current/tutorial.html",
+    "desc": "Un punto de partida para conectar consultas, relaciones y preguntas sobre los datos.",
+    "why": "Te permite profundizar en SQL con documentación oficial y ejercicios propios.",
+    "stage": "now"
+  },
+  {
+    "id": "arxiv",
+    "kind": "paper",
+    "area": "Data Analytics",
+    "title": "Explorar papers de aprendizaje automático",
+    "provider": "arXiv · colección cs.LG",
+    "url": "https://arxiv.org/list/cs.LG/recent",
+    "desc": "Una colección de investigación para cuando quieras explorar métodos con mayor profundidad.",
+    "why": "Es exploración opcional. El contenido no está graduado como un curso y puede requerir más base matemática.",
+    "stage": "later"
+  }
+]
