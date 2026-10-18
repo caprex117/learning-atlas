@@ -43,3 +43,13 @@ python -m pytest -q --tb=short
 Para el recorrido con PostgreSQL servidor, configura `ATLAS_TEST_DATABASE_URL` apuntando a una base **desechable y vacía**, cuyo nombre termine en `_test`. El fixture crea roles y schemas de prueba; no uses tu Supabase real. GitHub Actions prepara ese entorno automáticamente.
 
 Los resultados de cada versión futura deben volver a verificarse después de cambios funcionales. El contrato explica qué se espera; las pruebas demuestran casos concretos y no sustituyen la revisión del despliegue real.
+
+## Corrección del adaptador de pruebas · 18 de octubre de 2026
+
+La primera ejecución de GitHub Actions (`5d43b2b`) terminó con 63 pruebas aprobadas, 8 fallos y 15 errores de preparación. PostgreSQL completaba el INSERT del usuario de prueba, pero el adaptador devolvía una lista donde `query()` esperaba un objeto con `rows`. Se reprodujo localmente el mismo `TypeError` usando el adaptador original y una respuesta simulada del driver.
+
+Se corrigió la respuesta de sentencias sin `RETURNING` y se unificaron las excepciones de PostgreSQL con el contrato `RepositoryError` que ya usaba PGlite. Se añadieron cuatro casos de regresión para respuestas sin filas, errores de permisos y restricciones, y propagación de errores de programación. No se modificaron la app, la migración ni las reglas de seguridad.
+
+**Resultado local después del cambio: 89 aprobadas, 1 omitida en 20,55 segundos.** Incluye la suite SQL con PGlite, las cuatro regresiones del driver simulado y las cinco pruebas de interfaz. Las comprobaciones del paquete también pasaron. La omisión sigue siendo la prueba de dos conexiones simultáneas.
+
+Falta ejecutar esta corrección en GitHub Actions con PostgreSQL 17 después del nuevo commit y push. El resultado local no se presenta como una ejecución aprobada en GitHub ni como una prueba de Supabase en producción. El aviso informativo sobre `ubuntu-latest` no fue la causa del fallo mostrado.

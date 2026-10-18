@@ -56,12 +56,20 @@ class SQLHarness:
                 return "%s"
             sql=re.sub(r"\$(\d+)",replace,sql)
             params=order
-        with self.connection.cursor() as cursor:
-            cursor.execute(sql,params or None)
-            if exec or cursor.description is None:
-                return []
-            names=[c.name for c in cursor.description]
-            return {"rows":[dict(zip(names,row)) for row in cursor.fetchall()]}
+        import psycopg
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(sql,params or None)
+                if exec:
+                    return []
+                # INSERT/UPDATE/DELETE without RETURNING still use the query contract.
+                if cursor.description is None:
+                    return {"rows":[]}
+                names=[c.name for c in cursor.description]
+                return {"rows":[dict(zip(names,row)) for row in cursor.fetchall()]}
+        except psycopg.Error as exc:
+            # Expose the same error contract as the PGlite bridge.
+            raise RepositoryError(str(exc)) from exc
 
     def query(self,sql,params=None):
         return self.request(sql,params)["rows"]
