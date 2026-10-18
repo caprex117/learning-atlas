@@ -10,8 +10,8 @@ from .models import StrictModel, Name, normalized
 
 CATALOG_TABLES = ('discovery_settings', 'discovery_runs', 'opportunities',
                   'opportunity_sources', 'opportunity_versions', 'pack_components', 'opportunity_choices')
-DEFAULT_FOCUS = 'Factory Enablement: datos, automatización y sistemas para operaciones industriales'
-DEFAULT_TAGS = ['Python', 'SQL', 'Power BI', 'automatización', 'datos', 'Factory Enablement']
+DEFAULT_FOCUS = 'Factory Enablement y apps con IA: datos, automatización y software verificable'
+DEFAULT_TAGS = ['Python', 'SQL', 'Power BI', 'automatización', 'datos', 'Factory Enablement', 'apps con IA', 'Streamlit', 'Supabase']
 DEFAULT_RELATED = ['redes', 'OT', 'ciberseguridad', 'APIs', 'software', 'sistemas']
 
 

@@ -7,7 +7,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 EXCLUDED={".git",".venv","node_modules","private","__pycache__",".pytest_cache","uploads","test-results","htmlcov"}
-ALLOWED={".py",".md",".json",".toml",".sql",".txt",".yml",".yaml",".mjs",".png",".jpg"}
+ALLOWED={".py",".md",".json",".toml",".sql",".txt",".yml",".yaml",".mjs",".png",".jpg",".csv"}
 SPECIAL={".gitignore",".python-version"}
 PATTERNS=[r"AIza[0-9A-Za-z_-]{30,}",r"sb_secret_[0-9A-Za-z_-]{25,}",r"gh[pousr]_[A-Za-z0-9]{30,}",r"github_pat_[A-Za-z0-9_]{30,}",
           r"eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{40,}\.[A-Za-z0-9_-]{20,}"]
@@ -30,15 +30,19 @@ def check():
     from atlas.models import ImportProposal
     from atlas.catalog_models import Opportunity
     from scripts.build_catalog_schema import build as build_catalog
+    from scripts.build_catalog_seed_sql import build as build_seed
+    from atlas.catalog_seed import read_seed
     if (ROOT/"supabase/migrations/001_learning_atlas.sql").read_text(encoding="utf-8")!=build():
         raise SystemExit("SQL does not match its generator. Run scripts/build_schema.py and recheck.")
     ImportProposal.model_validate_json((ROOT/"examples/import-mini.json").read_text(encoding="utf-8"))
     if (ROOT/"supabase/migrations/002_discovery_catalog.sql").read_text(encoding="utf-8")!=build_catalog():
         raise SystemExit("Catalog SQL does not match its generator.")
-    seed=json.loads((ROOT/"data/catalog_seed.json").read_text(encoding="utf-8"))
+    seed=read_seed()
     items=[Opportunity.model_validate(i) for i in seed['opportunities']]
     if len({i.identity() for i in items})!=len(items):
         raise SystemExit("Duplicate catalog seed identity.")
+    if (ROOT/f'supabase/seeds/learning_catalog_{len(items)}.sql').read_text(encoding='utf-8')!=build_seed():
+        raise SystemExit('Catalog data loader does not match the validated research.')
     files=list(source_files())
     for path in files:
         if path.suffix in {".png",".jpg"}:

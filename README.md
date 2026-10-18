@@ -15,6 +15,8 @@ Tracker personal de aprendizaje en **Streamlit + Supabase**, con el tema claro, 
 - Mantener un mapa de temas aprendidos y sugerencias de repaso con colores orientativos.
 - Generar un plan del día de hasta tres bloques; registrar sólo el tiempo que realmente realizaste.
 - Explorar un catálogo persistente de oportunidades oficiales y comunitarias: temarios, habilidades, precios, fuentes, favoritos e historial.
+- Cargar una [selección personal de 54 oportunidades](docs/RESEARCH_54.md) de Factory Enablement y apps con IA, con siete Learning Packs, tres proyectos de apps y un proyecto de pruebas con Playwright, prioridad y un primer alcance sugerido.
+- Descargar todo el catálogo en CSV, incluidas fuentes, componentes e historial, independientemente de los filtros.
 - Añadir oportunidades y Learning Packs a tu aprendizaje o a una fase de tu ruta.
 - Investigar novedades bajo demanda o semanalmente con Tavily y Gemini, con fallback y conservación del catálogo ante fallos. Actívalo siguiendo [docs/DISCOVERY_SETUP.md](docs/DISCOVERY_SETUP.md).
 - Importar PDF, DOCX, TXT, MD o JSON con lectura, propuesta, revisión y aprobación. Gemini es opcional; la captura manual funciona sin IA.

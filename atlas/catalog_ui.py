@@ -1,6 +1,8 @@
 """Discovery catalog UI; learning adoption always remains an explicit user action."""
 import streamlit as st
 from . import catalog
+from .catalog_export import export_csv, rankings
+from .catalog_seed import read_seed
 from .auth import configuration
 from .repository import RepositoryError
 from .ui import heading, pills, minutes
@@ -42,7 +44,8 @@ def render(service):
     if service.repo.is_demo:
         st.caption('Demo: el catálogo inicial usa fuentes reales; los cambios son temporales. La investigación con APIs funciona en tu cuenta conectada.')
     controls = st.columns(2)
-    if controls[0].button('Cargar investigación inicial', key='catalog_seed', width='stretch'):
+    seed_count = len(read_seed()['opportunities'])
+    if controls[0].button(f'Cargar / actualizar selección de {seed_count}', key='catalog_seed', width='stretch'):
         save_and_refresh('catalog_seed', lambda rid: catalog.load_seed(service,rid), 'Catálogo inicial incorporado. No se registró progreso.')
     ready = bool(cfg.get('tavily',{}).get('api_key') and cfg.get('gemini',{}).get('api_key') and config['external_consent'] and not service.repo.is_demo)
     if controls[1].button('Actualizar ahora', key='catalog_refresh', type='primary', disabled=not ready, width='stretch'):
@@ -71,12 +74,19 @@ def render(service):
                 save_and_refresh('discovery_focus',lambda rid:catalog.save_settings(service,values,rid),'Enfoque guardado; la relevancia se recalcula con tus etiquetas actuales.')
     library, history = st.tabs(['Catálogo', 'Historial de actualizaciones'])
     with library:
+        priority = rankings(service.data)
+        if service.data['opportunities']:
+            st.download_button('Descargar catálogo completo · CSV', export_csv(service), 'learning-atlas-oportunidades.csv',
+                               mime='text/csv', key='catalog_csv', width='stretch')
+            st.caption('Incluye todas las fichas, aunque uses filtros: temas, habilidades, precios, fuentes, componentes, historial y tus decisiones. Las listas se guardan como JSON dentro del CSV; no es un archivo de restauración.')
+        if priority:
+            st.caption('Prioridad personal: selección del 18 de octubre de 2026 para Factory Enablement y apps con IA. Los bloques sugeridos son puntos de entrada, no duraciones oficiales ni horas que debas sumar a tu ruta de 96 h. Relevancia usa tus etiquetas actuales.')
         a,b,c=st.columns([2,1,1])
         query=a.text_input('Buscar oportunidad o habilidad',key='catalog_search')
         kind=b.selectbox('Tipo de oportunidad',[None]+list(KINDS),format_func=lambda x:KINDS.get(x,'Todos'))
         language=c.selectbox('Idioma del recurso',['Todos','es','en'])
         a,b,c=st.columns(3)
-        order=a.selectbox('Ordenar',['Relevancia','Última comprobación','Actualización del proveedor','Nombre'])
+        order=a.selectbox('Ordenar',(['Prioridad personal'] if priority else [])+['Relevancia','Última comprobación','Actualización del proveedor','Nombre'])
         decision=b.selectbox('Mostrar',['Disponibles','Todos','Favoritos','En mi aprendizaje','Descartados'])
         free=c.checkbox('Sólo acceso gratuito')
         choices={r['opportunity_id']:r for r in service.data['opportunity_choices']}
@@ -93,7 +103,8 @@ def render(service):
                 continue
             score, explanation=catalog.relevance(service,item)
             candidates.append((item,choice,score,explanation))
-        key={'Relevancia':lambda r:(-r[2],r[0]['title']), 'Última comprobación':lambda r:r[0]['checked_at'],
+        key={'Prioridad personal':lambda r:(priority.get(r[0]['identity_key'],{}).get('rank',1000000),-r[2],r[0]['title']),
+             'Relevancia':lambda r:(-r[2],r[0]['title']), 'Última comprobación':lambda r:r[0]['checked_at'],
              'Actualización del proveedor':lambda r:r[0].get('provider_updated_on') or '', 'Nombre':lambda r:r[0]['title']}[order]
         candidates.sort(key=key,reverse=order in ('Última comprobación','Actualización del proveedor'))
         st.caption(f'{len(candidates)} oportunidades · Relevancia orientativa sobre 100: etiquetas prioritarias y relacionadas, habilidades sin autonomía declarada, vigencia de la consulta y duración. No mide demanda laboral ni calidad garantizada.')
@@ -109,6 +120,11 @@ def render(service):
             with st.container(border=True):
                 pills([KINDS[item['kind']],item['language'].upper(),f'Relevancia {score}/100',price_label(item)])
                 st.subheader(item['title'])
+                personal = priority.get(item['identity_key'])
+                if personal:
+                    pills([f"Prioridad #{personal['rank']}",personal['phase'],personal['priority_band']])
+                    st.write('**Cómo empezaría en tu caso:** '+personal['study_slice'])
+                    st.caption('Primer bloque sugerido: '+minutes(personal['study_slice_minutes'])+' · Puede solaparse con otros componentes de un pack.')
                 st.caption(item['provider']+' · '+item['area']+' · '+item['availability'])
                 st.write(item['description'])
                 st.write('**Relación con tu enfoque actual:** '+explanation)
@@ -120,8 +136,11 @@ def render(service):
                 if item.get('url'):
                     st.link_button('Abrir fuente',item['url'])
                 with st.expander('Ver temario, fuentes y cambios'):
-                    st.caption({'summary':'Resumen del temario disponible; consulta la fuente para el detalle completo.',
-                                'published_outline':'Temario publicado por la fuente.', 'custom_pack':'Learning Pack diseñado para tu enfoque; no es una certificación oficial.'}[item['syllabus_scope']])
+                    if item['kind']=='project' and item['provider'].startswith('Learning Atlas'):
+                        st.caption('Proyecto diseñado para practicar con estas tecnologías. Los entregables son una propuesta propia basada en las fuentes; no es un curso ni una certificación oficial.')
+                    else:
+                        st.caption({'summary':'Resumen del temario disponible; consulta la fuente para el detalle completo.',
+                                    'published_outline':'Temario publicado por la fuente.', 'custom_pack':'Learning Pack diseñado para tu enfoque; no es una certificación oficial.'}[item['syllabus_scope']])
                     for topic in item['topics']:
                         st.write('• '+topic)
                     st.write('**Requisitos:** '+(item['prerequisites'] or 'No precisados por la fuente.'))

@@ -36,11 +36,11 @@ def put(service, item=None):
 
 def test_seed_is_idempotent_and_has_no_learning_activity(service):
     result=catalog.load_seed(service,uid())
-    assert result['added']==17
+    assert result['added']==54
     before=copy.deepcopy(service.data)
     assert catalog.load_seed(service,uid())['added']==0
     assert service.data==before
-    assert len(service.data['opportunity_versions'])==17
+    assert len(service.data['opportunity_versions'])==54
     assert not service.data['learning_tracks'] and domain.effort(service.data)==0
     assert not service.data['credentials'] and not service.data['topic_events']
 
@@ -77,9 +77,10 @@ def test_catalog_update_preserves_adopted_progress_and_decisions(service):
 def test_pack_adoption_creates_components_without_invented_time(service):
     catalog.load_seed(service,uid())
     item=next(o for o in service.data['opportunities'] if o['kind']=='pack')
+    components=[p for p in service.data['pack_components'] if p['opportunity_id']==item['id']]
     result=catalog.adopt(service,item['id'],None,uid())
-    assert len(domain.track_units(service.data,result['track_id']))==3
-    assert len([r for r in service.data['resources'] if r['kind']=='link'])==3
+    assert {u['title'] for u in domain.track_units(service.data,result['track_id'])}=={c['title'] for c in components}
+    assert {r['url'] for r in service.data['resources'] if r['kind']=='link'}=={c['url'] for c in components}
     assert not service.data['study_sessions'] and not service.data['topic_events']
     assert not service.data['unit_progress'] and not service.data['credentials']
 

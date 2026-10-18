@@ -143,14 +143,12 @@ def refresh(repository, tavily_key, gemini_key, *, origin='manual', transport=No
 
 
 def load_seed(service, request_id):
-    seed = json.loads((Path(__file__).resolve().parents[1]/'data/catalog_seed.json').read_text(encoding='utf-8'))
-    items = [Opportunity.model_validate(i) for i in seed['opportunities']]
-    missing = [i for i in items if i.identity() not in {o['identity_key'] for o in service.data['opportunities']}]
-    if not missing:
-        return {'added': 0, 'checked': 0}
-    rid = begin(service, 'seed', str(uuid4()))
-    return publish(service, rid, missing, {'model': 'curated', 'warnings': []}, request_id,
-                   checked_at=seed['checked_at'], origin='curated')
+    from .catalog_seed import read_seed, seed_batch
+    seed = read_seed()
+    batch, summary = seed_batch(service.data, seed)
+    if batch is None:
+        return summary
+    return service._commit(batch, request_id, {'action':'catalog_seed', 'seed_revision':seed['seed_revision']}, summary)
 
 
 def choose(service, opportunity_id, favorite, decision, request_id):

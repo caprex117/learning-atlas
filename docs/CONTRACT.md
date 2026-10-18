@@ -39,7 +39,8 @@ OCR, conexiones privadas a plataformas educativas, comprobación externa de cert
 
 | Regla | Resultado verificable |
 |---|---|
-| Investigación separada de actividad | Cargar las 17 fichas iniciales no crea aprendizajes, horas, eventos ni credenciales. Repetirlo no duplica fichas ni sustituye investigación posterior. |
+| Investigación separada de actividad | Cargar las 54 fichas iniciales no crea aprendizajes, horas, eventos ni credenciales. Añade 14 a la selección de 40 sin cambiar sus hechos. También permite enriquecer las 17 originales conservando sus IDs y decisiones. Repetirlo no duplica fichas ni sustituye investigación posterior o de IA. |
+| Prioridad personal y exportación | La prioridad inicial es una decisión editorial fechada para Factory Enablement y apps con IA. No mide dominio ni demanda laboral. Los bloques sugeridos no son duraciones oficiales ni presupuestos aditivos. El CSV completo incluye todas las oportunidades del usuario, sus fuentes, componentes, historial y decisiones, independientemente de los filtros. |
 | Actualización acotada | Cuatro búsquedas, hasta doce páginas leídas y hasta doce propuestas por ejecución; el catálogo acumulado no se limita a tres resultados. |
 | Respaldo de fuentes | Se rechazan URLs no leídas, citas ausentes, precios sin cita y fechas de actualización futuras. La validación no garantiza la exactitud semántica de toda la ficha. |
 | Continuidad | 3.8 Flash tiene un reintento ante saturación/red y pasa a 3.5 Flash-Lite. Se reutilizan las fuentes. Si ambos fallan, no cambia el catálogo ni su fecha de comprobación. |

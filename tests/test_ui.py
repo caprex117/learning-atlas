@@ -111,7 +111,10 @@ def test_catalog_review_then_adopt_to_route_and_filter():
     app.button(key='catalog_seed').click().run()
     assert not app.exception
     repo=app.session_state['repository']
-    assert len(repo.data['opportunities'])==17
+    assert len(repo.data['opportunities'])==54
+    assert app.button(key='catalog_seed').label=='Cargar / actualizar selección de 54'
+    assert next(s for s in app.selectbox if s.label=='Ordenar').value=='Prioridad personal'
+    assert any('Descargar catálogo completo' in b.proto.label for b in app.get('download_button'))
     app.text_input(key='catalog_search').set_value('Primer mapa de integración').run()
     item=next(o for o in repo.data['opportunities'] if 'Primer mapa' in o['title'])
     oid=item['id']

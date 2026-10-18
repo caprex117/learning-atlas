@@ -1,6 +1,6 @@
 # Activar el nuevo Descubrir
 
-El código incorpora un catálogo persistente con 17 oportunidades iniciales, filtros, favoritos, precios, temas, habilidades, historial y dos Learning Packs. Añadir una oportunidad a tu aprendizaje o a una fase de tu ruta siempre requiere tu elección. Tu cuenta y tus datos siguen siendo privados.
+El código incorpora un catálogo persistente con 54 oportunidades iniciales, filtros, favoritos, precios, temas, habilidades, historial y siete Learning Packs y tres proyectos de apps y un proyecto de pruebas con Playwright. Incluye Factory Enablement y creación de apps con IA, prioridad personal y exportación CSV completa. Añadir una oportunidad a tu aprendizaje o a una fase de tu ruta siempre requiere tu elección. Tu cuenta y tus datos siguen siendo privados. La selección y sus fuentes están en [RESEARCH_54.md](RESEARCH_54.md).
 
 ## 1. Instalar las tablas nuevas
 
@@ -37,13 +37,19 @@ No publiques claves en archivos ni las pegues en el chat. Si ambos modelos falla
 
 ## 4. Primer uso
 
-1. Entra a **Descubrir → Cargar investigación inicial**. No consume APIs ni crea progreso. Puedes usarlo sin configurar las claves.
+1. Publica este código y entra a **Descubrir → Cargar / actualizar selección de 54**. No consume APIs ni crea progreso. Puedes usarlo sin configurar las claves. Si ya tenías las 40 fichas anteriores, se añaden exactamente 14 y se actualiza el orden personal. Si partías de 17, se conserva su identidad y se enriquece la información manual anterior. Tus decisiones y progreso se conservan. Las revisiones más recientes o de IA no se sustituyen.
 2. En **Mi enfoque y actualización semanal**, revisa dirección profesional y etiquetas. Autoriza enviar ese enfoque a Tavily y Gemini y guarda.
 3. Pulsa **Actualizar ahora**. Comprueba la fecha, el modelo y el historial del resultado.
 4. Abre una ficha: revisa precio, temario y fuentes. Puedes guardarla como favorita o descartarla.
 5. Para estudiarla, abre **Añadir a mi aprendizaje o a mi ruta**. Elige una fase si quieres vincularla a una ruta activa, decide si usar el temario como unidades, confirma la revisión y añade.
 
 El aprendizaje empieza planificado, sin horas ni unidades completadas. Los packs crean una unidad por componente y conservan los enlaces. Añadir de nuevo la misma ficha reutiliza ese aprendizaje. Las actualizaciones futuras del catálogo no cambian su temario ni tu avance; así puedes ajustar tu plan conscientemente.
+
+**Alternativa para cargar ahora desde Supabase:** abre `supabase/seeds/learning_catalog_54.sql`, copia todo su contenido en **SQL Editor → New query → Run**. Es una carga de datos, no otra migración; no repitas 001 ni 002 si ya están instaladas. Si hay exactamente un perfil de Learning Atlas, lo selecciona automáticamente. Si hay varios, exige indicar tu UUID en `target_user`; no crea usuarios. Si aún no hay perfil, inicia sesión en la app primero. Una ejecución con error se revierte completa. La carga y el botón son compatibles: usar ambos no duplica los datos.
+
+**CSV:** el archivo `exports/learning_catalog_54.csv` contiene la selección investigada. El botón **Descargar catálogo completo · CSV** descarga todas las fichas actuales de tu cuenta, con fuentes, componentes e historial, sin limitarse a la página o los filtros. Las listas se conservan como JSON dentro de las celdas. Úsalo para análisis; no lo importes directamente en una tabla porque el catálogo tiene varias relaciones.
+
+**Tu interés en apps con IA:** la selección inicial ya lo incluye. Si guardaste un enfoque antes, añade `apps con IA, Streamlit, Supabase, pruebas` a sus etiquetas para orientar también las revisiones futuras. La carga conserva tus ajustes y consentimientos actuales.
 
 ## 5. Revisión semanal automática (opcional)
 
@@ -79,6 +85,6 @@ Gemini ofrece nivel gratuito para los modelos seleccionados, sujeto a cuotas y d
 
 Cada revisión consulta una muestra acotada, combina búsqueda reciente y recursos de fundamentos, y revisita hasta seis enlaces antiguos. El catálogo puede crecer sin límite de tres fichas; una ejecución publica como máximo doce propuestas. No es un rastreo exhaustivo ni una sincronización en tiempo real de toda la web.
 
-Las propuestas de IA deben citar páginas leídas y superar validaciones de esquema, enlaces, citas y precio. Esto reduce invenciones, pero no garantiza que cada interpretación sea correcta. Un temario marcado como resumen puede estar incompleto; una fecha de consulta reciente no significa que el contenido haya sido actualizado recientemente. Los packs son propuestas de Learning Atlas, sin acreditación oficial. Los enlaces de las 17 fichas iniciales se revisaron el **18 de octubre de 2026**.
+Las propuestas de IA deben citar páginas leídas y superar validaciones de esquema, enlaces, citas y precio. Esto reduce invenciones, pero no garantiza que cada interpretación sea correcta. Un temario marcado como resumen puede estar incompleto; una fecha de consulta reciente no significa que el contenido haya sido actualizado recientemente. Los packs son propuestas de Learning Atlas, sin acreditación oficial. Las 54 fichas iniciales se revisaron el **18 de octubre de 2026**.
 
 Se envían el enfoque, etiquetas y páginas públicas; no se envían documentos privados, sesiones, contraseñas de la app ni claves de Supabase a los proveedores de investigación. El workflow inicia sesión bajo tus permisos y termina su propia sesión.

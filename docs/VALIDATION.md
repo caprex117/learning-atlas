@@ -1,14 +1,32 @@
 # Verificación de la entrega
 
+## Sustitución de WCAG por Playwright · 18 de octubre de 2026
+
+**15 pruebas del catálogo y expansión aprobadas en 15,79 segundos.** Se comprobó carga desde cero de las 54 fichas, ausencia de la oportunidad WCAG, cuatro proyectos, 99 relaciones con fuentes, repetición sin duplicados y conservación de la selección anterior de 40. El CSV actualizado se comparó campo por campo con la investigación. El usuario confirmó que aún no cargó oportunidades: el archivo `supabase/seeds/learning_catalog_54.sql` es la carga completa desde cero. Su ejecución en Supabase queda pendiente.
+
+## Ampliación a 54 · 18 de octubre de 2026
+
+**Suite completa antes de la sustitución: 136 pruebas aprobadas y 1 omitida en 43,24 segundos**, Python 3.12 y PostgreSQL WebAssembly (PGlite). La omisión requiere dos conexiones a PostgreSQL servidor y se ejecuta en GitHub Actions.
+
+Se verificó la ampliación de 40 a 54 mediante la app y el cargador SQL: exactamente 14 altas, sin cambiar los hechos, IDs o versiones de las 40 anteriores, ni favoritos o progreso. Las tres alternativas de apps se incorporan como proyectos planificados con entregables de seguimiento, sin inventar minutos, dominio ni credenciales. Se probó que ejecutar posteriormente el cargador histórico de 40 no revierta las nuevas prioridades. Las migraciones 001 y 002 no cambiaron.
+
+La selección contiene 54 fichas, 98 relaciones con fuentes, 27 componentes de siete packs y tres proyectos. El CSV de 54 filas y 36 columnas se comparó campo por campo con la investigación validada, incluidas las listas y condiciones de precio. Streamlit AppTest comprueba el botón de carga de 54 y el acceso a la exportación completa.
+
+**Pendiente externo:** commit/push, CI y carga en Supabase desde el botón actualizado o `supabase/seeds/learning_catalog_54.sql`. No se ha ejecutado esta ampliación en producción. Los archivos de 40 se conservan como versión histórica. Consulta [RESEARCH_54.md](RESEARCH_54.md) y [DISCOVERY_SETUP.md](DISCOVERY_SETUP.md).
+
 ## Catálogo persistente · 18 de octubre de 2026
 
-**Resultado vigente: 121 pruebas aprobadas y 1 omitida en 31,53 segundos**, Python 3.12 y PostgreSQL WebAssembly (PGlite). La omisión sigue siendo la prueba de dos conexiones PostgreSQL; el workflow de CI la ejecuta con un servidor PostgreSQL 17. Las comprobaciones del paquete también pasaron y el archivo 001 original no cambió.
+**Resultado anterior (40 fichas): 130 pruebas aprobadas y 1 omitida en 34,26 segundos**, Python 3.12 y PostgreSQL WebAssembly (PGlite). La omisión sigue siendo la prueba de dos conexiones PostgreSQL; el workflow de CI la ejecuta con un servidor PostgreSQL 17. Las comprobaciones del paquete también pasaron; las migraciones 001 y 002 no cambiaron en esta ampliación.
 
-Se probaron las migraciones 001 + 002, carga inicial repetible de 17 oportunidades sin actividad inventada, actualizaciones con historial, conservación de favoritos y progreso adoptado, packs con componentes, asociación a fases, rechazo de referencias entre usuarios y protección RLS. Las pruebas HTTP simuladas cubren errores 429/503/404, red, respuesta inválida, citas/precios sin respaldo, fallback a Flash-Lite sin repetir búsquedas, fallo de ambos modelos, cambio de enfoque y omisión de revisión semanal reciente/desactivada.
+Se probaron las migraciones 001 + 002, carga inicial repetible de 40 oportunidades sin actividad inventada y ampliación de las 17 anteriores conservando IDs, favoritos y progreso. El cargador SQL independiente y el botón de la app producen el mismo contenido. Se comprobaron aislamiento por usuario, propietario ambiguo/inexistente, rollback de carga inválida, preservación de investigación posterior, siete packs y 40 prioridades. El CSV completo preserva tildes, comillas, saltos de línea, valores desconocidos, listas JSON, fuentes e historial, y neutraliza celdas que podrían interpretarse como fórmulas.
+
+Las pruebas existentes cubren actualizaciones con historial, asociación a fases, referencias cruzadas y RLS. Las pruebas HTTP simuladas cubren errores 429/503/404, red, respuesta inválida, citas/precios sin respaldo, fallback a Flash-Lite sin repetir búsquedas, fallo de ambos modelos, cambio de enfoque y omisión de revisión semanal reciente/desactivada.
 
 Streamlit AppTest verifica las once secciones y, además, la confirmación antes de adoptar, un pack añadido a una fase y el aviso cuando falta la migración. Los enlaces del catálogo inicial se investigaron en páginas públicas; la integración de Tavily y Gemini se prueba con respuestas simuladas, sin consumir claves del usuario.
 
-**Pendiente externo para esta actualización:** instalar el 002 en Supabase, commit/push y CI, guardar las claves, comprobar una actualización real y habilitar el workflow semanal. No se ejecutó SQL en producción ni se publicó esta versión desde las herramientas del agente. Pasos en [DISCOVERY_SETUP.md](DISCOVERY_SETUP.md).
+El archivo analítico inicial `exports/learning_catalog_40.csv` se verificó campo por campo contra la investigación validada: 40 filas, 36 columnas, listas JSON completas, fechas equivalentes y precios/duraciones desconocidos vacíos. Se inspeccionó también una vista renderizada de sus primeras filas.
+
+**Pendiente externo para esta ampliación:** cargar los datos mediante el SQL preparado o el botón actualizado, commit/push y CI. No se obtuvo una sesión autenticada de Supabase ni se ejecutó SQL en producción. Si 002 ya está instalado, no debe repetirse. La configuración de claves y el workflow semanal de la versión anterior se conservan. Pasos en [DISCOVERY_SETUP.md](DISCOVERY_SETUP.md).
 
 ## Entrega original · 17 de octubre de 2026
 

@@ -1,7 +1,1959 @@
 {
+  "seed_revision": "2026-10-18-personal-54-v2",
   "checked_at": "2026-10-18T00:00:00+00:00",
-  "note": "Investigación inicial manual del 18 de octubre de 2026. Hora convencional; no representa hora exacta de navegación. Resúmenes propios; consulta fuentes para condiciones y temario completo.",
+  "note": "Investigación manual del 18 de octubre de 2026. Hora convencional. Resúmenes propios de fuentes primarias; fecha de consulta no equivale a fecha de publicación. Prioridad editorial personalizada, no índice de demanda laboral. Ampliación: 14 fichas, con tres proyectos propios de apps y cobertura de competencias del résumé. El orden personal se actualiza; la ruta de 96 horas no se amplía. WCAG se excluye de la selección por preferencia explícita; se sustituye por un proyecto de pruebas con Playwright.",
+  "focus": {
+    "focus": "Factory Enablement y creación de apps con IA: datos confiables, integración OT/IT y software verificable",
+    "primary_tags": [
+      "Python",
+      "SQL",
+      "Power BI",
+      "Factory Enablement",
+      "apps con IA",
+      "Streamlit",
+      "Supabase"
+    ],
+    "related_tags": [
+      "redes",
+      "OT",
+      "ciberseguridad",
+      "APIs",
+      "Git",
+      "pruebas"
+    ]
+  },
+  "rankings": {
+    "aa7b7a3986d58d1257c9e7bdd4144df405fadc87c53c94403a1c6d0af5489a2b": {
+      "rank": 1,
+      "phase": "P1",
+      "study_slice_minutes": 240,
+      "study_slice": "Construir el validador y seis casos de prueba como parte de las 16 h de la fase 1.",
+      "rationale": "Es el primer entregable de tu plan. La IA puede ayudarte a explicar errores y proponer tests; tú debes poder justificar cada regla.",
+      "priority_band": "Ruta principal"
+    },
+    "9cef299433196a89ce67ae9677d50e79ce4c6d540db017e392a4bc4856044850": {
+      "rank": 2,
+      "phase": "Transversal",
+      "study_slice_minutes": 180,
+      "study_slice": "Elegir una mejora pequeña de Learning Atlas y cerrar contrato, diff, tests y verificación; sustituye parte de la práctica, no suma una ruta nueva.",
+      "rationale": "Recoge explícitamente lo que disfrutas de Learning Atlas. Permite aprender desarrollo haciendo mejoras útiles y comprobables, no acumulando prompts.",
+      "priority_band": "Aplicación transversal"
+    },
+    "453037383006104184dcbb0dd58a9811853f1fec39a7a4228cd616ca7b9283ec": {
+      "rank": 3,
+      "phase": "P1",
+      "study_slice_minutes": 240,
+      "study_slice": "Empezar los ejercicios de tu plan y revisar dos soluciones explicando sus tests.",
+      "rationale": "Tu fase inicial ya contempla 13 ejercicios. Practica explicando tus decisiones y leyendo los tests; no necesitas completar todo el track ahora.",
+      "priority_band": "Ruta principal"
+    },
+    "3b0ec8d3919ac37575fa05cd04f165173e130be584e0664c36831e9e390ec4f0": {
+      "rank": 4,
+      "phase": "P1",
+      "study_slice_minutes": 90,
+      "study_slice": "Consultar funciones, colecciones y excepciones sólo cuando lo necesite el ejercicio.",
+      "rationale": "Sirve de referencia al construir scripts para limpiar archivos y automatizar tareas de operaciones.",
+      "priority_band": "Ruta principal"
+    },
+    "c1a2abc82c4e68d62fab7ad35c828eeca8da376566ec490b9a7c5ee6f615ee5c": {
+      "rank": 5,
+      "phase": "P1",
+      "study_slice_minutes": 90,
+      "study_slice": "Practicar status, diff, add, commit, log y una rama de cambio.",
+      "rationale": "Te permite entender qué acepta una herramienta de IA, recuperar una versión funcional y publicar cambios pequeños en tus apps.",
+      "priority_band": "Ruta principal"
+    },
+    "53282cf3f3342c6f782f0462781b4bb5bf6f7c055b206299a0c08aa67f7d03f2": {
+      "rank": 6,
+      "phase": "P1",
+      "study_slice_minutes": 60,
+      "study_slice": "Completar el recorrido de rama, commit y pull request.",
+      "rationale": "Refuerza el mismo flujo que usas para publicar cambios de Learning Atlas y conservar evidencia de proyectos.",
+      "priority_band": "Ruta principal"
+    },
+    "d5ac2c381c4c767b26176615fa8cc2c177c0eed8225b60ea4249cb6eb8047457": {
+      "phase": "Transversal",
+      "study_slice_minutes": 60,
+      "study_slice": "Definir un objetivo de producto, ordenar cinco mejoras y escribir una Definition of Done que incluya tests, accesibilidad y documentación.",
+      "rationale": "Extiende tus fundamentos Agile/Scrum y liderazgo de equipos. Ayuda a ordenar mejoras de tus apps por valor y a definir qué significa que un cambio esté terminado.",
+      "priority_band": "Aplicación transversal",
+      "rank": 7
+    },
+    "b35cf2e6fdd7f42d7e65f663bab9c17b12197ad44ccc507e72c6833766939148": {
+      "rank": 8,
+      "phase": "Transversal",
+      "study_slice_minutes": 120,
+      "study_slice": "Añadir un formulario con validación y estado de sesión a tu app.",
+      "rationale": "Es tu tecnología actual. Usa una mejora real de Learning Atlas como práctica: formulario, validación, persistencia y prueba de interacción.",
+      "priority_band": "Aplicación transversal"
+    },
+    "46cff25903238019d6d10e6b97b32b466f6bea18c9cbd9e3554b7ef1509d36d7": {
+      "rank": 9,
+      "phase": "Transversal",
+      "study_slice_minutes": 120,
+      "study_slice": "Comprobar acceso propio, acceso ajeno y acceso sin sesión en una tabla de práctica.",
+      "rationale": "Refuerza la parte crítica de tus apps personales: poder publicar la interfaz manteniendo tus datos privados y verificando el aislamiento.",
+      "priority_band": "Aplicación transversal"
+    },
+    "fc67902bfc8c3b141108412c1840fe624882f84834a5d1ef146c8624166ae89d": {
+      "rank": 10,
+      "phase": "Transversal",
+      "study_slice_minutes": 60,
+      "study_slice": "Pedir una refactorización corta y comprobar comportamiento antes y después.",
+      "rationale": "Tu interés es construir apps con apoyo de IA. La habilidad transferible es especificar, inspeccionar y comprobar un cambio; no exige cambiar tu asistente actual.",
+      "priority_band": "Aplicación transversal"
+    },
+    "ffd8720c4fb70758483a603668fd34a49c56a3f10be821ee82f1a7c93c7f0a95": {
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "Prototipar ticket y formulario en 2 h. Luego elegir si continuar hasta login, permisos, historial y pruebas; no hacer los tres stacks a la vez.",
+      "rationale": "Aprovecha tu experiencia de IT support y Python. Es mi primera alternativa si quieres ampliar tus apps a formularios, roles y procesos conservando un lenguaje conocido.",
+      "priority_band": "Alternativa de app",
+      "rank": 11
+    },
+    "d76115e3093f7ec1feb753f146aec1936ce5acb4a4b15a0ab059024f0bf074e7": {
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "En 2 h, leer los fundamentos y dibujar una pantalla con su contrato. Elegir un único CRUD antes de login, RLS y tests; no replicar toda Learning Atlas.",
+      "rationale": "Mantiene Supabase, que ya conoces, y amplía HTML/CSS hacia React y TypeScript. Lo elegiría cuando tu prioridad sea una interfaz más personalizada y aprender desarrollo web completo.",
+      "priority_band": "Alternativa de app",
+      "rank": 12
+    },
+    "c00610e3ecce5d42f45b199da37402d47427749ab03ccb023417045be427881b": {
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "Crear en 2 h un formulario de gasto con validación. Continuar con persistencia, roles y conciliación sólo si eliges este stack como proyecto.",
+      "rationale": "Activa dos partes de tu résumé poco cubiertas: C# y gestión de eventos/presupuestos como presidente de ACM-BA. Es una alternativa para explorar aplicaciones empresariales con .NET.",
+      "priority_band": "Alternativa de app",
+      "rank": 13
+    },
+    "c0f420fde309fbc0d63551e1c56aa443a1ee46b4b582517acefc8d71640b2f52": {
+      "phase": "Transversal",
+      "study_slice_minutes": 90,
+      "study_slice": "Elegir cinco controles aplicables y escribir una prueba negativa de cada uno en una app de práctica. Es una revisión acotada, no una certificación ASVS.",
+      "rationale": "Conecta CC y Google Cybersecurity con software que construyes. Complementa OWASP para LLMs con pruebas del login, permisos y datos de una app web común.",
+      "priority_band": "Aplicación transversal",
+      "rank": 15
+    },
+    "7701c74058d882a707c0039c8dc3615a83eed82fe9f5281687b410e9e5dad584": {
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Seguir el bloque introductorio y después adaptar un bloque informativo sencillo; revisar su HTML y navegación por teclado.",
+      "rationale": "Da continuidad a WordPress/WPBakery y tu trabajo de webmaster: pasar de editar páginas a construir un componente mantenible y reutilizable.",
+      "priority_band": "Exploración posterior",
+      "rank": 16
+    },
+    "da0ecdba8710e05063e00ecc3e057c50e93fdb18cbaf874d7f5231320f808cce": {
+      "rank": 17,
+      "phase": "P2",
+      "study_slice_minutes": 180,
+      "study_slice": "Limpiar eventos conservando raw y anotar reglas de fecha, duplicados y faltantes.",
+      "rationale": "Aplicable a transformar registros de producción y preparar conjuntos de datos antes de analizarlos.",
+      "priority_band": "Ruta principal"
+    },
+    "1477f626ba038efc15bc792908c096ab78388cb46d7f28af9a6128bac53477c3": {
+      "phase": "P2 · complemento",
+      "study_slice_minutes": 90,
+      "study_slice": "Explorar tiempos por equipo/turno con tres gráficos; anotar faltantes, tamaño de cada grupo y una interpretación limitada por los datos.",
+      "rationale": "Consolida pandas, Matplotlib y seaborn ya presentes en tu résumé y tu preparación en Data Analytics. Úsalo para explorar anomalías antes de construir KPIs o explicar resultados.",
+      "priority_band": "Exploración posterior",
+      "rank": 18
+    },
+    "28a0b7372b2f8696ae8193116d8a9cc9f628de5acff25f6731c33a5fc029b68d": {
+      "rank": 19,
+      "phase": "P2",
+      "study_slice_minutes": 180,
+      "study_slice": "Crear tablas con claves y cinco consultas; usar una ventana para primer y último intento.",
+      "rationale": "Refuerza SQL directamente sobre la tecnología de Supabase y facilita consultar datos operativos.",
+      "priority_band": "Ruta principal"
+    },
+    "e7243761892e0906b961d2e96523cb31531f90fbeb8e37b36ba5bddcad8fa23b": {
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Estudiar un modelo y sus dependencias durante 90 min. Si decides seguir, construir dos modelos con tests y documentación del grano.",
+      "rationale": "Recupera una opción que habíamos pospuesto: convertir tu SQL y limpieza de datos en transformaciones versionadas y comprobables. Es una continuación después de la base del piloto.",
+      "priority_band": "Exploración posterior",
+      "rank": 20
+    },
+    "656a5ff61cacefb053634c5a24fcf69c941f0264c2630e89fb2f68fe512f3784": {
+      "rank": 21,
+      "phase": "P2",
+      "study_slice_minutes": 90,
+      "study_slice": "Elegir el módulo de consultas o relaciones que resuelva una brecha; no cursar todo ahora.",
+      "rationale": "Te ayuda a convertir SQL práctico en un proceso de diseño, consulta y optimización con evidencia de proyecto.",
+      "priority_band": "Ruta principal"
+    },
+    "9698455f820b0783f083d2e7e7960a552846a16a9368a93d01b89cf66053da8d": {
+      "rank": 22,
+      "phase": "P2",
+      "study_slice_minutes": 240,
+      "study_slice": "Integrar la transformación y carga idempotente del mismo dataset.",
+      "rationale": "Es la fase 2 del mismo piloto: conserva raw, documenta limpieza y compara resultados SQL sin contar retests como unidades nuevas.",
+      "priority_band": "Ruta principal"
+    },
+    "88fabd89b626b95cd325244e072790daf82f7e1344c140d46397c499df94980e": {
+      "rank": 23,
+      "phase": "P3",
+      "study_slice_minutes": 120,
+      "study_slice": "Priorizar limpieza y tipos; la ruta completa oficial dura 273 minutos.",
+      "rationale": "Convierte tu experiencia en Power Query en reglas reproducibles para el dataset industrial de la fase 3.",
+      "priority_band": "Ruta principal"
+    },
+    "582602ee684fbd39d5794ae5f0ffb5e9f83dca6a17c83a68e46e74ddb8ca96e3": {
+      "rank": 24,
+      "phase": "P3",
+      "study_slice_minutes": 90,
+      "study_slice": "Dibujar hechos, dimensiones, grano y relaciones antes de construir el modelo.",
+      "rationale": "Necesitas separar unidad, intento de prueba, equipo, turno y fecha para que FPY y yield final tengan denominadores correctos.",
+      "priority_band": "Ruta principal"
+    },
+    "7b2f818a239ca42d1d4e1c8f91b6b5fe76b416571d6b4cdf0aea08a1547251ff": {
+      "rank": 25,
+      "phase": "P3",
+      "study_slice_minutes": 60,
+      "study_slice": "Explicar dos medidas bajo filtros diferentes y verificar su denominador.",
+      "rationale": "Te ayuda a explicar por qué cambia un KPI al filtrar por turno o equipo, y a detectar medidas que parecen correctas sólo en el total.",
+      "priority_band": "Ruta principal"
+    },
+    "253fa486d2dd9b4e8495ee036f2e989e80201af3b8adaac1775f943bc5f46d25": {
+      "rank": 26,
+      "phase": "P3",
+      "study_slice_minutes": 60,
+      "study_slice": "Usar la guía como diagnóstico de brechas; decidir más adelante si pagar el examen.",
+      "rationale": "Conecta tu experiencia de dashboards con modelos y controles reutilizables para indicadores operativos.",
+      "priority_band": "Ruta principal"
+    },
+    "047337b5deb1be03573a833253dd917963df1f079a24d4a6caac4dc176aad13b": {
+      "rank": 27,
+      "phase": "P3",
+      "study_slice_minutes": 180,
+      "study_slice": "Reconciliar FPY, yield final y OEE en casos pequeños antes del dashboard.",
+      "rationale": "Tu fortaleza de BI gana valor si puedes defender cada cifra. Usa el mismo dataset del piloto; no es otro proyecto que sumar al calendario.",
+      "priority_band": "Ruta principal"
+    },
+    "97b4b180c0809570c7262b8c21229350aa879b68a5ed4d24784aaeea9a468954": {
+      "rank": 28,
+      "phase": "P3",
+      "study_slice_minutes": 45,
+      "study_slice": "Calcular un caso a mano y comprobar las tres pérdidas por separado.",
+      "rationale": "Aporta un contrato verificable para el piloto: fijar qué tiempo cuenta, qué unidad se considera buena y cómo se tratan las pérdidas.",
+      "priority_band": "Ruta principal"
+    },
+    "cffc6dc836d6c360c7d77a954a3164f5c02a924ad5bcde5e1b509a0c1eddb005": {
+      "rank": 29,
+      "phase": "P4",
+      "study_slice_minutes": 240,
+      "study_slice": "Crear una máquina simulada, tags, alarma y una vista con timestamp/calidad.",
+      "rationale": "Es el centro de tu fase 4. Acota la práctica a una máquina simulada, tags con timestamp/calidad, una alarma y una vista; no todo el catálogo.",
+      "priority_band": "Ruta principal"
+    },
+    "4b002eead60f161092429d0ab4e9fb2770b889914b6a67146e47422cb648304c": {
+      "rank": 30,
+      "phase": "P4",
+      "study_slice_minutes": 60,
+      "study_slice": "Mapear cliente, servidor, espacio de nombres, permisos y suscripciones del laboratorio.",
+      "rationale": "Te da vocabulario para diagnosticar por separado conexión, autenticación, calidad del tag y estructura del dato en Ignition.",
+      "priority_band": "Ruta principal"
+    },
+    "826bab972ee9e604dad4b6286665a79be0480cbbde8f18484e5f9a76ae7b43a9": {
+      "rank": 31,
+      "phase": "P4",
+      "study_slice_minutes": 90,
+      "study_slice": "Repasar IP, conectividad y diagnóstico útil para el servidor de práctica.",
+      "rationale": "Antes de comprometerte con CCNA, cubre la base necesaria para distinguir un problema de red de uno de la app o del servidor OPC.",
+      "priority_band": "Ruta principal"
+    },
+    "013a66fa9aff854ff7d42d7f0b937f13c0c71ef00445a00d5ae1b2a191ed8503": {
+      "rank": 32,
+      "phase": "P4",
+      "study_slice_minutes": 60,
+      "study_slice": "Leer arquitectura y riesgos OT, y documentar tres controles del laboratorio.",
+      "rationale": "Conecta tu formación en ciberseguridad con decisiones sobre sistemas y datos industriales.",
+      "priority_band": "Ruta principal"
+    },
+    "42fcce727223afcb6c362526cdf97b909b922ae744ed006696d86f63d6696a9e": {
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Relacionar los temas actuales del taller con los cinco dominios y escribir una evidencia de control; no duplicar el taller con otro curso completo.",
+      "rationale": "Alinea tu participación en ISACA, experiencia de auditoría web y estudios de sistemas/proyectos. No da por obtenido CISA ni por satisfechos sus requisitos de experiencia.",
+      "priority_band": "Exploración posterior",
+      "rank": 33
+    },
+    "c4fd9016cd1587080cb9e096bf59098432785645aad9f5655247809d9471c8dc": {
+      "rank": 34,
+      "phase": "Después",
+      "study_slice_minutes": 60,
+      "study_slice": "Explorar pub/sub, QoS y retained messages antes de elegir un segundo protocolo.",
+      "rationale": "Complementa redes y automatización al estudiar cómo circulan datos de sensores en entornos IoT/IIoT.",
+      "priority_band": "Exploración posterior"
+    },
+    "37702dc9a7b9441e1586a6679dea29e968da5cceae78333201e5294941e531a7": {
+      "rank": 35,
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Montar un flujo pequeño de eventos sintéticos con salida de depuración.",
+      "rationale": "Entrada práctica a integrar fuentes externas con lógica visual para prototipos de Factory Enablement.",
+      "priority_band": "Exploración posterior"
+    },
+    "9d9493f357575bd0eb3ba41f6022043ee94472e24481faccd362ae0f2fae6574": {
+      "rank": 36,
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "Dibujar el flujo de eventos y riesgos; implementar sólo si el laboratorio principal ya está listo.",
+      "rationale": "Alternativa complementaria para visualizar mensajería OT/IT. No sustituye el laboratorio principal de Ignition/OPC UA ni debe duplicar sus 16 horas.",
+      "priority_band": "Exploración posterior"
+    },
+    "35d5ec6188109795fef107f6195ddaa837a6504656932ff3be0c2a705f2fd2c8": {
+      "rank": 37,
+      "phase": "P5",
+      "study_slice_minutes": 45,
+      "study_slice": "Ubicar control, operaciones y empresa en un diagrama de una página.",
+      "rationale": "Es el mapa conceptual para situar ERP, MES y control sin confundir una herramienta con todo el proceso de operación.",
+      "priority_band": "Ruta principal"
+    },
+    "66686a80a6c1af015eb7d783296b36f03c36a91ebed22934dab48ec0640c4f85": {
+      "phase": "Transversal",
+      "study_slice_minutes": 90,
+      "study_slice": "Modelar solicitud, aprobación y cierre de un ticket o evento; comparar el proceso actual con una mejora y validar una excepción.",
+      "rationale": "Se apoya en tu experiencia con SIPOC, RACI, SDLC y process mapping. Te ayuda a definir dónde una app automatiza un paso y dónde queda una decisión humana.",
+      "priority_band": "Aplicación transversal",
+      "rank": 38
+    },
+    "283726df9044f02efc9747b3a7451376423027784d5699ccdabec2705cb83738": {
+      "rank": 39,
+      "phase": "P5",
+      "study_slice_minutes": 120,
+      "study_slice": "Asignar cinco datos a su sistema responsable y dibujar sus intercambios.",
+      "rationale": "Aprovecha tu concentración en sistemas de información y tu minor de proyectos para entender la operación completa sin intentar dominar cinco plataformas.",
+      "priority_band": "Ruta principal"
+    },
+    "bb98e2252e4fd58eb6523c44325b375a27986e3913ec283b6f88773d1194882b": {
+      "rank": 40,
+      "phase": "P5",
+      "study_slice_minutes": 60,
+      "study_slice": "Comparar tres ideas de IA por valor, riesgo y esfuerzo, con criterio para aceptar o rechazar.",
+      "rationale": "Tu fase 5 compara ideas por valor, riesgo y esfuerzo. Úsalo para decidir si una función de IA merece entrar en el piloto y cómo comprobarla.",
+      "priority_band": "Ruta principal"
+    },
+    "6c204ba6241177833cc68820512abdf1e6aff26aa4fde4e604789e06566d43d5": {
+      "rank": 41,
+      "phase": "Transversal",
+      "study_slice_minutes": 60,
+      "study_slice": "Revisar importación de documentos, salida del modelo, permisos y consumo de tu app.",
+      "rationale": "Aplica directamente a importar documentos y hacer research en tus apps: el contenido externo es dato; una propuesta de IA necesita validación antes de escribir en la base.",
+      "priority_band": "Aplicación transversal"
+    },
+    "39367256c0e6eed69b49524399e0da71f073d6fefbe6e2d7aa2ad16c1e205090": {
+      "rank": 42,
+      "phase": "P6",
+      "study_slice_minutes": 180,
+      "study_slice": "Preparar README, tests, demo con fallo controlado y entrega del mismo piloto.",
+      "rationale": "Une desarrollo, análisis de negocio y gestión de proyectos. Aporta evidencia demostrable para entrevistas y una entrega mantenible.",
+      "priority_band": "Ruta principal"
+    },
+    "4353b727b8e1f88d8e5bcf4a589972b9055f107cf151a759da77ed32af844c89": {
+      "rank": 43,
+      "phase": "Después",
+      "study_slice_minutes": 60,
+      "study_slice": "Identificar una tarea repetitiva y estudiar un flujo sencillo antes de licenciar conectores.",
+      "rationale": "Se relaciona con tu experiencia en procesos de negocio y con reducir tareas repetitivas de operaciones.",
+      "priority_band": "Exploración posterior"
+    },
+    "edad22b3acbb775bb345dcee5a9051d762f2eb4257be8e3999459c9a55f0e05d": {
+      "phase": "Transversal",
+      "study_slice_minutes": 90,
+      "study_slice": "Automatizar formato y validación de una tabla ficticia, y comprobar que una segunda ejecución no duplica datos.",
+      "rationale": "Añade automatización comprobable a tu Excel avanzado y experiencia de reportes. Puede resolver tareas reales de oficina sin construir una app nueva.",
+      "priority_band": "Aplicación transversal",
+      "rank": 44
+    },
+    "35ee5041d5e033e967114a238fd979abed213cc06ad1a6fcfb59a4bcd581300f": {
+      "rank": 45,
+      "phase": "P6 opcional",
+      "study_slice_minutes": 90,
+      "study_slice": "Reproducir el entorno sólo si facilita la entrega; un entorno virtual documentado también sirve.",
+      "rationale": "Puede hacer reproducibles tus herramientas de análisis y laboratorios locales.",
+      "priority_band": "Ruta principal"
+    },
+    "2cdbc329c377e57a3fef165dad7b33d23b9598644f5e232a2089e66ccab5c8ea": {
+      "rank": 46,
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "Crear una API mínima con validación y un test, sin reescribir la app existente.",
+      "rationale": "Es una extensión útil cuando una app o integración industrial necesite un backend separado. No hace falta reescribir Learning Atlas para practicarlo.",
+      "priority_band": "Exploración posterior"
+    },
+    "d7116f3dceadfd5d8c8ba66b4d32176591f29fac314eaf64fa325573c283543b": {
+      "rank": 47,
+      "phase": "P6",
+      "study_slice_minutes": 60,
+      "study_slice": "Entender el workflow actual y añadir un caso de regresión a la ejecución automática.",
+      "rationale": "Ya viste por qué un push verde importa. Practica impedir que un cambio generado por IA se publique con contratos o pruebas rotos.",
+      "priority_band": "Ruta principal"
+    },
+    "feacb19bf575b4e8fb5fe2f1e1c367432c9453e269a2c49642ca8249e532da4f": {
+      "rank": 48,
+      "phase": "Después",
+      "study_slice_minutes": 60,
+      "study_slice": "Revisar objetivos y contrastarlos con Networking Basics antes de elegir preparación o examen.",
+      "rationale": "Base para entender la conectividad entre equipos, aplicaciones y redes de operaciones; no sustituye formación específica en OT.",
+      "priority_band": "Exploración posterior"
+    },
+    "8ecb8fd3ad5c693244b85b75c88fbdab5e025c65d7950895065d224b2700e623": {
+      "rank": 49,
+      "phase": "Después",
+      "study_slice_minutes": 60,
+      "study_slice": "Comparar requisitos con tu base de SQL y Power BI; no abrir otra certificación durante el piloto.",
+      "rationale": "Especialización posterior para ingeniería de datos en Fabric. La guía anuncia objetivos efectivos el 19 de octubre de 2026, un día después de esta revisión; confirma esa versión al prepararte.",
+      "priority_band": "Exploración posterior"
+    },
+    "a575cc66d5fdff7c91cbce17f40eb6f2ac0a7f3dc6314113a114518b3fef832d": {
+      "phase": "Después",
+      "study_slice_minutes": 60,
+      "study_slice": "Mapear objetivos frente a lo que ya practicas en Power BI. Elegir DP-600 o DP-700 según el trabajo que quieras hacer; no preparar ambas automáticamente.",
+      "rationale": "Tu experiencia en dashboards y DAX puede orientar más hacia analítica que hacia ingeniería de datos. Compara DP-600 con DP-700 ya en el catálogo antes de elegir una especialización.",
+      "priority_band": "Exploración posterior",
+      "rank": 50
+    },
+    "00829eb7bb978102e7935eb35e9072079318f119779c1757d42c43a2ff290f57": {
+      "phase": "Después",
+      "study_slice_minutes": 120,
+      "study_slice": "Revisar el programa y ejecutar un ejemplo local de ingesta. Elegir una cohorte o modalidad posterior; nueve semanas no equivale a un número fijo de horas.",
+      "rationale": "Otra opción importante pospuesta: da continuidad a Python/SQL y tu interés por construir sistemas. Reservarla para después del piloto evita abrir dos rutas extensas simultáneamente.",
+      "priority_band": "Exploración posterior",
+      "rank": 51
+    },
+    "e3b855f95c39f8b0bae54a0fefe053a1a1d5a6680f7a6688b7d843131a24edfb": {
+      "rank": 52,
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Leer un servidor mínimo y anotar qué fundamentos de C necesitas reforzar antes de compilar.",
+      "rationale": "Conecta tu curiosidad de bajo nivel con una tecnología de planta. Déjalo después de las bases de C e Ignition; no es requisito del piloto.",
+      "priority_band": "Exploración posterior"
+    },
+    "d7ec1836f9bcf15a873a43a1f7a98721212087a31dfec423e016f3723006a844": {
+      "rank": 53,
+      "phase": "Después",
+      "study_slice_minutes": 45,
+      "study_slice": "Elegir una sola materia de fundamentos que cubra una brecha detectada.",
+      "rationale": "Mapa comunitario de fundamentos para explorar a largo plazo. Selecciona una materia cuando detectes una brecha; no cabe el programa completo en tu ruta de 96 horas.",
+      "priority_band": "Exploración posterior"
+    },
+    "38823f231ae4bc07910c87fcceeed01de09f369a0f4a3d356959c8868b8e71f7": {
+      "rank": 54,
+      "phase": "Después",
+      "study_slice_minutes": 90,
+      "study_slice": "Explorar el primer proyecto para decidir si profundizar en la relación hardware-software.",
+      "rationale": "Responde a tu interés de bajo nivel conectando hardware y software. Es una exploración posterior, no un requisito previo para crear apps ni completar Factory Enablement.",
+      "priority_band": "Exploración posterior"
+    },
+    "766bc9d6c0c853fd7b02506b52376c2c162dc4b5cead4ca4ce7ac00b336c3cfb": {
+      "phase": "Transversal",
+      "study_slice_minutes": 90,
+      "study_slice": "En 90 min, escribir un recorrido de login y alta con datos ficticios. Comprobar que falla ante un error deliberado y pasa después de corregirlo.",
+      "rationale": "Encaja con tu interés por construir apps con IA y comprobar que los cambios funcionan. Añade evidencia observable antes de publicar una mejora de Learning Atlas u otro proyecto.",
+      "priority_band": "Aplicación transversal",
+      "rank": 14
+    }
+  },
   "opportunities": [
+    {
+      "title": "Learning Pack — Python verificable: de un CSV a un resultado confiable",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Mini proyecto personal: validar un CSV de eventos sintéticos y producir un resumen acompañado de pruebas y README.",
+      "reason": "Es el primer entregable de tu plan. La IA puede ayudarte a explicar errores y proponer tests; tú debes poder justificar cada regla.",
+      "area": "Programación",
+      "tags": [
+        "Programación",
+        "Python",
+        "Validación de datos",
+        "unittest",
+        "Git"
+      ],
+      "topics": [
+        "Requisitos y casos de aceptación",
+        "Lectura CSV con DictReader",
+        "Funciones pequeñas",
+        "Errores y datos inválidos",
+        "Seis casos de prueba",
+        "README y commits"
+      ],
+      "skills": [
+        "Python",
+        "Validación de datos",
+        "unittest",
+        "Git"
+      ],
+      "language": "en/es",
+      "level": "intermediate",
+      "prerequisites": "Funciones y condiciones básicas. Usar datos sintéticos, no información de una empresa.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lecturas gratuitas; pack diseñado para ti, sin certificación oficial. Herramientas de IA y servicios alojados pueden tener cuotas o costes aparte.",
+      "price_evidence": "Los componentes son documentación pública; no se verificó un precio único para herramientas opcionales.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/csv.html",
+          "title": "CSV en Python",
+          "evidence": "Leer campos y controlar formato sin introducir pandas todavía."
+        },
+        {
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "title": "unittest",
+          "evidence": "Comprobar entradas válidas, campos faltantes, duplicados y otros casos acordados."
+        },
+        {
+          "url": "https://git-scm.com/book/en/v2",
+          "title": "Pro Git",
+          "evidence": "Guardar cambios pequeños y documentar cómo ejecutar el ejercicio."
+        }
+      ],
+      "components": [
+        {
+          "title": "CSV en Python",
+          "url": "https://docs.python.org/3/library/csv.html",
+          "purpose": "Leer campos y controlar formato sin introducir pandas todavía."
+        },
+        {
+          "title": "unittest",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "purpose": "Comprobar entradas válidas, campos faltantes, duplicados y otros casos acordados."
+        },
+        {
+          "title": "Pro Git",
+          "url": "https://git-scm.com/book/en/v2",
+          "purpose": "Guardar cambios pequeños y documentar cómo ejecutar el ejercicio."
+        }
+      ]
+    },
+    {
+      "title": "Learning Pack — Construir una app con IA: del contrato al despliegue",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Ruta práctica diseñada para mejorar una app propia: escribir un contrato corto, implementar una función con IA, probarla y publicarla.",
+      "reason": "Recoge explícitamente lo que disfrutas de Learning Atlas. Permite aprender desarrollo haciendo mejoras útiles y comprobables, no acumulando prompts.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Desarrollo con IA",
+        "Streamlit",
+        "Supabase",
+        "Git"
+      ],
+      "topics": [
+        "Problema y criterios de aceptación",
+        "Modelo de datos y permisos",
+        "Prototipo y formulario",
+        "Cambios pequeños con IA",
+        "Revisión de diff",
+        "Tests de éxito y fallo",
+        "Secretos y publicación",
+        "Verificación después del despliegue"
+      ],
+      "skills": [
+        "Desarrollo con IA",
+        "Streamlit",
+        "Supabase",
+        "Git",
+        "Pruebas",
+        "Despliegue"
+      ],
+      "language": "en/es",
+      "level": "intermediate",
+      "prerequisites": "Python y Git básicos. Elegir una sola mejora de una app existente; los recursos usan Copilot como ejemplo, sin exigir ese proveedor.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lecturas gratuitas; pack diseñado para ti, sin certificación oficial. Herramientas de IA y servicios alojados pueden tener cuotas o costes aparte.",
+      "price_evidence": "Los componentes son documentación pública; no se verificó un precio único para herramientas opcionales.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/copilot/tutorials/copilot-cookbook/refactor-code",
+          "title": "Refactorizar con IA",
+          "evidence": "Pedir un cambio acotado, leer el diff y explicar la lógica antes de aceptarla."
+        },
+        {
+          "url": "https://docs.streamlit.io/develop/tutorials",
+          "title": "Tutoriales Streamlit",
+          "evidence": "Crear el formulario y su comportamiento, incluida la validación."
+        },
+        {
+          "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+          "title": "Supabase RLS",
+          "evidence": "Diseñar permisos y probar qué puede leer o editar cada usuario."
+        },
+        {
+          "url": "https://docs.pytest.org/en/stable/getting-started.html",
+          "title": "Pruebas con pytest",
+          "evidence": "Escribir casos observables de éxito, fallo y regresión."
+        },
+        {
+          "url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app",
+          "title": "Publicación de Streamlit",
+          "evidence": "Revisar dependencias, secretos y el resultado publicado."
+        }
+      ],
+      "components": [
+        {
+          "title": "Refactorizar con IA",
+          "url": "https://docs.github.com/en/copilot/tutorials/copilot-cookbook/refactor-code",
+          "purpose": "Pedir un cambio acotado, leer el diff y explicar la lógica antes de aceptarla."
+        },
+        {
+          "title": "Tutoriales Streamlit",
+          "url": "https://docs.streamlit.io/develop/tutorials",
+          "purpose": "Crear el formulario y su comportamiento, incluida la validación."
+        },
+        {
+          "title": "Supabase RLS",
+          "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+          "purpose": "Diseñar permisos y probar qué puede leer o editar cada usuario."
+        },
+        {
+          "title": "Pruebas con pytest",
+          "url": "https://docs.pytest.org/en/stable/getting-started.html",
+          "purpose": "Escribir casos observables de éxito, fallo y regresión."
+        },
+        {
+          "title": "Publicación de Streamlit",
+          "url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app",
+          "purpose": "Revisar dependencias, secretos y el resultado publicado."
+        }
+      ]
+    },
+    {
+      "title": "Exercism — Python Track",
+      "kind": "course",
+      "provider": "Exercism",
+      "url": "https://exercism.org/tracks/python",
+      "description": "Track comunitario gratuito con ejercicios, análisis de soluciones y mentoría. La página consultada enumera 146 ejercicios y 17 conceptos.",
+      "reason": "Tu fase inicial ya contempla 13 ejercicios. Practica explicando tus decisiones y leyendo los tests; no necesitas completar todo el track ahora.",
+      "area": "Programación",
+      "tags": [
+        "Programación",
+        "Python",
+        "Resolución de problemas",
+        "Pruebas"
+      ],
+      "topics": [
+        "Funciones y argumentos",
+        "Condicionales y lógica",
+        "Cadenas y colecciones",
+        "Iteraciones",
+        "Resolución de ejercicios",
+        "Tests y revisión de soluciones"
+      ],
+      "skills": [
+        "Python",
+        "Resolución de problemas",
+        "Pruebas"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Instalar Python; disposición a practicar funciones y condiciones.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Track gratuito, incluida la mentoría comunitaria; su disponibilidad depende de la comunidad.",
+      "price_evidence": "La plataforma presenta su práctica y mentoría como gratuitas.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://exercism.org/tracks/python",
+          "title": "Exercism — Python Track",
+          "evidence": "Track comunitario gratuito con ejercicios, análisis de soluciones y mentoría. La página consultada enumera 146 ejercicios y 17 conceptos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "The Python Tutorial",
+      "kind": "resource",
+      "provider": "Python Software Foundation",
+      "url": "https://docs.python.org/3/tutorial",
+      "description": "Tutorial oficial para adquirir soltura con el lenguaje y su biblioteca estándar.",
+      "reason": "Sirve de referencia al construir scripts para limpiar archivos y automatizar tareas de operaciones.",
+      "area": "Programación",
+      "tags": [
+        "Python",
+        "software",
+        "automatización"
+      ],
+      "topics": [
+        "Control de flujo y funciones",
+        "Estructuras de datos",
+        "Módulos",
+        "Entrada y salida",
+        "Excepciones",
+        "Clases",
+        "Biblioteca estándar",
+        "Entornos virtuales"
+      ],
+      "skills": [
+        "Python",
+        "Funciones",
+        "Manejo de archivos",
+        "Depuración"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Pensado para quienes ya conocen conceptos básicos de programación.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial",
+          "title": "The Python Tutorial",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Pro Git — fundamentos y ramas",
+      "kind": "resource",
+      "provider": "Pro Git / comunidad Git",
+      "url": "https://git-scm.com/book/en/v2",
+      "description": "Libro abierto de referencia sobre Git. Para esta ruta bastan los capítulos iniciales y el trabajo con ramas.",
+      "reason": "Te permite entender qué acepta una herramienta de IA, recuperar una versión funcional y publicar cambios pequeños en tus apps.",
+      "area": "Desarrollo de software",
+      "tags": [
+        "Desarrollo de software",
+        "Git",
+        "Control de versiones",
+        "Revisión de cambios"
+      ],
+      "topics": [
+        "Repositorio y área de preparación",
+        "Commits y diferencias",
+        "Historial y deshacer cambios",
+        "Remotos",
+        "Ramas y fusiones",
+        "Colaboración"
+      ],
+      "skills": [
+        "Git",
+        "Control de versiones",
+        "Revisión de cambios"
+      ],
+      "language": "en/es",
+      "level": "introductory",
+      "prerequisites": "Uso básico de archivos y terminal.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lectura web gratuita; el libro se distribuye con licencia Creative Commons. Traducción al español enlazada en el sitio.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://git-scm.com/book/en/v2",
+          "title": "Pro Git — fundamentos y ramas",
+          "evidence": "Libro abierto de referencia sobre Git. Para esta ruta bastan los capítulos iniciales y el trabajo con ramas."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "GitHub Skills — Introduction to GitHub",
+      "kind": "lab",
+      "provider": "GitHub",
+      "url": "https://github.com/skills/introduction-to-github",
+      "description": "Ejercicio guiado para crear una rama, un commit y un pull request que se integra al repositorio.",
+      "reason": "Refuerza el mismo flujo que usas para publicar cambios de Learning Atlas y conservar evidencia de proyectos.",
+      "area": "Herramientas de desarrollo",
+      "tags": [
+        "Git",
+        "software",
+        "automatización"
+      ],
+      "topics": [
+        "Repositorios",
+        "Ramas",
+        "Commits",
+        "Pull requests",
+        "Merge",
+        "README en Markdown"
+      ],
+      "skills": [
+        "GitHub",
+        "Control de versiones",
+        "Pull requests"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": 60,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Ejercicio público. El proveedor estima menos de una hora; se usa 60 min como límite orientativo. En repositorios privados pueden consumirse minutos de Actions.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://github.com/skills/introduction-to-github",
+          "title": "GitHub Skills — Introduction to GitHub",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "The Scrum Guide — producto, objetivos e incrementos",
+      "kind": "resource",
+      "provider": "Ken Schwaber y Jeff Sutherland",
+      "url": "https://scrumguides.org/scrum-guide.html",
+      "description": "Guía oficial de Scrum de 2020 para entender responsabilidades, eventos, artefactos y sus compromisos.",
+      "reason": "Extiende tus fundamentos Agile/Scrum y liderazgo de equipos. Ayuda a ordenar mejoras de tus apps por valor y a definir qué significa que un cambio esté terminado.",
+      "area": "Gestión de producto y proyectos",
+      "tags": [
+        "Gestión de producto y proyectos",
+        "Scrum",
+        "Gestión de producto",
+        "Priorización",
+        "Criterios de aceptación"
+      ],
+      "topics": [
+        "Empirismo y valores",
+        "Responsabilidades de Scrum",
+        "Product Goal y Product Backlog",
+        "Sprint Goal y Sprint Backlog",
+        "Incremento y Definition of Done",
+        "Planificación, revisión y retrospectiva"
+      ],
+      "skills": [
+        "Scrum",
+        "Gestión de producto",
+        "Priorización",
+        "Criterios de aceptación"
+      ],
+      "language": "en/es",
+      "level": "introductory",
+      "prerequisites": "Experiencia básica con un proyecto. Una práctica individual puede tomar ideas de la guía sin presentarse como un Scrum Team completo.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Guía y traducciones oficiales gratuitas. No incluye un examen o certificación Scrum.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://scrumguides.org/scrum-guide.html",
+          "title": "The Scrum Guide — producto, objetivos e incrementos",
+          "evidence": "Guía oficial de Scrum de 2020 para entender responsabilidades, eventos, artefactos y sus compromisos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Streamlit — tutoriales para apps de datos",
+      "kind": "course",
+      "provider": "Streamlit",
+      "url": "https://docs.streamlit.io/develop/tutorials",
+      "description": "Tutoriales oficiales para construir interfaces de datos y experiencias conversacionales, acompañados de la guía de publicación.",
+      "reason": "Es tu tecnología actual. Usa una mejora real de Learning Atlas como práctica: formulario, validación, persistencia y prueba de interacción.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Streamlit",
+        "Python",
+        "Diseño de interfaces",
+        "Despliegue"
+      ],
+      "topics": [
+        "Widgets y entradas",
+        "Estado de sesión",
+        "Formularios",
+        "Manejo de datos",
+        "Apps conversacionales",
+        "Dependencias y secretos",
+        "Publicación desde GitHub"
+      ],
+      "skills": [
+        "Streamlit",
+        "Python",
+        "Diseño de interfaces",
+        "Despliegue"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Python básico; conocer la diferencia entre sesión de navegador y datos persistentes.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Tutoriales gratuitos. El alojamiento y las APIs tienen condiciones propias; no se presupone consumo ilimitado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.streamlit.io/develop/tutorials",
+          "title": "Streamlit tutorials",
+          "evidence": "Tutoriales de apps de datos y chat."
+        },
+        {
+          "url": "https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app",
+          "title": "Deploy your app",
+          "evidence": "Organización de archivos, dependencias, secretos y despliegue."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Supabase — Auth, PostgreSQL y Row Level Security",
+      "kind": "resource",
+      "provider": "Supabase",
+      "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+      "description": "Guías oficiales para distinguir identificación del usuario, permisos SQL y políticas de acceso por fila.",
+      "reason": "Refuerza la parte crítica de tus apps personales: poder publicar la interfaz manteniendo tus datos privados y verificando el aislamiento.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Supabase",
+        "PostgreSQL",
+        "RLS",
+        "Autenticación"
+      ],
+      "topics": [
+        "Autenticación y sesiones",
+        "Usuarios y JWT",
+        "Permisos de tablas",
+        "Políticas RLS por propietario",
+        "Roles anon y authenticated",
+        "Pruebas de acceso permitido y denegado",
+        "Protección de vistas y claves administrativas"
+      ],
+      "skills": [
+        "Supabase",
+        "PostgreSQL",
+        "RLS",
+        "Autenticación",
+        "Pruebas de seguridad"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "SQL básico y nociones de relaciones entre tablas.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación gratuita; uso del proyecto sujeto al plan y cuotas de Supabase.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://supabase.com/docs/guides/database/postgres/row-level-security",
+          "title": "Supabase RLS",
+          "evidence": "Las políticas y los permisos se verifican por separado; incluye ejemplos y pruebas."
+        },
+        {
+          "url": "https://supabase.com/docs/guides/auth",
+          "title": "Supabase Auth",
+          "evidence": "Usuarios, sesiones y métodos de autenticación."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Desarrollo asistido por IA — revisar y refactorizar código",
+      "kind": "resource",
+      "provider": "GitHub",
+      "url": "https://docs.github.com/en/copilot/tutorials/copilot-cookbook/refactor-code",
+      "description": "Guías de GitHub Copilot sobre refactorización y límites de las sugerencias. Sirven de referencia práctica para trabajar con asistentes de código.",
+      "reason": "Tu interés es construir apps con apoyo de IA. La habilidad transferible es especificar, inspeccionar y comprobar un cambio; no exige cambiar tu asistente actual.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Desarrollo con IA",
+        "Refactorización",
+        "Revisión de código",
+        "Pruebas"
+      ],
+      "topics": [
+        "Contexto y alcance del cambio",
+        "Legibilidad y mantenimiento",
+        "Separación de acceso a datos",
+        "Refactorización incremental",
+        "Revisión de sugerencias",
+        "Tests generados y límites",
+        "Coincidencias con código público"
+      ],
+      "skills": [
+        "Desarrollo con IA",
+        "Refactorización",
+        "Revisión de código",
+        "Pruebas"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Leer funciones de Python y entender un diff de Git.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Guías públicas gratuitas. El asistente puede requerir un plan o cuota; no es necesario contratar Copilot para aplicar la práctica.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/copilot/tutorials/copilot-cookbook/refactor-code",
+          "title": "Copilot cookbook: refactor code",
+          "evidence": "Legibilidad, rendimiento, patrones y separación de acceso a datos."
+        },
+        {
+          "url": "https://docs.github.com/en/copilot/responsible-use/inline-suggestions",
+          "title": "Copilot inline suggestions: application card",
+          "evidence": "Limitaciones, revisión humana y comprobación de tests sugeridos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Proyecto — Mesa de ayuda con Django, HTMX y PostgreSQL",
+      "kind": "project",
+      "provider": "Learning Atlas · Django y HTMX",
+      "url": "https://docs.djangoproject.com/en/stable/intro/tutorial01",
+      "description": "Proyecto personal propuesto: una mesa de ayuda pequeña con Python, HTML servido desde el servidor y actualizaciones parciales. La documentación es oficial; el proyecto y su alcance son propios de Learning Atlas.",
+      "reason": "Aprovecha tu experiencia de IT support y Python. Es mi primera alternativa si quieres ampliar tus apps a formularios, roles y procesos conservando un lenguaje conocido.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Django",
+        "HTMX",
+        "PostgreSQL",
+        "Python",
+        "HTML/CSS"
+      ],
+      "topics": [
+        "Contrato: ticket, estado y responsable",
+        "Modelos y migraciones",
+        "Formularios y validación",
+        "Usuarios, grupos y permisos",
+        "Plantillas HTML y actualizaciones con HTMX",
+        "Pruebas de acceso y transición de estados",
+        "Despliegue y secretos",
+        "Aceptación: crear, asignar y cerrar un ticket sin perder el historial"
+      ],
+      "skills": [
+        "Django",
+        "HTMX",
+        "PostgreSQL",
+        "Python",
+        "HTML/CSS",
+        "Pruebas"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Funciones y clases de Python, HTML/CSS, SQL y Git. Practicar con tickets ficticios; usar versiones compatibles de Django y Python.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación y frameworks abiertos gratuitos. El ejercicio local no exige suscripción; hosting, base administrada y asistente de IA pueden tener coste.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.djangoproject.com/en/stable/intro/tutorial01",
+          "title": "Django: primera app",
+          "evidence": "Proyecto, rutas y vistas; tutorial enlazado a modelos, formularios y tests."
+        },
+        {
+          "url": "https://docs.djangoproject.com/en/stable/topics/auth/default",
+          "title": "Django authentication",
+          "evidence": "Usuarios, permisos, grupos y sesiones."
+        },
+        {
+          "url": "https://htmx.org/docs",
+          "title": "HTMX documentation",
+          "evidence": "Atributos HTML para solicitudes y sustitución de fragmentos."
+        },
+        {
+          "url": "https://docs.djangoproject.com/en/stable/howto/deployment/checklist",
+          "title": "Django deployment checklist",
+          "evidence": "Configuración de producción, secretos, HTTPS y comprobaciones."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Proyecto — Tracker personal con Next.js, TypeScript y Supabase",
+      "kind": "project",
+      "provider": "Learning Atlas · Next.js y Supabase",
+      "url": "https://nextjs.org/docs/app",
+      "description": "Proyecto personal propuesto: una versión mínima de un tracker con interfaz web personalizada y persistencia. No es una migración requerida de Learning Atlas ni un curso oficial.",
+      "reason": "Mantiene Supabase, que ya conoces, y amplía HTML/CSS hacia React y TypeScript. Lo elegiría cuando tu prioridad sea una interfaz más personalizada y aprender desarrollo web completo.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "RLS"
+      ],
+      "topics": [
+        "Contrato: aprendizaje, progreso y favorito",
+        "Componentes React y tipos TypeScript",
+        "App Router y separación servidor-cliente",
+        "Formularios y validación",
+        "Sesiones SSR y RLS",
+        "Filtros y diseño adaptable",
+        "Prueba del recorrido con Playwright",
+        "Aceptación: guardar datos, cerrar sesión y recuperar sólo los propios"
+      ],
+      "skills": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "RLS",
+        "Playwright"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "HTML/CSS y Git; aprender JavaScript, React básico y tipos antes de delegar cambios grandes a la IA.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación y frameworks gratuitos. Supabase, hosting y herramientas de IA dependen del plan y del consumo; no se presupone un despliegue gratuito ilimitado.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://nextjs.org/docs/app",
+          "title": "Next.js App Router",
+          "evidence": "Documentación actual de rutas, componentes, datos, mutaciones y despliegue."
+        },
+        {
+          "url": "https://react.dev/learn",
+          "title": "React Quick Start",
+          "evidence": "Componentes, props, eventos y estado."
+        },
+        {
+          "url": "https://typescriptlang.org/docs/handbook/intro.html",
+          "title": "TypeScript Handbook",
+          "evidence": "Tipos y conceptos de TypeScript; presupone JavaScript."
+        },
+        {
+          "url": "https://supabase.com/docs/guides/auth/server-side/nextjs",
+          "title": "Supabase Auth para Next.js",
+          "evidence": "Clientes de servidor/navegador y manejo de autenticación SSR."
+        },
+        {
+          "url": "https://playwright.dev/docs/intro",
+          "title": "Playwright",
+          "evidence": "Instalación y pruebas de interacción en navegadores."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Proyecto — Portal de eventos y presupuesto con Blazor y PostgreSQL",
+      "kind": "project",
+      "provider": "Learning Atlas · Microsoft y Npgsql",
+      "url": "https://learn.microsoft.com/en-us/aspnet/core/blazor",
+      "description": "Proyecto personal propuesto: portal pequeño para organizar eventos y comparar presupuesto con gastos. Usa componentes web de .NET y persistencia en PostgreSQL.",
+      "reason": "Activa dos partes de tu résumé poco cubiertas: C# y gestión de eventos/presupuestos como presidente de ACM-BA. Es una alternativa para explorar aplicaciones empresariales con .NET.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "C#",
+        "Blazor",
+        "ASP.NET Core",
+        "EF Core",
+        "PostgreSQL"
+      ],
+      "topics": [
+        "Contrato: evento, gasto y responsable",
+        "Componentes Razor con C#",
+        "Formularios y validación",
+        "Identity y autorización",
+        "EF Core y migraciones",
+        "PostgreSQL mediante Npgsql",
+        "Ciclo de vida de DbContext",
+        "Pruebas de permisos y totales",
+        "Aceptación: presupuesto y gastos concilian con el detalle"
+      ],
+      "skills": [
+        "C#",
+        "Blazor",
+        "ASP.NET Core",
+        "EF Core",
+        "PostgreSQL",
+        "Validación de datos"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "C# y orientación a objetos, SQL, HTML/CSS y Git. Mantener compatibles las versiones de .NET, EF Core y Npgsql.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación y stack abierto gratuitos para práctica local. Hosting, servicios administrados y asistente de IA aparte.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/aspnet/core/blazor",
+          "title": "ASP.NET Core Blazor",
+          "evidence": "Componentes y modelos de renderizado/interactividad con .NET."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/ef/core",
+          "title": "EF Core overview",
+          "evidence": "ORM, consultas, cambios de datos y migraciones."
+        },
+        {
+          "url": "https://npgsql.org/efcore",
+          "title": "Npgsql EF Core provider",
+          "evidence": "Proveedor de PostgreSQL para EF Core."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/aspnet/core/blazor/blazor-ef-core?view=aspnetcore-10.0",
+          "title": "Blazor con EF Core",
+          "evidence": "Ciclo de vida del contexto y uso de fábricas en aplicaciones Blazor."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-10.0",
+          "title": "ASP.NET Core Identity",
+          "evidence": "Usuarios, contraseñas, roles y autenticación."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Proyecto — Pruebas de una app con Playwright",
+      "kind": "project",
+      "provider": "Learning Atlas · Playwright",
+      "url": "https://playwright.dev/docs/intro",
+      "description": "Proyecto personal propuesto: comprobar con un navegador automatizado los recorridos de login, alta, edición y persistencia de una app propia. Basado en la documentación oficial de Playwright.",
+      "reason": "Encaja con tu interés por construir apps con IA y comprobar que los cambios funcionan. Añade evidencia observable antes de publicar una mejora de Learning Atlas u otro proyecto.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Playwright",
+        "Pruebas",
+        "TypeScript",
+        "CI"
+      ],
+      "topics": [
+        "Contrato de los recorridos críticos",
+        "Instalación y configuración de Playwright Test",
+        "Localizadores basados en roles y etiquetas",
+        "Acciones y aserciones con espera automática",
+        "Aislamiento de pruebas y datos de ejemplo",
+        "Casos de éxito y fallo",
+        "Depuración con trazas",
+        "Ejecución en CI",
+        "Aceptación: detectar un fallo introducido y pasar los recorridos después de corregirlo"
+      ],
+      "skills": [
+        "Playwright",
+        "Pruebas end-to-end",
+        "TypeScript",
+        "Depuración",
+        "CI",
+        "Criterios de aceptación"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "JavaScript o TypeScript básico, Git y una app de práctica. Usar datos ficticios y un entorno de pruebas para las operaciones que escriben datos.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación y framework gratuitos. Minutos de CI, alojamiento del entorno de pruebas y asistentes de IA dependen de sus planes.",
+      "price_evidence": "Playwright es un proyecto abierto; sus guías están disponibles públicamente.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://playwright.dev/docs/intro",
+          "title": "Playwright: instalación",
+          "evidence": "Instalación del framework, navegadores y ejecución inicial."
+        },
+        {
+          "url": "https://playwright.dev/docs/writing-tests",
+          "title": "Playwright: escribir pruebas",
+          "evidence": "Acciones, localizadores y aserciones para comprobar comportamientos."
+        },
+        {
+          "url": "https://playwright.dev/docs/best-practices",
+          "title": "Playwright: buenas prácticas",
+          "evidence": "Comportamiento visible, aislamiento y pruebas resistentes a cambios de implementación."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "OWASP ASVS — requisitos verificables para tus apps",
+      "kind": "resource",
+      "provider": "OWASP",
+      "url": "https://owasp.org/projects/asvs",
+      "description": "Estándar abierto de verificación de seguridad de aplicaciones. La página consultada identifica ASVS 5.0.0 como versión estable.",
+      "reason": "Conecta CC y Google Cybersecurity con software que construyes. Complementa OWASP para LLMs con pruebas del login, permisos y datos de una app web común.",
+      "area": "Seguridad de aplicaciones",
+      "tags": [
+        "Seguridad de aplicaciones",
+        "Seguridad web",
+        "Requisitos",
+        "Pruebas de seguridad",
+        "Revisión de código"
+      ],
+      "topics": [
+        "Requisitos de seguridad verificables",
+        "Autenticación y sesiones",
+        "Autorización",
+        "Validación y prevención de inyección",
+        "Protección de datos",
+        "Configuración segura",
+        "Evidencias y pruebas negativas"
+      ],
+      "skills": [
+        "Seguridad web",
+        "Requisitos",
+        "Pruebas de seguridad",
+        "Revisión de código"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "HTTP, autenticación y funcionamiento básico de una app. Seleccionar requisitos aplicables con sus identificadores/versiones.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Estándar y formatos de datos públicos gratuitos. Consultoría y evaluaciones comerciales son servicios aparte.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://owasp.org/projects/asvs",
+          "title": "OWASP ASVS — requisitos verificables para tus apps",
+          "evidence": "Estándar abierto de verificación de seguridad de aplicaciones. La página consultada identifica ASVS 5.0.0 como versión estable."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "WordPress — Block Editor Handbook y primer bloque propio",
+      "kind": "resource",
+      "provider": "WordPress.org",
+      "url": "https://developer.wordpress.org/block-editor",
+      "description": "Manual oficial del editor de bloques y guía para crear un bloque como plugin en un entorno local.",
+      "reason": "Da continuidad a WordPress/WPBakery y tu trabajo de webmaster: pasar de editar páginas a construir un componente mantenible y reutilizable.",
+      "area": "Desarrollo web",
+      "tags": [
+        "Desarrollo web",
+        "WordPress",
+        "JavaScript",
+        "JSX",
+        "Desarrollo de bloques",
+        "HTML/CSS"
+      ],
+      "topics": [
+        "Anatomía de un bloque",
+        "Entorno Node y npm",
+        "create-block y wp-scripts",
+        "JSX y atributos",
+        "Registro y edición del bloque",
+        "Build y prueba local",
+        "Accesibilidad del contenido"
+      ],
+      "skills": [
+        "WordPress",
+        "JavaScript",
+        "JSX",
+        "Desarrollo de bloques",
+        "HTML/CSS"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "WordPress, HTML/CSS y JavaScript básico; nociones de PHP y un sitio local de prueba.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Manual y herramientas abiertas gratuitas; alojamiento y plugins comerciales opcionales aparte.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://developer.wordpress.org/block-editor",
+          "title": "Block Editor Handbook",
+          "evidence": "Guías y APIs para desarrollar y extender bloques."
+        },
+        {
+          "url": "https://developer.wordpress.org/block-editor/getting-started/quick-start-guide",
+          "title": "Primer bloque",
+          "evidence": "Scaffold con create-block, entorno de desarrollo y build."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "pandas — Getting started tutorials",
+      "kind": "resource",
+      "provider": "pandas / NumFOCUS",
+      "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+      "description": "Tutoriales oficiales de manipulación de datos tabulares en Python.",
+      "reason": "Aplicable a transformar registros de producción y preparar conjuntos de datos antes de analizarlos.",
+      "area": "Data & BI",
+      "tags": [
+        "Python",
+        "pandas",
+        "datos",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Tipos de datos tabulares",
+        "Lectura y escritura",
+        "Selección de filas y columnas",
+        "Gráficos",
+        "Columnas derivadas",
+        "Estadísticas",
+        "Reestructuración",
+        "Unión de tablas",
+        "Series temporales",
+        "Texto",
+        "Fechas y zonas horarias",
+        "Valores faltantes y reglas de limpieza"
+      ],
+      "skills": [
+        "pandas",
+        "Preparación de datos",
+        "Agregaciones",
+        "Series temporales"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Python básico.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "title": "pandas — Getting started tutorials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://pandas.pydata.org/docs/user_guide/timeseries.html",
+          "title": "pandas time series",
+          "evidence": "Fechas, índices temporales y zonas horarias."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "seaborn — análisis exploratorio y visualización estadística",
+      "kind": "resource",
+      "provider": "seaborn",
+      "url": "https://seaborn.pydata.org/tutorial.html",
+      "description": "Tutorial oficial de seaborn para explorar distribuciones, relaciones y grupos, con criterios para organizar gráficos y representar incertidumbre.",
+      "reason": "Consolida pandas, Matplotlib y seaborn ya presentes en tu résumé y tu preparación en Data Analytics. Úsalo para explorar anomalías antes de construir KPIs o explicar resultados.",
+      "area": "Análisis de datos",
+      "tags": [
+        "Análisis de datos",
+        "seaborn",
+        "pandas",
+        "Análisis exploratorio",
+        "Visualización de datos",
+        "Interpretación estadística"
+      ],
+      "topics": [
+        "Tipos de gráficos y niveles de figura",
+        "Distribuciones",
+        "Relaciones entre variables",
+        "Comparaciones categóricas",
+        "Estimación e incertidumbre",
+        "Ajustes de regresión",
+        "Grillas y facetas",
+        "Paletas y estilo"
+      ],
+      "skills": [
+        "seaborn",
+        "pandas",
+        "Análisis exploratorio",
+        "Visualización de datos",
+        "Interpretación estadística"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Python, pandas y estadística descriptiva. Una asociación o regresión exploratoria no demuestra causalidad.",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación pública gratuita. Herramientas, alojamiento o certificaciones se cotizan aparte.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://seaborn.pydata.org/tutorial.html",
+          "title": "seaborn — análisis exploratorio y visualización estadística",
+          "evidence": "Tutorial oficial de seaborn para explorar distribuciones, relaciones y grupos, con criterios para organizar gráficos y representar incertidumbre."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "PostgreSQL — Tutorial",
+      "kind": "resource",
+      "provider": "PostgreSQL Global Development Group",
+      "url": "https://postgresql.org/docs/current/tutorial.html",
+      "description": "Introducción práctica a PostgreSQL y al modelo relacional.",
+      "reason": "Refuerza SQL directamente sobre la tecnología de Supabase y facilita consultar datos operativos.",
+      "area": "Bases de datos",
+      "tags": [
+        "SQL",
+        "datos",
+        "sistemas"
+      ],
+      "topics": [
+        "Instalación y arquitectura",
+        "Creación de bases y tablas",
+        "Inserciones y consultas",
+        "Joins",
+        "Agregaciones",
+        "Actualizaciones y borrados",
+        "Vistas",
+        "Claves foráneas",
+        "Transacciones",
+        "Funciones de ventana",
+        "Restricciones e integridad",
+        "Consultas WITH"
+      ],
+      "skills": [
+        "SQL",
+        "PostgreSQL",
+        "Integridad relacional",
+        "Consultas analíticas"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "title": "PostgreSQL — Tutorial",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://postgresql.org/docs/current/tutorial-window.html",
+          "title": "Window functions",
+          "evidence": "Funciones OVER y particiones."
+        },
+        {
+          "url": "https://postgresql.org/docs/current/ddl-constraints.html",
+          "title": "Constraints",
+          "evidence": "Restricciones, claves y validación en PostgreSQL."
+        },
+        {
+          "url": "https://postgresql.org/docs/current/queries-with.html",
+          "title": "WITH queries",
+          "evidence": "Consultas comunes para estructurar SQL."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "dbt Fundamentals — modelos SQL, tests y documentación",
+      "kind": "course",
+      "provider": "dbt Labs",
+      "url": "https://learn.getdbt.com/courses/dbt-fundamentals",
+      "description": "Curso oficial de fundamentos de dbt; la ficha publica una duración aproximada de cinco horas y práctica con modelos y tests.",
+      "reason": "Recupera una opción que habíamos pospuesto: convertir tu SQL y limpieza de datos en transformaciones versionadas y comprobables. Es una continuación después de la base del piloto.",
+      "area": "Ingeniería analítica",
+      "tags": [
+        "Ingeniería analítica",
+        "dbt",
+        "SQL",
+        "Pruebas de datos",
+        "Documentación"
+      ],
+      "topics": [
+        "Ciclo de desarrollo analítico",
+        "Conexión a warehouse y Git",
+        "Modelos SQL",
+        "Sources y dependencias",
+        "Tests",
+        "Documentación",
+        "Despliegue"
+      ],
+      "skills": [
+        "dbt",
+        "SQL",
+        "Pruebas de datos",
+        "Documentación",
+        "Ingeniería analítica"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "SQL, Git y acceso a un entorno compatible con el curso; revisar costes del warehouse antes de usarlo.",
+      "syllabus_scope": "summary",
+      "duration_minutes": 300,
+      "price_kind": "unknown",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "La ficha y vistas previas son públicas; no confirmé el precio completo del curso en esta consulta. El entorno dbt/warehouse tiene condiciones y costes separados.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.getdbt.com/courses/dbt-fundamentals",
+          "title": "dbt Fundamentals",
+          "evidence": "Curso de aproximadamente 5 horas: modelos, fuentes, tests, documentación y despliegue."
+        },
+        {
+          "url": "https://getdbt.com/dbt-learn",
+          "title": "dbt Learn",
+          "evidence": "Catálogo oficial que describe Fundamentals y su duración."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "CS50’s Introduction to Databases with SQL",
+      "kind": "course",
+      "provider": "Harvard / CS50",
+      "url": "https://cs50.harvard.edu/sql",
+      "description": "Curso abierto con siete bloques de contenidos, ejercicios y un proyecto final de bases de datos.",
+      "reason": "Te ayuda a convertir SQL práctico en un proceso de diseño, consulta y optimización con evidencia de proyecto.",
+      "area": "Bases de datos",
+      "tags": [
+        "SQL",
+        "datos",
+        "software"
+      ],
+      "topics": [
+        "Consultas",
+        "Relaciones",
+        "Diseño",
+        "Escritura",
+        "Vistas",
+        "Optimización",
+        "Escalabilidad",
+        "Proyecto final"
+      ],
+      "skills": [
+        "SQL",
+        "Modelado relacional",
+        "Normalización",
+        "Índices",
+        "SQLite"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "OpenCourseWare gratuito. Las opciones verificadas de edX y de crédito académico tienen condiciones independientes; no se confirmó su precio.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://cs50.harvard.edu/sql",
+          "title": "CS50’s Introduction to Databases with SQL",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — De registros operativos a datos utilizables",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Propuesta personal de integración: practicar Python, preparar tablas con pandas y consultarlas en PostgreSQL.",
+      "reason": "Es la fase 2 del mismo piloto: conserva raw, documenta limpieza y compara resultados SQL sin contar retests como unidades nuevas.",
+      "area": "Factory Enablement",
+      "tags": [
+        "Python",
+        "SQL",
+        "datos",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Raw inmutable",
+        "Fechas UTC y zonas ambiguas",
+        "Duplicados, claves y retests",
+        "Transformación reproducible",
+        "Carga idempotente",
+        "Consultas por unidad, equipo y turno"
+      ],
+      "skills": [
+        "Python",
+        "pandas",
+        "SQL",
+        "Validación de datos"
+      ],
+      "language": "en/es",
+      "level": "mixed",
+      "prerequisites": "Python básico y un CSV validado; usar el dataset sintético de la fase 1.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial",
+          "title": "The Python Tutorial",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "title": "pandas — Getting started tutorials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "title": "PostgreSQL — Tutorial",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": [
+        {
+          "title": "The Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial",
+          "purpose": "Repasar únicamente funciones y archivos que necesite tu ejercicio."
+        },
+        {
+          "title": "pandas — Getting started tutorials",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+          "purpose": "Transformar una tabla de registros ficticios y documentar las reglas de limpieza."
+        },
+        {
+          "title": "PostgreSQL — Tutorial",
+          "url": "https://postgresql.org/docs/current/tutorial.html",
+          "purpose": "Cargar el resultado y producir consultas de agregación."
+        }
+      ]
+    },
+    {
+      "title": "Prepare data for analysis with Power BI",
+      "kind": "course",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/training/paths/prepare-data-power-bi",
+      "description": "Ruta oficial de tres módulos: obtener datos, limpiarlos/transformarlos y elegir el marco del modelo. Publica 4 horas y 33 minutos.",
+      "reason": "Convierte tu experiencia en Power Query en reglas reproducibles para el dataset industrial de la fase 3.",
+      "area": "Data & BI",
+      "tags": [
+        "Data & BI",
+        "Power Query",
+        "Power BI",
+        "Calidad de datos"
+      ],
+      "topics": [
+        "Orígenes de datos",
+        "Modos de almacenamiento",
+        "Importación y errores",
+        "Perfilado de datos",
+        "Limpieza y transformaciones",
+        "Combinar consultas",
+        "Lenguaje M",
+        "Import, DirectQuery y modelos compuestos"
+      ],
+      "skills": [
+        "Power Query",
+        "Power BI",
+        "Calidad de datos"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Familiaridad con tablas y Power BI.",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": 273,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Contenido de Microsoft Learn gratuito. Los ejercicios pueden requerir acceso a Power BI; no incluye el examen PL-300.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/training/paths/prepare-data-power-bi",
+          "title": "Prepare data for analysis with Power BI",
+          "evidence": "Ruta oficial de tres módulos: obtener datos, limpiarlos/transformarlos y elegir el marco del modelo. Publica 4 horas y 33 minutos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Power BI — guía de esquema en estrella",
+      "kind": "resource",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/power-bi/guidance/star-schema",
+      "description": "Guía de Microsoft sobre modelos semánticos basados en hechos y dimensiones, con decisiones de diseño y casos especiales.",
+      "reason": "Necesitas separar unidad, intento de prueba, equipo, turno y fecha para que FPY y yield final tengan denominadores correctos.",
+      "area": "Data & BI",
+      "tags": [
+        "Data & BI",
+        "Modelado dimensional",
+        "Power BI",
+        "Diseño de datos"
+      ],
+      "topics": [
+        "Tablas de hechos y dimensiones",
+        "Grano del hecho",
+        "Relaciones y filtrado",
+        "Medidas",
+        "Claves sustitutas",
+        "Dimensiones con distintos roles",
+        "Dimensiones de cambio lento",
+        "Hechos sin medidas"
+      ],
+      "skills": [
+        "Modelado dimensional",
+        "Power BI",
+        "Diseño de datos"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Relaciones entre tablas y nociones de Power BI.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación o lectura pública gratuita. No incluye servicios, infraestructura ni certificado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/power-bi/guidance/star-schema",
+          "title": "Power BI — guía de esquema en estrella",
+          "evidence": "Guía de Microsoft sobre modelos semánticos basados en hechos y dimensiones, con decisiones de diseño y casos especiales."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "DAX 101 — Row context and filter context",
+      "kind": "resource",
+      "provider": "SQLBI",
+      "url": "https://sqlbi.com/articles/row-context-and-filter-context-in-dax",
+      "description": "Artículo de SQLBI que explica los dos contextos centrales de evaluación de DAX.",
+      "reason": "Te ayuda a explicar por qué cambia un KPI al filtrar por turno o equipo, y a detectar medidas que parecen correctas sólo en el total.",
+      "area": "Data & BI",
+      "tags": [
+        "Data & BI",
+        "DAX",
+        "Depuración de medidas",
+        "Modelado semántico"
+      ],
+      "topics": [
+        "Contexto de fila",
+        "Contexto de filtro",
+        "Iteradores",
+        "Propagación por relaciones",
+        "Evaluación de medidas"
+      ],
+      "skills": [
+        "DAX",
+        "Depuración de medidas",
+        "Modelado semántico"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Medidas sencillas de DAX y relaciones en Power BI.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Artículo gratuito. Los cursos comerciales de SQLBI son productos aparte.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://sqlbi.com/articles/row-context-and-filter-context-in-dax",
+          "title": "DAX 101 — Row context and filter context",
+          "evidence": "Artículo de SQLBI que explica los dos contextos centrales de evaluación de DAX."
+        }
+      ],
+      "components": []
+    },
     {
       "title": "Microsoft Power BI Data Analyst — PL-300",
       "kind": "certification",
@@ -45,7 +1997,1217 @@
         {
           "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/pl-300",
           "title": "Microsoft Power BI Data Analyst — PL-300",
-          "evidence": ""
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — KPIs industriales con contratos y reconciliación",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Ejercicio propio de reconciliación: definir denominadores y casos de prueba antes de construir un dashboard industrial.",
+      "reason": "Tu fortaleza de BI gana valor si puedes defender cada cifra. Usa el mismo dataset del piloto; no es otro proyecto que sumar al calendario.",
+      "area": "Métricas industriales",
+      "tags": [
+        "Métricas industriales",
+        "Definición de KPIs",
+        "SQL",
+        "DAX",
+        "OEE"
+      ],
+      "topics": [
+        "Unidad frente a intento",
+        "First pass yield y retrabajo",
+        "Yield final",
+        "Tiempo y downtime",
+        "OEE",
+        "Grano y dimensiones",
+        "Contexto DAX",
+        "Reconciliación de resultados SQL y Power BI"
+      ],
+      "skills": [
+        "Definición de KPIs",
+        "SQL",
+        "DAX",
+        "OEE",
+        "Calidad de datos"
+      ],
+      "language": "en/es",
+      "level": "intermediate",
+      "prerequisites": "Consultas de agregación y medidas DAX sencillas.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lecturas gratuitas; pack diseñado para ti, sin certificación oficial. Herramientas de IA y servicios alojados pueden tener cuotas o costes aparte.",
+      "price_evidence": "Los componentes son documentación pública; no se verificó un precio único para herramientas opcionales.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://asq.org/quality-resources/quality-glossary",
+          "title": "FPY en glosario ASQ",
+          "evidence": "Distinguir el paso correcto a la primera de reprocesos y retests."
+        },
+        {
+          "url": "https://oee.com/calculating-oee",
+          "title": "Cálculo OEE",
+          "evidence": "Separar disponibilidad, rendimiento y calidad con entradas explícitas."
+        },
+        {
+          "url": "https://learn.microsoft.com/power-bi/guidance/star-schema",
+          "title": "Modelo en estrella",
+          "evidence": "Fijar el grano del evento y dimensiones de máquina, turno y fecha."
+        },
+        {
+          "url": "https://sqlbi.com/articles/row-context-and-filter-context-in-dax",
+          "title": "Contextos DAX",
+          "evidence": "Revisar medidas al filtrar y contrastar sus resultados con SQL."
+        }
+      ],
+      "components": [
+        {
+          "title": "FPY en glosario ASQ",
+          "url": "https://asq.org/quality-resources/quality-glossary",
+          "purpose": "Distinguir el paso correcto a la primera de reprocesos y retests."
+        },
+        {
+          "title": "Cálculo OEE",
+          "url": "https://oee.com/calculating-oee",
+          "purpose": "Separar disponibilidad, rendimiento y calidad con entradas explícitas."
+        },
+        {
+          "title": "Modelo en estrella",
+          "url": "https://learn.microsoft.com/power-bi/guidance/star-schema",
+          "purpose": "Fijar el grano del evento y dimensiones de máquina, turno y fecha."
+        },
+        {
+          "title": "Contextos DAX",
+          "url": "https://sqlbi.com/articles/row-context-and-filter-context-in-dax",
+          "purpose": "Revisar medidas al filtrar y contrastar sus resultados con SQL."
+        }
+      ]
+    },
+    {
+      "title": "OEE — cálculo de disponibilidad, rendimiento y calidad",
+      "kind": "resource",
+      "provider": "Vorne / OEE.com",
+      "url": "https://oee.com/calculating-oee",
+      "description": "Guía pública de Vorne con fórmulas y ejemplo de cálculo de OEE.",
+      "reason": "Aporta un contrato verificable para el piloto: fijar qué tiempo cuenta, qué unidad se considera buena y cómo se tratan las pérdidas.",
+      "area": "Métricas industriales",
+      "tags": [
+        "Métricas industriales",
+        "OEE",
+        "Definición de KPIs",
+        "Validación de métricas"
+      ],
+      "topics": [
+        "Tiempo planificado y tiempo operativo",
+        "Disponibilidad",
+        "Ciclo ideal y rendimiento",
+        "Piezas buenas y calidad",
+        "Producto de los tres factores",
+        "Comprobación con un ejemplo"
+      ],
+      "skills": [
+        "OEE",
+        "Definición de KPIs",
+        "Validación de métricas"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Aritmética básica y significado operativo de los datos.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación o lectura pública gratuita. No incluye servicios, infraestructura ni certificado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://oee.com/calculating-oee",
+          "title": "OEE — cálculo de disponibilidad, rendimiento y calidad",
+          "evidence": "Guía pública de Vorne con fórmulas y ejemplo de cálculo de OEE."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Inductive University — Ignition 8.3 Core Training",
+      "kind": "course",
+      "provider": "Inductive Automation",
+      "url": "https://inductiveuniversity.com/courses/ignition/ignition-overview/8.3",
+      "description": "Formación gratuita de Inductive University para Ignition 8.3, con módulos sobre adquisición, visualización y uso de datos industriales.",
+      "reason": "Es el centro de tu fase 4. Acota la práctica a una máquina simulada, tags con timestamp/calidad, una alarma y una vista; no todo el catálogo.",
+      "area": "Automatización industrial",
+      "tags": [
+        "Automatización industrial",
+        "Ignition",
+        "OPC UA",
+        "SCADA",
+        "Perspective"
+      ],
+      "topics": [
+        "Gateway y Designer",
+        "Conexiones OPC UA y bases de datos",
+        "Tags y calidad",
+        "Historiador",
+        "Alarmas",
+        "Perspective: vistas y bindings",
+        "Scripting y consultas SQL",
+        "Seguridad",
+        "Reporting y grupos de transacción"
+      ],
+      "skills": [
+        "Ignition",
+        "OPC UA",
+        "SCADA",
+        "Perspective",
+        "Diagnóstico OT"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "SQL básico, redes IP y disponibilidad de un entorno de práctica autorizado.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Formación de Inductive University gratuita. Credencial de formación distinta de certificaciones comerciales; licencia de Ignition y condiciones de prueba aparte.",
+      "price_evidence": "Inductive University presenta formación gratuita y su propia credencial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://inductiveuniversity.com/courses/ignition/ignition-overview/8.3",
+          "title": "Ignition 8.3 Core Training",
+          "evidence": "Curso gratuito, módulos y credencial de Inductive University."
+        },
+        {
+          "url": "https://docs.inductiveautomation.com/docs/8.3/ignition-modules/perspective",
+          "title": "Perspective 8.3",
+          "evidence": "Vistas, componentes, bindings y sesiones web."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "OPC UA — arquitectura e intercambio de información",
+      "kind": "resource",
+      "provider": "OPC Foundation",
+      "url": "https://opcfoundation.org/about/opc-technologies/opc-ua",
+      "description": "Introducción de OPC Foundation a la arquitectura y servicios de OPC UA, independiente de un fabricante concreto.",
+      "reason": "Te da vocabulario para diagnosticar por separado conexión, autenticación, calidad del tag y estructura del dato en Ignition.",
+      "area": "Automatización industrial",
+      "tags": [
+        "Automatización industrial",
+        "OPC UA",
+        "Modelado de información",
+        "Integración OT/IT"
+      ],
+      "topics": [
+        "Espacio de direcciones",
+        "Modelo de información",
+        "Descubrimiento",
+        "Lectura y escritura",
+        "Suscripciones y eventos",
+        "Métodos",
+        "Client/Server y PubSub",
+        "Certificados, cifrado y permisos"
+      ],
+      "skills": [
+        "OPC UA",
+        "Modelado de información",
+        "Integración OT/IT"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Nociones de redes y cliente/servidor.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación o lectura pública gratuita. No incluye servicios, infraestructura ni certificado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://opcfoundation.org/about/opc-technologies/opc-ua",
+          "title": "OPC UA — arquitectura e intercambio de información",
+          "evidence": "Introducción de OPC Foundation a la arquitectura y servicios de OPC UA, independiente de un fabricante concreto."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Cisco Networking Basics",
+      "kind": "course",
+      "provider": "Cisco Networking Academy",
+      "url": "https://netacad.com/courses/networking-basics",
+      "description": "Curso introductorio de Cisco Networking Academy. La ficha depende de una interfaz dinámica; este resumen no es una transcripción completa de sus módulos.",
+      "reason": "Antes de comprometerte con CCNA, cubre la base necesaria para distinguir un problema de red de uno de la app o del servidor OPC.",
+      "area": "Redes",
+      "tags": [
+        "Redes",
+        "Redes IP",
+        "Diagnóstico de conectividad"
+      ],
+      "topics": [
+        "Fundamentos de conectividad",
+        "Dispositivos y medios de red",
+        "Direccionamiento IP",
+        "Comunicación entre sistemas",
+        "Diagnóstico básico"
+      ],
+      "skills": [
+        "Redes IP",
+        "Diagnóstico de conectividad",
+        "Redes"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Uso básico de una computadora; registro en la plataforma.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "La ficha de Cisco anuncia el curso gratuito. Idioma, acceso y temario detallado deben confirmarse al inscribirte.",
+      "price_evidence": "La ficha pública presenta Networking Basics como free online course.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://netacad.com/courses/networking-basics",
+          "title": "Cisco Networking Basics",
+          "evidence": "Curso introductorio de Cisco Networking Academy. La ficha depende de una interfaz dinámica; este resumen no es una transcripción completa de sus módulos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+      "kind": "resource",
+      "provider": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+      "description": "Referencia de seguridad para sistemas OT y sus requisitos de fiabilidad y seguridad física. La página anuncia un borrador de revisión 4; no es todavía una revisión final.",
+      "reason": "Conecta tu formación en ciberseguridad con decisiones sobre sistemas y datos industriales.",
+      "area": "Ciberseguridad OT",
+      "tags": [
+        "OT",
+        "ciberseguridad",
+        "redes",
+        "sistemas",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Topologías OT",
+        "Amenazas y vulnerabilidades",
+        "Riesgos",
+        "Controles y contramedidas",
+        "Fiabilidad y seguridad física",
+        "Sistemas de control industrial"
+      ],
+      "skills": [
+        "Análisis de riesgos OT",
+        "Arquitectura OT",
+        "Selección de controles"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Publicación pública gratuita. Fecha mostrada: nota de la página; el documento Rev. 3 fue publicado en 2023.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": "2026-09-21",
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "CISA — mapa de dominios para acompañar tu taller",
+      "kind": "certification",
+      "provider": "ISACA",
+      "url": "https://isaca.org/credentialing/cisa/cisa-exam-content-outline",
+      "description": "Temario oficial de cinco dominios del examen CISA, usado como mapa de preparación y seguimiento del taller que ya mencionaste.",
+      "reason": "Alinea tu participación en ISACA, experiencia de auditoría web y estudios de sistemas/proyectos. No da por obtenido CISA ni por satisfechos sus requisitos de experiencia.",
+      "area": "Auditoría y gobierno TI",
+      "tags": [
+        "Auditoría y gobierno TI",
+        "Auditoría TI",
+        "Gobierno TI",
+        "Gestión de riesgos",
+        "Evidencia de controles"
+      ],
+      "topics": [
+        "Proceso de auditoría de sistemas",
+        "Gobierno y gestión de TI",
+        "Adquisición, desarrollo e implementación",
+        "Operaciones y resiliencia",
+        "Protección de activos de información",
+        "Pruebas, muestreo y evidencias",
+        "Comunicación de hallazgos"
+      ],
+      "skills": [
+        "Auditoría TI",
+        "Gobierno TI",
+        "Gestión de riesgos",
+        "Evidencia de controles"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Fundamentos de sistemas, seguridad y procesos. Revisar por separado la elegibilidad de certificación; aprobar un examen no equivale a obtener la credencial.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Temario público gratuito. Examen, preparación, solicitud y mantenimiento pueden tener costes separados; importes no confirmados en esta consulta.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://isaca.org/credentialing/cisa/cisa-exam-content-outline",
+          "title": "CISA — mapa de dominios para acompañar tu taller",
+          "evidence": "Temario oficial de cinco dominios del examen CISA, usado como mapa de preparación y seguimiento del taller que ya mencionaste."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "MQTT Essentials",
+      "kind": "resource",
+      "provider": "HiveMQ",
+      "url": "https://hivemq.com/mqtt",
+      "description": "Guía de mensajería MQTT, sus conceptos y patrones para conectar dispositivos y aplicaciones.",
+      "reason": "Complementa redes y automatización al estudiar cómo circulan datos de sensores en entornos IoT/IIoT.",
+      "area": "Integración industrial",
+      "tags": [
+        "OT",
+        "redes",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Publicación y suscripción",
+        "Clientes y broker",
+        "Topics",
+        "Calidad de servicio",
+        "Sesiones persistentes",
+        "Mensajes retenidos",
+        "Last Will",
+        "Keep Alive",
+        "Seguridad MQTT"
+      ],
+      "skills": [
+        "MQTT",
+        "Mensajería por eventos",
+        "Diseño de topics",
+        "Fiabilidad de comunicación"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Lectura de la guía pública sin coste. Brokers administrados y servicios comerciales se contratan aparte.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://hivemq.com/mqtt",
+          "title": "MQTT Essentials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Node-RED — Tutorials",
+      "kind": "resource",
+      "provider": "OpenJS Foundation / Node-RED",
+      "url": "https://nodered.org/docs/tutorials",
+      "description": "Tutoriales introductorios para construir flujos de datos basados en eventos.",
+      "reason": "Entrada práctica a integrar fuentes externas con lógica visual para prototipos de Factory Enablement.",
+      "area": "Automatización",
+      "tags": [
+        "automatización",
+        "datos",
+        "OT",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Editor de flujos",
+        "Nodos Inject y Debug",
+        "Nodo Function",
+        "Primer flujo",
+        "Datos desde fuentes externas"
+      ],
+      "skills": [
+        "Node-RED",
+        "Integración de datos",
+        "Programación por eventos"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Tutoriales públicos; las ofertas de Academy enlazadas tienen condiciones propias.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://nodered.org/docs/tutorials",
+          "title": "Node-RED — Tutorials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — Primer mapa de integración OT/IT",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Propuesta de laboratorio conceptual: mensajería, flujo de eventos y revisión de riesgos en un entorno local simulado.",
+      "reason": "Alternativa complementaria para visualizar mensajería OT/IT. No sustituye el laboratorio principal de Ignition/OPC UA ni debe duplicar sus 16 horas.",
+      "area": "Factory Enablement",
+      "tags": [
+        "OT",
+        "redes",
+        "automatización",
+        "Factory Enablement"
+      ],
+      "topics": [
+        "Dibujar productor, broker y consumidor",
+        "Elegir topics y entrega de mensajes",
+        "Diseñar un flujo con datos simulados",
+        "Identificar riesgos y controles",
+        "Proyecto: diagrama y demostración local documentada"
+      ],
+      "skills": [
+        "MQTT",
+        "Node-RED",
+        "Análisis de riesgos OT",
+        "Documentación técnica"
+      ],
+      "language": "en/es",
+      "level": "mixed",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://hivemq.com/mqtt",
+          "title": "MQTT Essentials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://nodered.org/docs/tutorials",
+          "title": "Node-RED — Tutorials",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        },
+        {
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": [
+        {
+          "title": "MQTT Essentials",
+          "url": "https://hivemq.com/mqtt",
+          "purpose": "Comprender el intercambio de mensajes y sus garantías."
+        },
+        {
+          "title": "Node-RED — Tutorials",
+          "url": "https://nodered.org/docs/tutorials",
+          "purpose": "Crear un flujo introductorio con entradas simuladas."
+        },
+        {
+          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
+          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+          "purpose": "Anotar riesgos y controles aplicables al diseño; no presentarlo como auditoría."
+        }
+      ]
+    },
+    {
+      "title": "ISA-95 — mapa de integración empresa y manufactura",
+      "kind": "resource",
+      "provider": "ISA",
+      "url": "https://isa.org/standards-and-publications/isa-standards/isa-95-standard",
+      "description": "Panorama público de la familia ISA-95 sobre integración de sistemas empresariales y de control. La página enumera sus partes y modelos.",
+      "reason": "Es el mapa conceptual para situar ERP, MES y control sin confundir una herramienta con todo el proceso de operación.",
+      "area": "Factory Enablement",
+      "tags": [
+        "Factory Enablement",
+        "ISA-95",
+        "Arquitectura OT/IT",
+        "Análisis de procesos"
+      ],
+      "topics": [
+        "Niveles de actividad de manufactura",
+        "Integración empresa-control",
+        "Objetos e información intercambiada",
+        "Manufacturing Operations Management",
+        "Modelos y transacciones",
+        "Límites entre sistemas"
+      ],
+      "skills": [
+        "ISA-95",
+        "Arquitectura OT/IT",
+        "Análisis de procesos"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Vocabulario básico de operaciones y sistemas de información.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "El panorama público es gratuito; el texto completo de las normas es de pago. No hace falta comprarlo para el alcance introductorio propuesto.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://isa.org/standards-and-publications/isa-standards/isa-95-standard",
+          "title": "ISA-95 — mapa de integración empresa y manufactura",
+          "evidence": "Panorama público de la familia ISA-95 sobre integración de sistemas empresariales y de control. La página enumera sus partes y modelos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "BPMN 2.0.2 — modelado de procesos e intercambios",
+      "kind": "resource",
+      "provider": "Object Management Group",
+      "url": "https://omg.org/spec/BPMN/2.0.2/About-BPMN",
+      "description": "Especificación de OMG para representar procesos de negocio. Propongo un subconjunto inicial de notación, no leer la norma completa.",
+      "reason": "Se apoya en tu experiencia con SIPOC, RACI, SDLC y process mapping. Te ayuda a definir dónde una app automatiza un paso y dónde queda una decisión humana.",
+      "area": "Análisis de negocio",
+      "tags": [
+        "Análisis de negocio",
+        "BPMN",
+        "Modelado de procesos",
+        "Requisitos",
+        "Comunicación con stakeholders"
+      ],
+      "topics": [
+        "Eventos, tareas y subprocesos",
+        "Compuertas de decisión y paralelismo",
+        "Flujos de secuencia",
+        "Pools y lanes",
+        "Flujos de mensajes",
+        "Excepciones",
+        "Modelo actual y propuesto"
+      ],
+      "skills": [
+        "BPMN",
+        "Modelado de procesos",
+        "Requisitos",
+        "Comunicación con stakeholders"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Conocer un proceso pequeño y sus participantes. La notación es estable, no una novedad publicada en 2026.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación pública gratuita. Herramientas, alojamiento o certificaciones se cotizan aparte.",
+      "price_evidence": "Material consultable públicamente en la fuente oficial.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://omg.org/spec/BPMN/2.0.2/About-BPMN",
+          "title": "BPMN 2.0.2",
+          "evidence": "Página oficial y documentos normativos de la versión."
+        },
+        {
+          "url": "https://omg.org/spec/BPMN/2.0.2/PDF",
+          "title": "BPMN specification",
+          "evidence": "Definiciones de eventos, actividades, compuertas y flujos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — Mapa de sistemas: MES, ERP, PLM, CMMS y RTLS",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Lecturas de referencia y un entregable propio: dibujar dónde nace cada dato y qué sistema debería ser su fuente de verdad.",
+      "reason": "Aprovecha tu concentración en sistemas de información y tu minor de proyectos para entender la operación completa sin intentar dominar cinco plataformas.",
+      "area": "Factory Enablement",
+      "tags": [
+        "Factory Enablement",
+        "Arquitectura de sistemas",
+        "Análisis de procesos",
+        "Integración OT/IT",
+        "Documentación técnica"
+      ],
+      "topics": [
+        "ERP: órdenes y materiales",
+        "MES: ejecución y trazabilidad",
+        "PLM: producto, revisión y BOM",
+        "CMMS: mantenimiento y órdenes de trabajo",
+        "RTLS: localización de activos",
+        "Responsabilidades e interfaces"
+      ],
+      "skills": [
+        "Arquitectura de sistemas",
+        "Análisis de procesos",
+        "Integración OT/IT",
+        "Documentación técnica"
+      ],
+      "language": "en/es",
+      "level": "intermediate",
+      "prerequisites": "Comprensión básica de procesos. Lecturas de proveedores: comparar funciones, sin interpretar publicidad como recomendación de compra.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lecturas gratuitas; pack diseñado para ti, sin certificación oficial. Herramientas de IA y servicios alojados pueden tener cuotas o costes aparte.",
+      "price_evidence": "Los componentes son documentación pública; no se verificó un precio único para herramientas opcionales.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://isa.org/standards-and-publications/isa-standards/isa-95-standard",
+          "title": "ISA-95",
+          "evidence": "Situar empresa, operaciones y control; usar el panorama público."
+        },
+        {
+          "url": "https://sap.com/resources/what-is-mes",
+          "title": "Qué es MES",
+          "evidence": "Relacionar ejecución y trazabilidad con órdenes del ERP."
+        },
+        {
+          "url": "https://ptc.com/en/technologies/plm",
+          "title": "PLM",
+          "evidence": "Identificar el ciclo de vida del producto y datos de diseño."
+        },
+        {
+          "url": "https://ibm.com/think/topics/what-is-a-cmms",
+          "title": "Qué es CMMS",
+          "evidence": "Distinguir mantenimiento, activos y órdenes de trabajo."
+        },
+        {
+          "url": "https://zebra.com/us/en/products/location-technologies.html",
+          "title": "RTLS",
+          "evidence": "Reconocer qué aporta la ubicación de activos y cuándo no resuelve el problema."
+        }
+      ],
+      "components": [
+        {
+          "title": "ISA-95",
+          "url": "https://isa.org/standards-and-publications/isa-standards/isa-95-standard",
+          "purpose": "Situar empresa, operaciones y control; usar el panorama público."
+        },
+        {
+          "title": "Qué es MES",
+          "url": "https://sap.com/resources/what-is-mes",
+          "purpose": "Relacionar ejecución y trazabilidad con órdenes del ERP."
+        },
+        {
+          "title": "PLM",
+          "url": "https://ptc.com/en/technologies/plm",
+          "purpose": "Identificar el ciclo de vida del producto y datos de diseño."
+        },
+        {
+          "title": "Qué es CMMS",
+          "url": "https://ibm.com/think/topics/what-is-a-cmms",
+          "purpose": "Distinguir mantenimiento, activos y órdenes de trabajo."
+        },
+        {
+          "title": "RTLS",
+          "url": "https://zebra.com/us/en/products/location-technologies.html",
+          "purpose": "Reconocer qué aporta la ubicación de activos y cuándo no resuelve el problema."
+        }
+      ]
+    },
+    {
+      "title": "NIST AI RMF — evaluar un caso de uso de IA",
+      "kind": "resource",
+      "provider": "NIST",
+      "url": "https://nist.gov/itl/ai-risk-management-framework",
+      "description": "Marco público y voluntario de NIST para gestionar riesgos de IA a lo largo del diseño, uso y evaluación.",
+      "reason": "Tu fase 5 compara ideas por valor, riesgo y esfuerzo. Úsalo para decidir si una función de IA merece entrar en el piloto y cómo comprobarla.",
+      "area": "IA aplicada",
+      "tags": [
+        "IA aplicada",
+        "Evaluación de IA",
+        "Análisis de riesgos",
+        "Criterios de aceptación"
+      ],
+      "topics": [
+        "Uso previsto y contexto",
+        "Confiabilidad",
+        "Identificación y evaluación de riesgos",
+        "Gobierno del uso de IA",
+        "Medición y seguimiento",
+        "Documentación de decisiones"
+      ],
+      "skills": [
+        "Evaluación de IA",
+        "Análisis de riesgos",
+        "Criterios de aceptación"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Un caso de uso concreto y una persona responsable de revisarlo.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Marco y recursos públicos gratuitos. No concede una certificación ni acredita cumplimiento.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://nist.gov/itl/ai-risk-management-framework",
+          "title": "NIST AI RMF — evaluar un caso de uso de IA",
+          "evidence": "Marco público y voluntario de NIST para gestionar riesgos de IA a lo largo del diseño, uso y evaluación."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "OWASP Top 10 for LLM Applications — edición 2025",
+      "kind": "resource",
+      "provider": "OWASP GenAI Security Project",
+      "url": "https://genai.owasp.org/llm-top-10",
+      "description": "Lista pública de diez riesgos de aplicaciones con modelos de lenguaje. La edición mostrada en la consulta es la de 2025.",
+      "reason": "Aplica directamente a importar documentos y hacer research en tus apps: el contenido externo es dato; una propuesta de IA necesita validación antes de escribir en la base.",
+      "area": "Apps con IA",
+      "tags": [
+        "Apps con IA",
+        "Seguridad de apps con IA",
+        "Validación de salidas",
+        "Control de permisos",
+        "Límites de consumo"
+      ],
+      "topics": [
+        "Prompt injection",
+        "Divulgación de información sensible",
+        "Cadena de suministro",
+        "Envenenamiento de datos y modelos",
+        "Manejo inadecuado de salidas",
+        "Agencia excesiva",
+        "Filtración del system prompt",
+        "Vectores y embeddings",
+        "Desinformación",
+        "Consumo sin límites"
+      ],
+      "skills": [
+        "Seguridad de apps con IA",
+        "Validación de salidas",
+        "Control de permisos",
+        "Límites de consumo"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Comprender el flujo de una app que llama a una API de IA.",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación o lectura pública gratuita. No incluye servicios, infraestructura ni certificado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://genai.owasp.org/llm-top-10",
+          "title": "OWASP Top 10 for LLM Applications — edición 2025",
+          "evidence": "Lista pública de diez riesgos de aplicaciones con modelos de lenguaje. La edición mostrada en la consulta es la de 2025."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Learning Pack — Piloto reproducible y entrega a otra persona",
+      "kind": "pack",
+      "provider": "Learning Atlas",
+      "url": null,
+      "description": "Cierre del mismo piloto: otra persona debe poder ejecutarlo, entender qué valida y observar un fallo controlado.",
+      "reason": "Une desarrollo, análisis de negocio y gestión de proyectos. Aporta evidencia demostrable para entrevistas y una entrega mantenible.",
+      "area": "Factory Enablement",
+      "tags": [
+        "Factory Enablement",
+        "Documentación técnica",
+        "CI",
+        "Pruebas",
+        "Mejora continua"
+      ],
+      "topics": [
+        "README reproducible",
+        "Dependencias",
+        "Pruebas automáticas",
+        "Configuración y secretos",
+        "Demostración de un fallo",
+        "Ciclo PDCA",
+        "Handoff y límites del piloto"
+      ],
+      "skills": [
+        "Documentación técnica",
+        "CI",
+        "Pruebas",
+        "Mejora continua",
+        "Comunicación técnica"
+      ],
+      "language": "en/es",
+      "level": "intermediate",
+      "prerequisites": "Un piloto pequeño ya funcional. No añadir infraestructura que impida terminarlo.",
+      "syllabus_scope": "custom_pack",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Lecturas gratuitas; pack diseñado para ti, sin certificación oficial. Herramientas de IA y servicios alojados pueden tener cuotas o costes aparte.",
+      "price_evidence": "Los componentes son documentación pública; no se verificó un precio único para herramientas opcionales.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/actions/get-started/quickstart",
+          "title": "GitHub Actions",
+          "evidence": "Ejecutar pruebas con cada cambio y revisar los logs."
+        },
+        {
+          "url": "https://docs.pytest.org/en/stable/getting-started.html",
+          "title": "pytest",
+          "evidence": "Mantener casos de regresión del contrato del piloto."
+        },
+        {
+          "url": "https://lean.org/lexicon-terms/pdca",
+          "title": "PDCA",
+          "evidence": "Explicar el cambio, su medición y la siguiente mejora."
+        },
+        {
+          "url": "https://docs.docker.com/get-started",
+          "title": "Docker Get started",
+          "evidence": "Contenerizar sólo si facilita reproducir el proyecto; no es obligatorio para cerrarlo."
+        }
+      ],
+      "components": [
+        {
+          "title": "GitHub Actions",
+          "url": "https://docs.github.com/en/actions/get-started/quickstart",
+          "purpose": "Ejecutar pruebas con cada cambio y revisar los logs."
+        },
+        {
+          "title": "pytest",
+          "url": "https://docs.pytest.org/en/stable/getting-started.html",
+          "purpose": "Mantener casos de regresión del contrato del piloto."
+        },
+        {
+          "title": "PDCA",
+          "url": "https://lean.org/lexicon-terms/pdca",
+          "purpose": "Explicar el cambio, su medición y la siguiente mejora."
+        },
+        {
+          "title": "Docker Get started",
+          "url": "https://docs.docker.com/get-started",
+          "purpose": "Contenerizar sólo si facilita reproducir el proyecto; no es obligatorio para cerrarlo."
+        }
+      ]
+    },
+    {
+      "title": "Power Automate — Microsoft Learn",
+      "kind": "resource",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
+      "description": "Colección oficial de rutas para automatizar procesos entre aplicaciones y en el escritorio.",
+      "reason": "Se relaciona con tu experiencia en procesos de negocio y con reducir tareas repetitivas de operaciones.",
+      "area": "Automatización",
+      "tags": [
+        "automatización",
+        "Factory Enablement",
+        "software",
+        "datos"
+      ],
+      "topics": [
+        "Flujos entre aplicaciones",
+        "Sincronización de archivos",
+        "Notificaciones",
+        "Recopilación de datos",
+        "Procesos automatizados",
+        "Power Automate para escritorio",
+        "RPA"
+      ],
+      "skills": [
+        "Power Automate",
+        "Diseño de flujos",
+        "RPA",
+        "Automatización de procesos"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Catálogo y lecturas públicas. Licencias, conectores y servicios utilizados en las prácticas pueden tener coste.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
+          "title": "Power Automate — Microsoft Learn",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Office Scripts — automatizar tareas de Excel",
+      "kind": "resource",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel",
+      "description": "Guías de Microsoft para convertir acciones repetidas de Excel en scripts reutilizables y conectarlos con flujos.",
+      "reason": "Añade automatización comprobable a tu Excel avanzado y experiencia de reportes. Puede resolver tareas reales de oficina sin construir una app nueva.",
+      "area": "Automatización de oficina",
+      "tags": [
+        "Automatización de oficina",
+        "Excel",
+        "Office Scripts",
+        "TypeScript",
+        "Power Automate",
+        "Automatización"
+      ],
+      "topics": [
+        "Grabador de acciones",
+        "Editor y lógica de scripts",
+        "Tablas y rangos",
+        "Reutilizar scripts",
+        "Ejecución desde botones",
+        "Integración con Power Automate",
+        "Límites y requisitos de plataforma"
+      ],
+      "skills": [
+        "Excel",
+        "Office Scripts",
+        "TypeScript",
+        "Power Automate",
+        "Automatización"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Excel avanzado y nociones de programación. Confirmar acceso/licencia institucional y permisos del tenant antes de elegir la práctica.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Documentación gratuita. Ejecución sujeta a licencia y configuración de Microsoft 365; Power Automate puede requerir licencias adicionales. No se presupone que tu cuenta educativa tenga acceso.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel",
+          "title": "Office Scripts overview",
+          "evidence": "Grabación, edición, reutilización y conexión a Power Automate."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/dev/scripts/testing/platform-limits",
+          "title": "Requisitos y límites",
+          "evidence": "Plataformas y requisitos de licencia; Power Automate requiere una licencia empresarial de Microsoft 365."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Docker — Get started",
+      "kind": "resource",
+      "provider": "Docker",
+      "url": "https://docs.docker.com/get-started",
+      "description": "Punto de entrada oficial para ejecutar una aplicación en contenedores y construir una imagen.",
+      "reason": "Puede hacer reproducibles tus herramientas de análisis y laboratorios locales.",
+      "area": "Herramientas de desarrollo",
+      "tags": [
+        "software",
+        "sistemas",
+        "automatización"
+      ],
+      "topics": [
+        "Instalación",
+        "Ejecución de contenedores",
+        "Aplicaciones con varios servicios",
+        "Construcción de imágenes",
+        "Publicación en Docker Hub"
+      ],
+      "skills": [
+        "Contenedores",
+        "Docker",
+        "Reproducibilidad"
+      ],
+      "language": "en",
+      "level": "mixed",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Documentación pública. Comprueba licencias de Docker Desktop y cuotas de servicios antes de un uso empresarial.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.docker.com/get-started",
+          "title": "Docker — Get started",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "FastAPI — Tutorial: User Guide",
+      "kind": "course",
+      "provider": "FastAPI",
+      "url": "https://fastapi.tiangolo.com/tutorial",
+      "description": "Tutorial oficial para diseñar APIs Python con tipos, validación y documentación de interfaces.",
+      "reason": "Es una extensión útil cuando una app o integración industrial necesite un backend separado. No hace falta reescribir Learning Atlas para practicarlo.",
+      "area": "Desarrollo de software",
+      "tags": [
+        "Desarrollo de software",
+        "FastAPI",
+        "APIs",
+        "Python",
+        "Validación de datos"
+      ],
+      "topics": [
+        "Parámetros y rutas",
+        "Validación de cuerpos con tipos",
+        "Respuestas y errores",
+        "Dependencias",
+        "Seguridad",
+        "CORS",
+        "Bases de datos",
+        "Pruebas",
+        "Documentación de API"
+      ],
+      "skills": [
+        "FastAPI",
+        "APIs",
+        "Python",
+        "Validación de datos"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "Funciones, tipos y entornos virtuales de Python; HTTP básico.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación o lectura pública gratuita. No incluye servicios, infraestructura ni certificado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://fastapi.tiangolo.com/tutorial",
+          "title": "FastAPI — Tutorial: User Guide",
+          "evidence": "Tutorial oficial para diseñar APIs Python con tipos, validación y documentación de interfaces."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "GitHub Actions — primera automatización de pruebas",
+      "kind": "resource",
+      "provider": "GitHub",
+      "url": "https://docs.github.com/en/actions/get-started/quickstart",
+      "description": "Inicio oficial para crear un workflow y revisar su ejecución en GitHub Actions.",
+      "reason": "Ya viste por qué un push verde importa. Practica impedir que un cambio generado por IA se publique con contratos o pruebas rotos.",
+      "area": "Desarrollo de software",
+      "tags": [
+        "Desarrollo de software",
+        "CI",
+        "GitHub Actions",
+        "Pruebas automáticas"
+      ],
+      "topics": [
+        "Workflow YAML",
+        "Eventos de ejecución",
+        "Jobs y runners",
+        "Pasos y actions",
+        "Lectura de logs",
+        "Comprobación de resultados"
+      ],
+      "skills": [
+        "CI",
+        "GitHub Actions",
+        "Pruebas automáticas"
+      ],
+      "language": "en",
+      "level": "introductory",
+      "prerequisites": "Repositorio GitHub y un comando de tests que funcione localmente.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Documentación gratuita. Los minutos de ejecución y runners dependen del plan y tipo de repositorio; no se asume uso ilimitado.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://docs.github.com/en/actions/get-started/quickstart",
+          "title": "GitHub Actions — primera automatización de pruebas",
+          "evidence": "Inicio oficial para crear un workflow y revisar su ejecución en GitHub Actions."
         }
       ],
       "components": []
@@ -94,560 +3256,7 @@
         {
           "url": "https://cisco.com/site/us/en/learn/training-certifications/certifications/enterprise/ccna/index.html",
           "title": "Cisco Certified Network Associate — CCNA",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "The Python Tutorial",
-      "kind": "resource",
-      "provider": "Python Software Foundation",
-      "url": "https://docs.python.org/3/tutorial",
-      "description": "Tutorial oficial para adquirir soltura con el lenguaje y su biblioteca estándar.",
-      "reason": "Sirve de referencia al construir scripts para limpiar archivos y automatizar tareas de operaciones.",
-      "area": "Programación",
-      "tags": [
-        "Python",
-        "software",
-        "automatización"
-      ],
-      "topics": [
-        "Control de flujo y funciones",
-        "Estructuras de datos",
-        "Módulos",
-        "Entrada y salida",
-        "Excepciones",
-        "Clases",
-        "Biblioteca estándar",
-        "Entornos virtuales"
-      ],
-      "skills": [
-        "Python",
-        "Funciones",
-        "Manejo de archivos",
-        "Depuración"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "Pensado para quienes ya conocen conceptos básicos de programación.",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://docs.python.org/3/tutorial",
-          "title": "The Python Tutorial",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "pandas — Getting started tutorials",
-      "kind": "resource",
-      "provider": "pandas / NumFOCUS",
-      "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
-      "description": "Tutoriales oficiales de manipulación de datos tabulares en Python.",
-      "reason": "Aplicable a transformar registros de producción y preparar conjuntos de datos antes de analizarlos.",
-      "area": "Data & BI",
-      "tags": [
-        "Python",
-        "pandas",
-        "datos",
-        "Factory Enablement"
-      ],
-      "topics": [
-        "Tipos de datos tabulares",
-        "Lectura y escritura",
-        "Selección de filas y columnas",
-        "Gráficos",
-        "Columnas derivadas",
-        "Estadísticas",
-        "Reestructuración",
-        "Unión de tablas",
-        "Series temporales",
-        "Texto"
-      ],
-      "skills": [
-        "pandas",
-        "Preparación de datos",
-        "Agregaciones",
-        "Series temporales"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "Python básico.",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
-          "title": "pandas — Getting started tutorials",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "PostgreSQL — Tutorial",
-      "kind": "resource",
-      "provider": "PostgreSQL Global Development Group",
-      "url": "https://postgresql.org/docs/current/tutorial.html",
-      "description": "Introducción práctica a PostgreSQL y al modelo relacional.",
-      "reason": "Refuerza SQL directamente sobre la tecnología de Supabase y facilita consultar datos operativos.",
-      "area": "Bases de datos",
-      "tags": [
-        "SQL",
-        "datos",
-        "sistemas"
-      ],
-      "topics": [
-        "Instalación y arquitectura",
-        "Creación de bases y tablas",
-        "Inserciones y consultas",
-        "Joins",
-        "Agregaciones",
-        "Actualizaciones y borrados",
-        "Vistas",
-        "Claves foráneas",
-        "Transacciones",
-        "Funciones de ventana"
-      ],
-      "skills": [
-        "SQL",
-        "PostgreSQL",
-        "Integridad relacional",
-        "Consultas analíticas"
-      ],
-      "language": "en",
-      "level": "introductory",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Lectura del material público sin coste. Servicios, equipos y acreditaciones no incluidos.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://postgresql.org/docs/current/tutorial.html",
-          "title": "PostgreSQL — Tutorial",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "CS50’s Introduction to Databases with SQL",
-      "kind": "course",
-      "provider": "Harvard / CS50",
-      "url": "https://cs50.harvard.edu/sql",
-      "description": "Curso abierto con siete bloques de contenidos, ejercicios y un proyecto final de bases de datos.",
-      "reason": "Te ayuda a convertir SQL práctico en un proceso de diseño, consulta y optimización con evidencia de proyecto.",
-      "area": "Bases de datos",
-      "tags": [
-        "SQL",
-        "datos",
-        "software"
-      ],
-      "topics": [
-        "Consultas",
-        "Relaciones",
-        "Diseño",
-        "Escritura",
-        "Vistas",
-        "Optimización",
-        "Escalabilidad",
-        "Proyecto final"
-      ],
-      "skills": [
-        "SQL",
-        "Modelado relacional",
-        "Normalización",
-        "Índices",
-        "SQLite"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "published_outline",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "OpenCourseWare gratuito. Las opciones verificadas de edX y de crédito académico tienen condiciones independientes; no se confirmó su precio.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://cs50.harvard.edu/sql",
-          "title": "CS50’s Introduction to Databases with SQL",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "OSSU — Computer Science curriculum",
-      "kind": "resource",
-      "provider": "Open Source Society University",
-      "url": "https://github.com/ossu/computer-science",
-      "description": "Ruta comunitaria amplia de fundamentos de computación, con cursos enlazados y proyecto final.",
-      "reason": "Úsala como mapa para explorar sistemas y fundamentos; completarla entera excede tu ruta de 8 horas semanales actual.",
-      "area": "Fundamentos de computación",
-      "tags": [
-        "software",
-        "sistemas",
-        "ciberseguridad",
-        "Python"
-      ],
-      "topics": [
-        "Programación",
-        "Matemáticas",
-        "Herramientas de desarrollo",
-        "Sistemas",
-        "Teoría",
-        "Seguridad",
-        "Aplicaciones",
-        "Ética",
-        "Especialización",
-        "Proyecto final"
-      ],
-      "skills": [
-        "Razonamiento computacional",
-        "Diseño de software",
-        "Arquitectura de sistemas"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "Matemáticas de escuela superior para el núcleo; requisitos adicionales por curso.",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "mixed",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "El currículo es público y casi todo el material es gratuito. Algunos proveedores cobran evaluaciones o certificados.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://github.com/ossu/computer-science",
-          "title": "OSSU — Computer Science curriculum",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "Nand to Tetris — Projects",
-      "kind": "course",
-      "provider": "Nand to Tetris",
-      "url": "https://nand2tetris.org/course",
-      "description": "Secuencia de doce proyectos para construir las capas de un computador desde lógica hasta software.",
-      "reason": "Opción de exploración de bajo nivel para comprender qué ocurre debajo de Python y de las herramientas empresariales.",
-      "area": "Fundamentos de computación",
-      "tags": [
-        "sistemas",
-        "software",
-        "low level"
-      ],
-      "topics": [
-        "Lógica booleana",
-        "Aritmética binaria",
-        "Memoria",
-        "Lenguaje máquina",
-        "Arquitectura",
-        "Ensamblador",
-        "Máquina virtual: pila",
-        "Máquina virtual: control",
-        "Lenguaje de alto nivel",
-        "Análisis sintáctico",
-        "Generación de código",
-        "Sistema operativo"
-      ],
-      "skills": [
-        "Lógica digital",
-        "Arquitectura de computadores",
-        "Ensamblador",
-        "Compiladores"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "published_outline",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Guías y diapositivas públicas; libro y certificados de plataformas externas no incluidos.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://nand2tetris.org/course",
-          "title": "Nand to Tetris — Projects",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "Docker — Get started",
-      "kind": "resource",
-      "provider": "Docker",
-      "url": "https://docs.docker.com/get-started",
-      "description": "Punto de entrada oficial para ejecutar una aplicación en contenedores y construir una imagen.",
-      "reason": "Puede hacer reproducibles tus herramientas de análisis y laboratorios locales.",
-      "area": "Herramientas de desarrollo",
-      "tags": [
-        "software",
-        "sistemas",
-        "automatización"
-      ],
-      "topics": [
-        "Instalación",
-        "Ejecución de contenedores",
-        "Aplicaciones con varios servicios",
-        "Construcción de imágenes",
-        "Publicación en Docker Hub"
-      ],
-      "skills": [
-        "Contenedores",
-        "Docker",
-        "Reproducibilidad"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Documentación pública. Comprueba licencias de Docker Desktop y cuotas de servicios antes de un uso empresarial.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://docs.docker.com/get-started",
-          "title": "Docker — Get started",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "Node-RED — Tutorials",
-      "kind": "resource",
-      "provider": "OpenJS Foundation / Node-RED",
-      "url": "https://nodered.org/docs/tutorials",
-      "description": "Tutoriales introductorios para construir flujos de datos basados en eventos.",
-      "reason": "Entrada práctica a integrar fuentes externas con lógica visual para prototipos de Factory Enablement.",
-      "area": "Automatización",
-      "tags": [
-        "automatización",
-        "datos",
-        "OT",
-        "Factory Enablement"
-      ],
-      "topics": [
-        "Editor de flujos",
-        "Nodos Inject y Debug",
-        "Nodo Function",
-        "Primer flujo",
-        "Datos desde fuentes externas"
-      ],
-      "skills": [
-        "Node-RED",
-        "Integración de datos",
-        "Programación por eventos"
-      ],
-      "language": "en",
-      "level": "introductory",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Tutoriales públicos; las ofertas de Academy enlazadas tienen condiciones propias.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://nodered.org/docs/tutorials",
-          "title": "Node-RED — Tutorials",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "MQTT Essentials",
-      "kind": "resource",
-      "provider": "HiveMQ",
-      "url": "https://hivemq.com/mqtt",
-      "description": "Guía de mensajería MQTT, sus conceptos y patrones para conectar dispositivos y aplicaciones.",
-      "reason": "Complementa redes y automatización al estudiar cómo circulan datos de sensores en entornos IoT/IIoT.",
-      "area": "Integración industrial",
-      "tags": [
-        "OT",
-        "redes",
-        "automatización",
-        "Factory Enablement"
-      ],
-      "topics": [
-        "Publicación y suscripción",
-        "Clientes y broker",
-        "Topics",
-        "Calidad de servicio",
-        "Sesiones persistentes",
-        "Mensajes retenidos",
-        "Last Will",
-        "Keep Alive",
-        "Seguridad MQTT"
-      ],
-      "skills": [
-        "MQTT",
-        "Mensajería por eventos",
-        "Diseño de topics",
-        "Fiabilidad de comunicación"
-      ],
-      "language": "en",
-      "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Lectura de la guía pública sin coste. Brokers administrados y servicios comerciales se contratan aparte.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://hivemq.com/mqtt",
-          "title": "MQTT Essentials",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
-      "kind": "resource",
-      "provider": "NIST",
-      "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
-      "description": "Referencia de seguridad para sistemas OT y sus requisitos de fiabilidad y seguridad física. La página anuncia un borrador de revisión 4; no es todavía una revisión final.",
-      "reason": "Conecta tu formación en ciberseguridad con decisiones sobre sistemas y datos industriales.",
-      "area": "Ciberseguridad OT",
-      "tags": [
-        "OT",
-        "ciberseguridad",
-        "redes",
-        "sistemas",
-        "Factory Enablement"
-      ],
-      "topics": [
-        "Topologías OT",
-        "Amenazas y vulnerabilidades",
-        "Riesgos",
-        "Controles y contramedidas",
-        "Fiabilidad y seguridad física",
-        "Sistemas de control industrial"
-      ],
-      "skills": [
-        "Análisis de riesgos OT",
-        "Arquitectura OT",
-        "Selección de controles"
-      ],
-      "language": "en",
-      "level": "intermediate",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": null,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Publicación pública gratuita. Fecha mostrada: nota de la página; el documento Rev. 3 fue publicado en 2023.",
-      "price_evidence": "",
-      "provider_updated_on": "2026-09-21",
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
-          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
-          "evidence": ""
-        }
-      ],
-      "components": []
-    },
-    {
-      "title": "GitHub Skills — Introduction to GitHub",
-      "kind": "lab",
-      "provider": "GitHub",
-      "url": "https://github.com/skills/introduction-to-github",
-      "description": "Ejercicio guiado para crear una rama, un commit y un pull request que se integra al repositorio.",
-      "reason": "Refuerza el mismo flujo que usas para publicar cambios de Learning Atlas y conservar evidencia de proyectos.",
-      "area": "Herramientas de desarrollo",
-      "tags": [
-        "Git",
-        "software",
-        "automatización"
-      ],
-      "topics": [
-        "Repositorios",
-        "Ramas",
-        "Commits",
-        "Pull requests",
-        "Merge",
-        "README en Markdown"
-      ],
-      "skills": [
-        "GitHub",
-        "Control de versiones",
-        "Pull requests"
-      ],
-      "language": "en",
-      "level": "introductory",
-      "prerequisites": "",
-      "syllabus_scope": "summary",
-      "duration_minutes": 60,
-      "price_kind": "free",
-      "price_amount": null,
-      "currency": null,
-      "price_note": "Ejercicio público. El proveedor estima menos de una hora; se usa 60 min como límite orientativo. En repositorios privados pueden consumirse minutos de Actions.",
-      "price_evidence": "",
-      "provider_updated_on": null,
-      "availability": "available",
-      "sources": [
-        {
-          "url": "https://github.com/skills/introduction-to-github",
-          "title": "GitHub Skills — Introduction to GitHub",
-          "evidence": ""
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
         }
       ],
       "components": []
@@ -658,7 +3267,7 @@
       "provider": "Microsoft",
       "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
       "description": "Guía de ingeniería de datos en Fabric. Ya publica objetivos con entrada en vigor el 19 de octubre de 2026; comprueba la versión correspondiente a tu examen.",
-      "reason": "Paso posterior a SQL y Power BI si tu dirección profesional incorpora plataformas de datos y procesamiento continuo.",
+      "reason": "Especialización posterior para ingeniería de datos en Fabric. La guía anuncia objetivos efectivos el 19 de octubre de 2026, un día después de esta revisión; confirma esa versión al prepararte.",
       "area": "Ingeniería de datos",
       "tags": [
         "SQL",
@@ -699,209 +3308,274 @@
         {
           "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700",
           "title": "Microsoft Fabric Data Engineer — DP-700",
-          "evidence": ""
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
         }
       ],
       "components": []
     },
     {
-      "title": "Power Automate — Microsoft Learn",
-      "kind": "resource",
+      "title": "Microsoft Fabric Analytics Engineer — DP-600",
+      "kind": "certification",
       "provider": "Microsoft",
-      "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
-      "description": "Colección oficial de rutas para automatizar procesos entre aplicaciones y en el escritorio.",
-      "reason": "Se relaciona con tu experiencia en procesos de negocio y con reducir tareas repetitivas de operaciones.",
-      "area": "Automatización",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate",
+      "description": "Certificación de Microsoft para soluciones analíticas en Fabric. La página oficial describe competencias, preparación y modalidades del examen.",
+      "reason": "Tu experiencia en dashboards y DAX puede orientar más hacia analítica que hacia ingeniería de datos. Compara DP-600 con DP-700 ya en el catálogo antes de elegir una especialización.",
+      "area": "Data & BI",
       "tags": [
-        "automatización",
-        "Factory Enablement",
-        "software",
-        "datos"
+        "Data & BI",
+        "Microsoft Fabric",
+        "Power BI",
+        "DAX",
+        "SQL",
+        "KQL"
       ],
       "topics": [
-        "Flujos entre aplicaciones",
-        "Sincronización de archivos",
-        "Notificaciones",
-        "Recopilación de datos",
-        "Procesos automatizados",
-        "Power Automate para escritorio",
-        "RPA"
+        "Mantener una solución analítica",
+        "Preparación de datos",
+        "Modelos semánticos",
+        "Consulta y análisis con SQL, KQL y DAX",
+        "Seguridad y gestión analítica"
       ],
       "skills": [
-        "Power Automate",
-        "Diseño de flujos",
-        "RPA",
-        "Automatización de procesos"
+        "Microsoft Fabric",
+        "Power BI",
+        "DAX",
+        "SQL",
+        "KQL",
+        "Modelado semántico"
       ],
       "language": "en",
-      "level": "mixed",
-      "prerequisites": "",
+      "level": "intermediate",
+      "prerequisites": "Experiencia práctica con preparación, modelos y análisis; familiaridad con SQL, DAX y KQL según la ficha oficial.",
+      "syllabus_scope": "summary",
+      "duration_minutes": null,
+      "price_kind": "mixed",
+      "price_amount": null,
+      "currency": null,
+      "price_note": "Recursos de preparación públicos; examen con precio según país o región y uso de Fabric según licencia. Importe no confirmado.",
+      "price_evidence": "",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate",
+          "title": "Microsoft Fabric Analytics Engineer — DP-600",
+          "evidence": "Certificación de Microsoft para soluciones analíticas en Fabric. La página oficial describe competencias, preparación y modalidades del examen."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "Data Engineering Zoomcamp — ruta comunitaria de pipelines",
+      "kind": "course",
+      "provider": "DataTalks.Club",
+      "url": "https://github.com/DataTalksClub/data-engineering-zoomcamp",
+      "description": "Curso comunitario gratuito de nueve semanas con módulos, talleres y proyecto final. El programa publicado combina infraestructura, transformación y procesamiento de datos.",
+      "reason": "Otra opción importante pospuesta: da continuidad a Python/SQL y tu interés por construir sistemas. Reservarla para después del piloto evita abrir dos rutas extensas simultáneamente.",
+      "area": "Ingeniería de datos",
+      "tags": [
+        "Ingeniería de datos",
+        "SQL",
+        "Python",
+        "Orquestación",
+        "Pipelines"
+      ],
+      "topics": [
+        "Docker y PostgreSQL",
+        "Infraestructura con Terraform",
+        "Orquestación con Kestra",
+        "Ingestión y data lakes",
+        "Data warehouse y BigQuery",
+        "Modelado con dbt",
+        "Plataformas de datos",
+        "Batch con Spark",
+        "Streaming con Kafka",
+        "Proyecto integrador"
+      ],
+      "skills": [
+        "Ingeniería de datos",
+        "SQL",
+        "Python",
+        "Orquestación",
+        "Pipelines",
+        "Cloud"
+      ],
+      "language": "en",
+      "level": "intermediate",
+      "prerequisites": "SQL, programación básica y comodidad con terminal. Revisar costes de nube y usar datos ficticios.",
+      "syllabus_scope": "published_outline",
+      "duration_minutes": null,
+      "price_kind": "free",
+      "price_amount": 0.0,
+      "currency": null,
+      "price_note": "Curso y materiales gratuitos. Servicios de nube, créditos agotados o infraestructura pueden generar costes; no asumir que todo el laboratorio es gratuito.",
+      "price_evidence": "El repositorio oficial identifica el curso como gratuito y de nueve semanas.",
+      "provider_updated_on": null,
+      "availability": "available",
+      "sources": [
+        {
+          "url": "https://github.com/DataTalksClub/data-engineering-zoomcamp",
+          "title": "Data Engineering Zoomcamp — ruta comunitaria de pipelines",
+          "evidence": "Curso comunitario gratuito de nueve semanas con módulos, talleres y proyecto final. El programa publicado combina infraestructura, transformación y procesamiento de datos."
+        }
+      ],
+      "components": []
+    },
+    {
+      "title": "open62541 — tutoriales de OPC UA en C",
+      "kind": "resource",
+      "provider": "open62541",
+      "url": "https://open62541.org/doc/master/tutorials.html",
+      "description": "Tutoriales de una implementación abierta de OPC UA en C. El enlace master es documentación de desarrollo y puede cambiar.",
+      "reason": "Conecta tu curiosidad de bajo nivel con una tecnología de planta. Déjalo después de las bases de C e Ignition; no es requisito del piloto.",
+      "area": "Sistemas de bajo nivel",
+      "tags": [
+        "Sistemas de bajo nivel",
+        "C",
+        "OPC UA",
+        "Sistemas embebidos"
+      ],
+      "topics": [
+        "Tipos y variantes",
+        "Servidor mínimo",
+        "Variables y objetos",
+        "Métodos",
+        "Cliente OPC UA",
+        "Monitored items y eventos",
+        "PubSub"
+      ],
+      "skills": [
+        "C",
+        "OPC UA",
+        "Sistemas embebidos"
+      ],
+      "language": "en",
+      "level": "advanced",
+      "prerequisites": "C, compilación, punteros y redes; usar documentación compatible con la versión instalada.",
       "syllabus_scope": "summary",
       "duration_minutes": null,
       "price_kind": "free",
-      "price_amount": null,
+      "price_amount": 0.0,
       "currency": null,
-      "price_note": "Catálogo y lecturas públicas. Licencias, conectores y servicios utilizados en las prácticas pueden tener coste.",
-      "price_evidence": "",
+      "price_note": "Código y documentación abiertos; revisar licencia y requisitos de la versión antes de distribuir un producto.",
+      "price_evidence": "Contenido consultable en la documentación pública.",
       "provider_updated_on": null,
       "availability": "available",
       "sources": [
         {
-          "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate",
-          "title": "Power Automate — Microsoft Learn",
-          "evidence": ""
+          "url": "https://open62541.org/doc/master/tutorials.html",
+          "title": "open62541 — tutoriales de OPC UA en C",
+          "evidence": "Tutoriales de una implementación abierta de OPC UA en C. El enlace master es documentación de desarrollo y puede cambiar."
         }
       ],
       "components": []
     },
     {
-      "title": "Learning Pack — De registros operativos a datos utilizables",
-      "kind": "pack",
-      "provider": "Learning Atlas",
-      "url": null,
-      "description": "Propuesta personal de integración: practicar Python, preparar tablas con pandas y consultarlas en PostgreSQL.",
-      "reason": "Une competencias de tu ruta Factory Enablement en un entregable acotado, sin exigir otro programa completo.",
-      "area": "Factory Enablement",
+      "title": "OSSU — Computer Science curriculum",
+      "kind": "resource",
+      "provider": "Open Source Society University",
+      "url": "https://github.com/ossu/computer-science",
+      "description": "Ruta comunitaria amplia de fundamentos de computación, con cursos enlazados y proyecto final.",
+      "reason": "Mapa comunitario de fundamentos para explorar a largo plazo. Selecciona una materia cuando detectes una brecha; no cabe el programa completo en tu ruta de 96 horas.",
+      "area": "Fundamentos de computación",
       "tags": [
-        "Python",
-        "SQL",
-        "datos",
-        "automatización",
-        "Factory Enablement"
+        "software",
+        "sistemas",
+        "ciberseguridad",
+        "Python"
       ],
       "topics": [
-        "Definir un conjunto de datos ficticios de producción",
-        "Leer y validar registros",
-        "Preparar tablas limpias",
-        "Diseñar y consultar una tabla SQL",
-        "Proyecto: pipeline reproducible con resultados y notas"
+        "Programación",
+        "Matemáticas",
+        "Herramientas de desarrollo",
+        "Sistemas",
+        "Teoría",
+        "Seguridad",
+        "Aplicaciones",
+        "Ética",
+        "Especialización",
+        "Proyecto final"
       ],
       "skills": [
-        "Python",
-        "pandas",
-        "SQL",
-        "Validación de datos"
+        "Razonamiento computacional",
+        "Diseño de software",
+        "Arquitectura de sistemas"
       ],
-      "language": "en/es",
+      "language": "en",
       "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "custom_pack",
+      "prerequisites": "Matemáticas de escuela superior para el núcleo; requisitos adicionales por curso.",
+      "syllabus_scope": "summary",
       "duration_minutes": null,
-      "price_kind": "free",
+      "price_kind": "mixed",
       "price_amount": null,
       "currency": null,
-      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
+      "price_note": "El currículo es público y casi todo el material es gratuito. Algunos proveedores cobran evaluaciones o certificados.",
       "price_evidence": "",
       "provider_updated_on": null,
       "availability": "available",
       "sources": [
         {
-          "url": "https://docs.python.org/3/tutorial",
-          "title": "The Python Tutorial",
-          "evidence": ""
-        },
-        {
-          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
-          "title": "pandas — Getting started tutorials",
-          "evidence": ""
-        },
-        {
-          "url": "https://postgresql.org/docs/current/tutorial.html",
-          "title": "PostgreSQL — Tutorial",
-          "evidence": ""
+          "url": "https://github.com/ossu/computer-science",
+          "title": "OSSU — Computer Science curriculum",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
         }
       ],
-      "components": [
-        {
-          "title": "The Python Tutorial",
-          "url": "https://docs.python.org/3/tutorial",
-          "purpose": "Repasar únicamente funciones y archivos que necesite tu ejercicio."
-        },
-        {
-          "title": "pandas — Getting started tutorials",
-          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
-          "purpose": "Transformar una tabla de registros ficticios y documentar las reglas de limpieza."
-        },
-        {
-          "title": "PostgreSQL — Tutorial",
-          "url": "https://postgresql.org/docs/current/tutorial.html",
-          "purpose": "Cargar el resultado y producir consultas de agregación."
-        }
-      ]
+      "components": []
     },
     {
-      "title": "Learning Pack — Primer mapa de integración OT/IT",
-      "kind": "pack",
-      "provider": "Learning Atlas",
-      "url": null,
-      "description": "Propuesta de laboratorio conceptual: mensajería, flujo de eventos y revisión de riesgos en un entorno local simulado.",
-      "reason": "Explora la conexión entre software y operaciones industriales sin necesitar acceso a equipos de una planta.",
-      "area": "Factory Enablement",
+      "title": "Nand to Tetris — Projects",
+      "kind": "course",
+      "provider": "Nand to Tetris",
+      "url": "https://nand2tetris.org/course",
+      "description": "Secuencia de doce proyectos para construir las capas de un computador desde lógica hasta software.",
+      "reason": "Responde a tu interés de bajo nivel conectando hardware y software. Es una exploración posterior, no un requisito previo para crear apps ni completar Factory Enablement.",
+      "area": "Fundamentos de computación",
       "tags": [
-        "OT",
-        "redes",
-        "automatización",
-        "Factory Enablement"
+        "sistemas",
+        "software",
+        "low level"
       ],
       "topics": [
-        "Dibujar productor, broker y consumidor",
-        "Elegir topics y entrega de mensajes",
-        "Diseñar un flujo con datos simulados",
-        "Identificar riesgos y controles",
-        "Proyecto: diagrama y demostración local documentada"
+        "Lógica booleana",
+        "Aritmética binaria",
+        "Memoria",
+        "Lenguaje máquina",
+        "Arquitectura",
+        "Ensamblador",
+        "Máquina virtual: pila",
+        "Máquina virtual: control",
+        "Lenguaje de alto nivel",
+        "Análisis sintáctico",
+        "Generación de código",
+        "Sistema operativo"
       ],
       "skills": [
-        "MQTT",
-        "Node-RED",
-        "Análisis de riesgos OT",
-        "Documentación técnica"
+        "Lógica digital",
+        "Arquitectura de computadores",
+        "Ensamblador",
+        "Compiladores"
       ],
-      "language": "en/es",
+      "language": "en",
       "level": "mixed",
-      "prerequisites": "",
-      "syllabus_scope": "custom_pack",
+      "prerequisites": "Lectura técnica básica; seleccionar los componentes acordes con tu nivel actual.",
+      "syllabus_scope": "published_outline",
       "duration_minutes": null,
       "price_kind": "free",
       "price_amount": null,
       "currency": null,
-      "price_note": "Selección propia de lecturas públicas gratuitas. No incluye certificado, infraestructura ni licencias comerciales.",
-      "price_evidence": "",
+      "price_note": "Guías y diapositivas públicas; libro y certificados de plataformas externas no incluidos.",
+      "price_evidence": "Material público consultado; certificados, licencias o servicios externos pueden tener otras condiciones.",
       "provider_updated_on": null,
       "availability": "available",
       "sources": [
         {
-          "url": "https://hivemq.com/mqtt",
-          "title": "MQTT Essentials",
-          "evidence": ""
-        },
-        {
-          "url": "https://nodered.org/docs/tutorials",
-          "title": "Node-RED — Tutorials",
-          "evidence": ""
-        },
-        {
-          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
-          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
-          "evidence": ""
+          "url": "https://nand2tetris.org/course",
+          "title": "Nand to Tetris — Projects",
+          "evidence": "Fuente primaria del proveedor o proyecto: confirma el recurso y los temas resumidos; no acredita que lo hayas completado."
         }
       ],
-      "components": [
-        {
-          "title": "MQTT Essentials",
-          "url": "https://hivemq.com/mqtt",
-          "purpose": "Comprender el intercambio de mensajes y sus garantías."
-        },
-        {
-          "title": "Node-RED — Tutorials",
-          "url": "https://nodered.org/docs/tutorials",
-          "purpose": "Crear un flujo introductorio con entradas simuladas."
-        },
-        {
-          "title": "NIST SP 800-82 Rev. 3 — Guide to OT Security",
-          "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
-          "purpose": "Anotar riesgos y controles aplicables al diseño; no presentarlo como auditoría."
-        }
-      ]
+      "components": []
     }
-  ]
+  ],
+  "seed_sequence": 4
 }
