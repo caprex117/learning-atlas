@@ -94,3 +94,21 @@ Se verificaron la navegación con iconos y subsecciones, exportación de habilid
 La confirmación de búsqueda se prueba en AppTest: abrir y cancelar no llama al servicio; confirmar llama una vez. Se probaron el presupuesto compartido, reserva de intentos fallidos, intervalo de 21 días, consultas de nombres sin alterar la fecha del catálogo, cero novedades válidas y límites de cinco nuevas/tres existentes.
 
 Revisión visual local con datos ficticios: menú, Dashboard y Abilities. Las llamadas Gemini/Tavily son simuladas en las pruebas; no se consumieron claves reales ni se escribió en Supabase de producción. La publicación y la migración 003 quedan pendientes de ejecutar en las cuentas del usuario.
+
+## Edición de habilidades · 19 de octubre de 2026
+
+Suite final: **175 passed, 1 skipped**, 49,35 segundos. La omisión corresponde a las dos conexiones simultáneas de PostgreSQL real; la suite SQL local utilizó PGlite temporal. Comprobación del paquete: 85 archivos, sin cambios en migraciones.
+
+Se verificaron la conservación del ID, cursos, temas, evidencias, minutos, sesiones y autoevaluaciones al editar; creación o reutilización de área; rechazo atómico de nombres duplicados, campos inválidos y revisiones desactualizadas; y repetición de una solicitud sin duplicados. AppTest cubrió abrir, cancelar, guardar y reabrir el formulario, con selección de un área existente. Su simulador no admite escribir opciones nuevas en el selectbox: la creación de áreas nuevas se verificó mediante el servicio tanto en memoria como en SQL.
+
+Se añadió una aclaración en Focus Plan: los planes pendientes se conservan; las sesiones reales determinan las horas y la racha, independientemente de completar lecciones. No se necesita una migración nueva ni se accedió a la base de producción.
+
+## Revisión final del feedback · 19 de octubre de 2026
+
+Suite final: **189 passed, 1 skipped**, 56,77 segundos. La omisión sigue siendo la prueba de dos conexiones PostgreSQL; las pruebas locales SQL utilizan PGlite desechable. La compilación Python y las comprobaciones del paquete (88 archivos) pasaron. No se modificaron migraciones ni se escribieron datos en Supabase de producción.
+
+Nuevos casos ejecutados tanto en memoria como en SQL: creación y vínculo atómicos desde una fase sin progreso inventado; sustitución de una sesión conservando evidencias, adjuntos, entregables y Focus Plan; recálculo de horas, habilidades y racha sin duplicación; reintento idempotente; entradas inválidas y revisiones desactualizadas rechazadas sin cambios parciales; práctica independiente con nueva área; y filtrado de fases con margen hasta el día siguiente, historial y conservación de la fecha de aceptación.
+
+AppTest verificó crear desde Roadmap, marcar y desmarcar una unidad vinculada a dos fases y verla en My Learning, abrir la ficha por su selector, edición precargada de sesiones con cancelar/guardar, Mostrar finalizadas y mensajes distintos para biblioteca vacía y búsqueda sin resultados. El primer ensayo falló porque el nuevo test de adjuntos omitía cargar el archivo al Storage simulado: se corrigió el fixture y la suite completa pasó.
+
+El recorrido de Python se muestra dentro de Dashboard y se descarga como Markdown. No genera datos. Las cuentas reales, APIs y despliegue no se probaron en esta revisión; no se hizo commit ni push. No se requiere SQL adicional después de la migración 003 ya confirmada por el usuario.

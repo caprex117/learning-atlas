@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import copy
 from datetime import date
-from uuid import uuid4
+from uuid import uuid4, uuid5, NAMESPACE_URL
 from zoneinfo import ZoneInfo
 
 from . import domain
@@ -93,15 +93,21 @@ class LearningService:
             for name in t.skills:
                 b.link("topic_skills", topic_id=tid, skill_id=skill_ids[normalized(name)])
 
-    def create_track(self, draft: TrackDraft, request_id, *, status="planned", favorite=False, priority=3, source_key=None):
+    def create_track(self, draft: TrackDraft, request_id, *, status="planned", favorite=False, priority=3, source_key=None, phase_id=None):
         if status not in {"planned", "active", "paused"} or priority not in range(1, 6):
             raise ValueError("Estado o prioridad no válidos.")
         if source_key and any(t.get("source_key") == source_key for t in self.data["learning_tracks"]):
             raise ValueError("Este recurso ya está en tu biblioteca.")
         b = Batch(self.data)
+        if phase_id:
+            phase = b.find("goal_phases", phase_id)
+            if b.find("learning_goals", phase["goal_id"])["status"] != "active":
+                raise ValueError("Esta ruta está archivada. Usa una versión activa.")
         track, resource = self._draft_track(b, draft, status=status, favorite=favorite, priority=priority, source_key=source_key)
+        if phase_id:
+            b.link("phase_tracks", phase_id=phase_id, track_id=track)
         return self._commit(b, request_id, {"action": "create_track", "draft": draft.model_dump(mode="json"), "status": status,
-                                             "favorite": favorite, "priority": priority, "source_key": source_key}, {"track_id": track, "resource_id": resource})
+                                             "favorite": favorite, "priority": priority, "source_key": source_key, "phase_id": phase_id}, {"track_id": track, "resource_id": resource})
 
     def update_track(self, track_id, fields, request_id):
         allowed = {"title", "status", "favorite", "priority", "target_on", "notes", "official_name", "platform", "issuer", "code", "source_url", "estimated_minutes"}
@@ -191,6 +197,24 @@ class LearningService:
         sid = b.named("skills", name, area_id=area, definition=definition)
         return self._commit(b, request_id, {"action": "add_skill", "name": name, "definition": definition, "area": area_name}, {"skill_id": sid})
 
+    def update_skill(self, skill_id, name, definition, area_name, request_id):
+        from .models import SkillDraft
+        name, area_name = " ".join(name.split()), " ".join(area_name.split())
+        if not name or not area_name:
+            raise ValueError("Escribe el nombre de la habilidad y su área.")
+        if len(area_name) > 180:
+            raise ValueError("El nombre del área no puede superar 180 caracteres.")
+        draft = SkillDraft(name=name, definition=definition)
+        b = Batch(self.data)
+        skill = b.find("skills", skill_id)
+        if any(s["id"] != skill_id and normalized(s["name"]) == normalized(draft.name) for s in b.data["skills"]):
+            raise ValueError("Ya existe otra habilidad con ese nombre. Elige un nombre distinto.")
+        area_id = b.named("areas", area_name)
+        # Keep the identity and all references; only descriptive fields change.
+        b.put("skills", {**skill, "name": draft.name, "definition": draft.definition, "area_id": area_id})
+        return self._commit(b, request_id, {"action": "update_skill", "id": skill_id, "name": draft.name,
+            "definition": draft.definition, "area": area_name}, {"skill_id": skill_id})
+
     def add_learned_topic(self, name, area_name, learned_on, notes, request_id, skill_ids=()):
         learned_on = domain.as_date(learned_on)
         if learned_on > self.current:
@@ -205,11 +229,16 @@ class LearningService:
             b.put("topic_events", {"topic_id": tid, "session_id": None, "occurred_on": learned_on.isoformat(), "event_type": "learned", "rating": None, "notes": notes, "voided": False})
         return self._commit(b, request_id, {"action": "learned", "name": name, "area": area_name, "date": learned_on.isoformat(), "notes": notes, "skills": list(skill_ids)}, {"topic_id": tid})
 
-    def record_session(self, draft: SessionDraft, request_id):
+    def _session(self, b, draft: SessionDraft, *, session_id=None, area_name=None, timezone=None):
         if draft.occurred_on > self.current:
             raise ValueError("No puedes registrar sesiones futuras.")
-        b = Batch(self.data)
-        b.find("areas", draft.area_id)
+        area_id = draft.area_id
+        if area_name is not None:
+            area_name = " ".join(area_name.split())
+            if not area_name or len(area_name) > 180:
+                raise ValueError("Escribe un área de entre 1 y 180 caracteres.")
+            area_id = b.named("areas", area_name)
+        b.find("areas", area_id)
         if draft.track_id:
             b.find("learning_tracks", draft.track_id)
         if draft.phase_id:
@@ -224,8 +253,8 @@ class LearningService:
         block = b.find("plan_blocks", draft.plan_block_id) if draft.plan_block_id else None
         if block and block.get("completed_session_id"):
             raise ValueError("Este bloque ya tiene una sesión registrada.")
-        session = b.put("study_sessions", {"area_id": draft.area_id, "track_id": draft.track_id, "phase_id": draft.phase_id,
-                       "occurred_on": draft.occurred_on.isoformat(), "timezone_at_entry": self.profile["timezone"],
+        session = b.put("study_sessions", {"id": session_id or str(uuid4()), "area_id": area_id, "track_id": draft.track_id, "phase_id": draft.phase_id,
+                       "occurred_on": draft.occurred_on.isoformat(), "timezone_at_entry": timezone or self.profile["timezone"],
                        "duration_minutes": draft.duration_minutes, "activity_type": draft.activity_type, "notes": draft.notes,
                        "voided": False, "void_reason": ""})
         for a in domain.allocate(draft.skill_ids, draft.duration_minutes):
@@ -241,7 +270,43 @@ class LearningService:
                 b.link("evidence_skills", evidence_id=evidence, skill_id=sid)
         if block:
             b.put("plan_blocks", {**block, "completed_session_id": session})
-        return self._commit(b, request_id, {"action": "session", "draft": draft.model_dump(mode="json")}, {"session_id": session})
+        return session
+
+    def record_session(self, draft: SessionDraft, request_id, *, area_name=None):
+        b = Batch(self.data)
+        session = self._session(b, draft, area_name=area_name)
+        return self._commit(b, request_id, {"action": "session", "draft": draft.model_dump(mode="json"), "area_name": area_name}, {"session_id": session})
+
+    def update_session(self, session_id, draft: SessionDraft, reason, request_id, *, area_name=None):
+        """Replace a session atomically, keeping the original and all external references."""
+        if not reason.strip():
+            raise ValueError("Indica brevemente qué estás corrigiendo.")
+        if draft.plan_block_id or draft.evidence_title or draft.evidence_url:
+            raise ValueError("La edición conserva el bloque y los trabajos originales; no crea otros.")
+        b = Batch(self.data)
+        old = b.find("study_sessions", session_id)
+        replacement = str(uuid5(NAMESPACE_URL, "learning-atlas/session-correction/"+str(request_id)))
+        marker = f"Corregida por sesión {replacement}: {reason.strip()}"
+        intent = {"action": "update_session", "id": session_id, "draft": draft.model_dump(mode="json"),
+                  "reason": reason, "area_name": area_name}
+        if old.get("voided"):
+            if old.get("void_reason") == marker and any(s["id"] == replacement for s in b.data["study_sessions"]):
+                # The repository checks the original intent before replaying its receipt.
+                return self._commit(b, request_id, intent)
+            raise ValueError("Esta sesión ya fue anulada o corregida. Abre su registro vigente.")
+        b.put("study_sessions", {**old, "voided": True, "void_reason": marker})
+        for event in b.data["topic_events"][:]:
+            if event.get("session_id") == session_id:
+                b.put("topic_events", {**event, "voided": True})
+        self._session(b, draft, session_id=replacement, area_name=area_name, timezone=old["timezone_at_entry"])
+        for evidence in b.data["learning_evidence"][:]:
+            if evidence.get("session_id") == session_id:
+                b.put("learning_evidence", {**evidence, "session_id": replacement, "track_id": draft.track_id,
+                                           "occurred_on": draft.occurred_on.isoformat()})
+        for block in b.data["plan_blocks"][:]:
+            if block.get("completed_session_id") == session_id:
+                b.put("plan_blocks", {**block, "completed_session_id": replacement})
+        return self._commit(b, request_id, intent, {"session_id": replacement, "replaced_session_id": session_id})
 
     def void_session(self, session_id, reason, request_id):
         if not reason.strip():
@@ -298,7 +363,7 @@ class LearningService:
         m = b.find("milestones", milestone_id)
         if evidence_id:
             b.find("learning_evidence", evidence_id)
-        b.put("milestones", {**m, "accepted_on": self.current.isoformat() if accepted else None, "notes": notes, "evidence_id": evidence_id})
+        b.put("milestones", {**m, "accepted_on": (m.get("accepted_on") or self.current.isoformat()) if accepted else None, "notes": notes, "evidence_id": evidence_id})
         return self._commit(b, request_id, {"action": "milestone", "id": milestone_id, "accepted": accepted, "notes": notes, "evidence": evidence_id})
 
     def save_plan(self, budget, energy, request_id):

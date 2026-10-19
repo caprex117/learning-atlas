@@ -108,7 +108,10 @@ def new_track_fields(prefix="new"):
 
 
 @st.dialog("Un nuevo punto de partida", width="large", on_dismiss=dismiss_dialog)
-def add_track_dialog(service):
+def add_track_dialog(service, phase_id=None):
+    if phase_id:
+        phase = domain.by_id(service.data["goal_phases"])[phase_id]
+        st.info("Se creará en My Learning y quedará vinculado a esta fase: " + phase["title"])
     with st.form("add_track"):
         payload = new_track_fields()
         a, b = st.columns(2)
@@ -119,51 +122,112 @@ def add_track_dialog(service):
     if submitted:
         def create(rid):
             payload["skills"] = [{"name": s["name"], "definition": s.get("definition", "")} for s in service.data["skills"] if s["id"] in skill_ids]
-            return service.create_track(TrackDraft.model_validate(payload), rid, status=status, favorite=favorite)
+            return service.create_track(TrackDraft.model_validate(payload), rid, status=status, favorite=favorite, phase_id=phase_id)
         save_and_refresh("newtrack", create, "Tu aprendizaje ya tiene un lugar.")
 
 
-@st.dialog("Registrar un momento de aprendizaje", width="large", on_dismiss=dismiss_dialog)
-def session_dialog(service, track_id=None, topic_id=None, block=None):
-    data = service.data
-    if not data["areas"]:
-        st.info("Añade primero un aprendizaje o una habilidad para definir un área.")
+@st.dialog("Editar habilidad", width="large", on_dismiss=dismiss_dialog)
+def edit_skill_dialog(service, skill_id):
+    skill = domain.by_id(service.data["skills"]).get(skill_id)
+    if not skill:
+        st.info("Esta habilidad ya no está disponible. Cierra esta ventana y actualiza tus datos.")
         return
+    areas = domain.by_id(service.data["areas"])
+    current_area = areas[skill["area_id"]]["name"]
+    names = sorted((a["name"] for a in areas.values()), key=str.casefold)
+    prefix = "edit_skill_" + skill_id
+    st.caption("Corrige los datos de esta habilidad. Sus cursos, sesiones y autoevaluaciones seguirán vinculados; para una capacidad diferente, añade otra habilidad.")
+    with st.form(prefix):
+        name = st.text_input("Nombre de la habilidad", skill["name"], max_chars=180, key=prefix+"_name")
+        definition = st.text_area("Descripción · qué significa poder hacerlo", skill.get("definition", ""), max_chars=700, key=prefix+"_definition")
+        area = st.selectbox("Área de la habilidad", names, index=names.index(current_area), accept_new_options=True,
+                            key=prefix+"_area", help="Selecciona un área existente o escribe una nueva y pulsa Enter.")
+        st.caption("El área clasifica esta habilidad. Cada sesión conserva el área con la que la registraste.")
+        a, b = st.columns(2)
+        submitted = a.form_submit_button("Guardar cambios", type="primary", width="stretch")
+        cancelled = b.form_submit_button("Cancelar", width="stretch")
+    if cancelled:
+        dismiss_dialog()
+        st.rerun()
+    if submitted:
+        save_and_refresh(prefix, lambda rid: service.update_skill(skill_id, name, definition, area or "", rid),
+                         "Habilidad actualizada. Se conservaron su práctica y sus relaciones.")
+
+
+@st.dialog("Tu sesión de aprendizaje", width="large", on_dismiss=dismiss_dialog)
+def session_dialog(service, track_id=None, topic_id=None, block=None, session_id=None, phase_id=None):
+    data = service.data
+    old = domain.by_id(data["study_sessions"]).get(session_id) if session_id else None
+    if session_id and (not old or old.get("voided")):
+        st.info("Esta sesión ya fue corregida o anulada. Cierra esta ventana y abre el registro vigente.")
+        return
+    prefix = "sess_" + (session_id+"_" if session_id else "")
+    events = [e for e in data["topic_events"] if old and e.get("session_id") == session_id and not e.get("voided")]
+    if old:
+        track_id = old.get("track_id")
+        st.caption("Corrige la sesión sin escribirla de nuevo. La anterior quedará anulada en el historial; se conservarán sus trabajos, adjuntos y vínculo con Focus Plan. Sólo contará el tiempo corregido.")
     if block:
         track_id, topic_id = block.get("track_id"), block.get("topic_id")
         st.caption("Bloque del plan: " + block["title"])
-    tracks = [t for t in data["learning_tracks"] if t["status"] != "archived"]
+    tracks = [t for t in data["learning_tracks"] if t["status"] != "archived" or t["id"] == track_id]
     # Outside the form: changes can update the suggested area and coverage immediately.
-    selected_track = select_record("Aprendizaje asociado", tracks, field="title", optional=True, default=track_id, key="sess_track")
+    selected_track = select_record("Aprendizaje asociado", tracks, field="title", optional=True, default=track_id, key=prefix+"track")
+    st.caption("Selecciona el curso o proyecto en el que trabajaste. ‘Sin asociar’ sirve para práctica independiente o trabajo; esos minutos también cuentan.")
+    show_finished = st.checkbox("Mostrar finalizadas y rutas archivadas", key=prefix+"finished")
+    st.caption("Las fases pendientes y las finalizadas hoy o ayer aparecen por defecto. Activa esta opción para registrar trabajo anterior; no se borra ninguna fase.")
+    phases = domain.session_phases(data, service.current, show_finished=show_finished, keep_id=old.get("phase_id") if old else phase_id)
     track = domain.by_id(tracks).get(selected_track)
     topic = domain.by_id(data["topics"]).get(topic_id)
-    area_default = track["area_id"] if track else topic["area_id"] if topic else None
-    selected_topics = [topic_id] if topic_id else []
-    selected_skills = [l["skill_id"] for l in data["track_skills"] if l["track_id"] == selected_track]
-    selected_skills += [l["skill_id"] for l in data["topic_skills"] if l["topic_id"] == topic_id]
-    with st.form("session_form"):
+    area_default = old["area_id"] if old else track["area_id"] if track else topic["area_id"] if topic else None
+    selected_topics = [e["topic_id"] for e in events] if old else [topic_id] if topic_id else []
+    selected_skills = [l["skill_id"] for l in data["session_skills"] if l["session_id"] == session_id] if old else (
+        [l["skill_id"] for l in data["track_skills"] if l["track_id"] == selected_track] +
+        [l["skill_id"] for l in data["topic_skills"] if l["topic_id"] == topic_id])
+    context = prefix + str(selected_track) + str(topic_id)
+    area_names = {a["name"]: a["id"] for a in data["areas"]}
+    area_label = next((name for name, aid in area_names.items() if aid == area_default), None)
+    with st.form(prefix+"form"):
         a, b, c = st.columns(3)
-        occurred = a.date_input("Fecha", service.current, max_value=service.current)
-        duration = b.number_input("Minutos reales", 1, 1440, block["planned_minutes"] if block else 25, step=1)
-        activity = c.selectbox("Actividad", list(ACTIVITY), index=1 if topic_id else 0, format_func=ACTIVITY.get)
-        area_id = select_record("Área de esta sesión", data["areas"], default=area_default, key="sess_area_"+str(selected_track)+str(topic_id))
-        linked_phases = [r["phase_id"] for r in data["phase_tracks"] if r["track_id"] == selected_track]
-        phase_id = select_record("Fase de la ruta (opcional)", data["goal_phases"], field="title", optional=True,
-                                 default=linked_phases[0] if len(linked_phases)==1 else None, key="sess_phase_"+str(selected_track))
-        topic_ids = multi_records("Temas practicados", data["topics"], default=selected_topics, key="sess_topics_"+str(selected_track)+str(topic_id))
-        skill_ids = multi_records("Habilidades practicadas", data["skills"], default=list(dict.fromkeys(selected_skills)), key="sess_skills_"+str(selected_track)+str(topic_id))
+        occurred = a.date_input("Fecha", domain.as_date(old["occurred_on"]) if old else service.current, max_value=service.current, key=prefix+"date")
+        duration = b.number_input("Minutos reales", 1, 1440, old["duration_minutes"] if old else block["planned_minutes"] if block else 25, step=1, key=prefix+"duration")
+        activity = c.selectbox("Actividad", list(ACTIVITY), index=list(ACTIVITY).index(old["activity_type"]) if old else 1 if topic_id else 0, format_func=ACTIVITY.get, key=prefix+"activity")
+        area_name = st.selectbox("Área de esta sesión", list(area_names), index=list(area_names).index(area_label) if area_label else None,
+                                 accept_new_options=True, key=context+"_area", placeholder="Escoge un área o escribe una nueva…",
+                                 help="Es la categoría de esta práctica, por ejemplo Python o Redes. Para añadir una, escribe el nombre y pulsa Enter.")
+        linked_phases = [r["phase_id"] for r in data["phase_tracks"] if r["track_id"] == selected_track and r["phase_id"] in domain.by_id(phases)]
+        phase_id = select_record("Fase de la ruta (opcional)", phases, field="label", optional=True,
+                                 default=old.get("phase_id") if old else phase_id or (linked_phases[0] if len(linked_phases)==1 else None),
+                                 key=context+"_phase_"+str(show_finished))
+        topic_ids = multi_records("Temas practicados", data["topics"], default=selected_topics, key=context+"_topics")
+        skill_ids = multi_records("Habilidades practicadas", data["skills"], default=list(dict.fromkeys(selected_skills)), key=context+"_skills")
         st.caption("El tiempo se reparte entre las habilidades seleccionadas; nunca se multiplica. Los temas no cuentan como aprendidos automáticamente.")
-        rating = st.selectbox("Cómo lo recordaste · sólo para repaso o práctica", list(RATING), format_func=RATING.get)
-        notes = st.text_area("Qué hiciste o descubriste", key="sess_notes")
-        evidence_title = st.text_input("Entregable / evidencia (opcional)", key="sess_evidence")
-        evidence_url = st.text_input("Enlace a la evidencia (opcional)", key="sess_url")
-        submitted = st.form_submit_button("Guardar sesión", type="primary")
+        rating = st.selectbox("Cómo lo recordaste · sólo para repaso o práctica", list(RATING), format_func=RATING.get,
+                              index=list(RATING).index(events[0].get("rating")) if events else 0, key=prefix+"rating")
+        notes = st.text_area("Qué hiciste o descubriste", value=old.get("notes", "") if old else "", key=prefix+"notes", max_chars=3000)
+        if old:
+            evidence_title, evidence_url = "", None
+            reason = st.text_input("Qué estás corrigiendo", key=prefix+"reason", max_chars=300)
+            st.caption("Los trabajos y sus habilidades asociadas conservan su contenido. Sus enlaces seguirán funcionando, incluso si ya respaldan un entregable de Roadmap.")
+        else:
+            evidence_title = st.text_input("Entregable / evidencia (opcional)", key=prefix+"evidence", max_chars=180)
+            evidence_url = st.text_input("Enlace a la evidencia (opcional)", key=prefix+"url")
+        a, b = st.columns(2)
+        submitted = a.form_submit_button("Guardar corrección" if old else "Guardar sesión", type="primary")
+        cancelled = b.form_submit_button("Cancelar")
+    if cancelled:
+        dismiss_dialog()
+        st.rerun()
     if submitted:
-        save_and_refresh("session", lambda rid: service.record_session(SessionDraft(
-            occurred_on=occurred, duration_minutes=duration, area_id=area_id, track_id=selected_track, phase_id=phase_id,
-            topic_ids=topic_ids, skill_ids=skill_ids, activity_type=activity, rating=rating, notes=notes,
-            evidence_title=evidence_title, evidence_url=evidence_url or None, plan_block_id=block["id"] if block else None), rid),
-            "Sesión registrada. Tus métricas ya incluyen esta práctica.")
+        def save(rid):
+            draft = SessionDraft(occurred_on=occurred, duration_minutes=duration, area_id=area_names.get(area_name, ""),
+                track_id=selected_track, phase_id=phase_id, topic_ids=topic_ids, skill_ids=skill_ids, activity_type=activity,
+                rating=rating, notes=notes, evidence_title=evidence_title, evidence_url=evidence_url or None,
+                plan_block_id=block["id"] if block else None)
+            new_area = None if area_name in area_names else area_name or ""
+            if old:
+                return service.update_session(session_id, draft, reason, rid, area_name=new_area)
+            return service.record_session(draft, rid, area_name=new_area)
+        save_and_refresh(prefix+"save", save, "Sesión corregida; sólo cuenta el registro vigente." if old else "Sesión registrada. Tus métricas ya incluyen esta práctica.")
 
 
 def track_card(service, track, detail=False):
@@ -238,7 +302,8 @@ def track_details(service, track):
             code = st.text_input("Código / examen", track.get("code", ""))
             url = st.text_input("URL", track.get("source_url") or "")
             est = st.number_input("Estimación global en minutos (sin unidades; 0 = desconocida)", 0, 600000, track.get("estimated_minutes") or 0)
-            notes = st.text_area("Notas", track.get("notes", ""))
+            notes = st.text_area("Notas y materiales", track.get("notes", ""),
+                                 help="Guarda un resumen propio y enlaces a tus notas o carpetas de Drive. La app conserva el texto; todavía no abre ni lee automáticamente esas carpetas.")
             if st.form_submit_button("Guardar detalles"):
                 save_and_refresh("edit_"+tid, lambda rid: service.update_track(tid, dict(title=title, status=status, priority=priority,
                     target_on=target.isoformat() if target else None, official_name=official, platform=platform, issuer=issuer, code=code,
@@ -277,6 +342,10 @@ def panorama(service):
 | **Abilities** | Ver qué habilidades cubres, cuáles practicas y de dónde vienen. | Consultar datos: relacionada con el curso y con la sesión registrada. |
 """)
         st.caption("Puedes empezar con un solo curso, sin crear una ruta. Añádelo con ‘Añadir aprendizaje’, desde Learning Radar o mediante Import. Planificar un bloque no registra actividad: después confirmas lo que hiciste. Marcar una lección y registrar minutos son acciones distintas.")
+    with st.expander("Recorrido completo · tu proyecto de Python, paso a paso"):
+        guide = (Path(__file__).resolve().parent.parent / "docs" / "WALKTHROUGH.md").read_text(encoding="utf-8")
+        st.download_button("Descargar este recorrido", guide, "Learning-Atlas-recorrido.md", mime="text/markdown")
+        st.markdown(guide)
     active = [t for t in data["learning_tracks"] if t["status"] == "active"]
     recent = sum(s["duration_minutes"] for s in domain.active_sessions(data) if domain.as_date(s["occurred_on"]) >= service.current-timedelta(days=6))
     learned = [t for t in data["topics"] if domain.review_state(data, t["id"], service.current)]
@@ -313,24 +382,51 @@ def panorama(service):
         st.caption("Tus sesiones mostrarán aquí en qué áreas estás invirtiendo tiempo.")
 
 
+def _open_learning(track_id):
+    st.session_state.learning_search = ""
+    st.session_state.learning_status = None
+    st.session_state.learning_favorites = False
+    st.session_state.learning_selected = track_id
+    navigate("Dashboard", "My Learning")
+
+
+def _route_unit_change(service, unit_id, key):
+    action(key, lambda rid: service.toggle_unit(unit_id, st.session_state[key], rid))
+
+
 def learning(service):
     heading("DASHBOARD · MY LEARNING", "Lo que eliges aprender.", "Aquí están tus cursos, certificaciones y proyectos: pendientes, en curso y terminados. Abre uno para organizar sus lecciones, marcar lo completado y registrar práctica. Los temas que ya comprendiste viven en Garden of Knowledge.")
     st.caption("Cada ficha reúne un aprendizaje y sus lecciones. Puedes añadirlo manualmente, traerlo de Learning Radar o prepararlo en Import. Learning Roadmap te permite agrupar varios de estos aprendizajes en fases hacia una meta.")
     a, b, c = st.columns([2, 1, 1])
-    query = a.text_input("Buscar", placeholder="Python, redes, una plataforma…")
-    state = b.selectbox("Estado", [None]+list(STATUS), format_func=lambda v: "Todos" if v is None else STATUS[v])
-    favorite = c.checkbox("Sólo favoritos")
+    query = a.text_input("Buscar", placeholder="Python, redes, una plataforma…", key="learning_search")
+    state = b.selectbox("Estado", [None]+list(STATUS), format_func=lambda v: "Todos" if v is None else STATUS[v], key="learning_status")
+    favorite = c.checkbox("Sólo favoritos", key="learning_favorites")
     rows = [t for t in service.data["learning_tracks"] if (state is None or t["status"] == state) and (not favorite or t.get("favorite"))
             and query.casefold() in (t["title"]+" "+t.get("platform", "")+" "+t.get("official_name", "")).casefold()]
-    for track in sorted(rows, key=lambda t: (not t.get("favorite"), t["priority"], t["title"])):
+    rows = sorted(rows, key=lambda t: (not t.get("favorite"), t["priority"], t["title"]))
+    if rows:
+        labels = {t["id"]: t["title"] for t in rows}
+        if st.session_state.get("learning_selected") not in labels:
+            st.session_state.learning_selected = None
+        selected = st.selectbox("Abrir un aprendizaje", [None]+list(labels),
+                                format_func=lambda value: "Todos los resultados" if value is None else labels[value], key="learning_selected")
+        if selected:
+            rows = [t for t in rows if t["id"] == selected]
+    for track in rows:
         track_card(service, track, detail=True)
     if not rows:
-        st.info("Aquí aparecerán tus aprendizajes. Usa ‘Añadir aprendizaje’ o importa un documento.")
+        if service.data["learning_tracks"]:
+            st.info("No hay aprendizajes que coincidan con estos filtros. Borra la búsqueda o cambia Estado y Sólo favoritos.")
+        else:
+            st.info("Aún no has añadido cursos o proyectos a tu biblioteca. Tener una ruta con fases no crea automáticamente sus aprendizajes. Puedes crear uno desde esa fase y aparecerá aquí también.")
+            a, b = st.columns(2)
+            a.button("Añadir mi primer aprendizaje", on_click=open_dialog, args=("track",), type="primary")
+            b.button("Ir a Learning Roadmap", on_click=navigate, args=("Learning Roadmap",))
 
 
 def route_page(service):
     heading("LEARNING ROADMAP", "Un plan hacia tu próxima meta.", "Organiza tu objetivo en fases con fechas y resultados concretos. Vincula aprendizajes a cada fase y confirma los entregables que terminaste; el tiempo real se registra en Learning Log.")
-    st.caption("Ejemplo: tu ruta para Factory Enablement puede combinar un curso de Python, otro de SQL y un proyecto. Sus lecciones se siguen en My Learning; aquí decides en qué fase va cada uno y qué resultado quieres conseguir.")
+    st.caption("Tu ruta combina cursos o proyectos hacia una meta. Puedes crearlos desde una fase o vincular los que ya existen. Las lecciones que marques aquí y en My Learning son las mismas: no tienes que completarlas dos veces. El entregable confirma el resultado final de la fase.")
     data = service.data
     if not data["learning_goals"]:
         hero("FACTORY ENABLEMENT", "De Python a un piloto reproducible.", "12 oct 2026 → 3 ene 2027 · 8 h semanales · 88 h de trabajo y 8 h de margen. La ruta se crea sin avances registrados.")
@@ -356,7 +452,28 @@ def route_page(service):
                 linked_ids = {r["track_id"] for r in data["phase_tracks"] if r["phase_id"] == phase["id"]}
                 for learning_track in data["learning_tracks"]:
                     if learning_track["id"] in linked_ids:
-                        st.write("Aprendizaje vinculado: "+learning_track["title"])
+                        p = domain.progress(data, learning_track["id"])
+                        with st.expander("Aprendizaje · " + learning_track["title"]):
+                            st.progress((p["percent"] or 0)/100, text=f"{p['done']}/{p['total']} unidades · {p['percent']}%" if p["percent"] is not None else "Sin unidades definidas")
+                            st.caption("Este avance es el mismo de My Learning. Marcar una lección no registra tiempo ni acepta el entregable de la fase.")
+                            done = {row["unit_id"] for row in data["unit_progress"]}
+                            for unit in domain.track_units(data, learning_track["id"]):
+                                key = "route_unit_"+phase["id"]+learning_track["id"]+unit["id"]
+                                was = unit["id"] in done
+                                # Bind the widget to persisted progress: the same unit can be shown in two phases.
+                                st.session_state[key] = was
+                                st.checkbox(unit["title"] + (" · opcional" if not unit["required"] else ""), key=key,
+                                            disabled=goal["status"] != "active", on_change=_route_unit_change,
+                                            args=(service, unit["id"], key))
+                            a, b = st.columns(2)
+                            a.button("Registrar práctica", key="phase_session_"+phase["id"]+learning_track["id"],
+                                     on_click=open_dialog, args=("session",), kwargs={"track_id": learning_track["id"], "phase_id": phase["id"]})
+                            b.button("Abrir en My Learning", key="phase_open_"+phase["id"]+learning_track["id"],
+                                     on_click=_open_learning, args=(learning_track["id"],))
+                if not linked_ids:
+                    st.caption("Esta fase tiene un resultado previsto, pero todavía no tiene cursos o proyectos vinculados. Crea uno con sus lecciones o elige uno de tu biblioteca.")
+                st.button("Crear aprendizaje para esta fase", key="phase_create_"+phase["id"], disabled=goal["status"] != "active",
+                          on_click=open_dialog, args=("track",), kwargs={"phase_id": phase["id"]})
                 with st.expander("Elegir aprendizajes para esta fase"):
                     with st.form('phase_links_'+phase['id']):
                         labels={t['id']:t['title'] for t in data['learning_tracks']}
@@ -415,8 +532,12 @@ def skills_page(service):
         fig.update_layout(height=max(250, len(frame)*38), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", margin=dict(l=0,r=0,t=10,b=0))
         st.plotly_chart(fig, width="stretch")
     for skill, stats in sorted(allstats, key=lambda x: (-x[1]["minutes"], x[0]["name"])):
-        with st.expander(f"{skill['name']} · {minutes(stats['minutes'])} · {stats['sessions']} sesiones"):
+        details, edit = st.columns([6, 1.2])
+        edit.button("Editar", icon=":material/edit:", key="edit_skill_button_"+skill["id"],
+                    help="Editar habilidad", width="stretch", on_click=open_dialog, args=("skill",), kwargs={"skill_id": skill["id"]})
+        with details.expander(f"{skill['name']} · {minutes(stats['minutes'])} · {stats['sessions']} sesiones"):
             st.write(skill.get("definition", ""))
+            st.caption("Área: " + domain.by_id(data["areas"])[skill["area_id"]]["name"])
             st.caption(f"Cobertura: {len(stats['track_ids'])} aprendizajes · Evidencias: {len(stats['evidence'])}. La cobertura no demuestra dominio.")
             for track in data["learning_tracks"]:
                 if track["id"] in stats["track_ids"]:
@@ -515,14 +636,25 @@ def activity_page(service):
             skillmap = domain.by_id(data["skills"])
             for allocation in linked:
                 st.caption(skillmap[allocation["skill_id"]]["name"] + ": " + minutes(allocation["allocated_minutes"]))
+            st.button("Editar sesión", key="edit_session_"+session["id"], on_click=open_dialog, args=("session",), kwargs={"session_id": session["id"]})
             with st.form("void_"+session["id"]):
-                reason = st.text_input("Motivo de corrección")
-                confirm = st.checkbox("Anular esta sesión; después puedo registrar la correcta")
+                reason = st.text_input("Motivo de anulación")
+                confirm = st.checkbox("Anular porque esta sesión no debe contar; para corregir datos usa Editar sesión")
                 if st.form_submit_button("Anular sesión"):
                     if confirm:
                         save_and_refresh("void_"+session["id"], lambda rid: service.void_session(session["id"], reason, rid), "Sesión anulada. Su tiempo ya no cuenta.")
                     else:
                         st.warning("Marca la confirmación antes de anular.")
+    with st.expander("Historial de correcciones y anulaciones"):
+        old_sessions = [s for s in data["study_sessions"] if s.get("voided") and start <= domain.as_date(s["occurred_on"]) <= end]
+        if not old_sessions:
+            st.caption("No hay correcciones ni anulaciones en este período.")
+        for old in sorted(old_sessions, key=lambda s: s["occurred_on"], reverse=True):
+            st.write(f"{old['occurred_on']} · {minutes(old['duration_minutes'])} · {old.get('notes') or 'Sin notas'}")
+            reason = old.get("void_reason", "")
+            if reason.startswith("Corregida por sesión ") and ": " in reason:
+                reason = "Corregida: " + reason.split(": ", 1)[1]
+            st.caption(reason + " · Estos minutos ya no cuentan.")
     with st.expander("Evidencias y entregables registrados"):
         live_ids = {s["id"] for s in domain.active_sessions(data)}
         for evidence in data["learning_evidence"]:
@@ -551,6 +683,7 @@ def day_page(service):
         if st.form_submit_button("Preparar mi plan",type="primary"):
             save_and_refresh("dayplan",lambda rid:service.save_plan(budget,energy,rid),"Plan listo. Las horas sólo se registran cuando realizas un bloque.")
     st.caption("El plan usa tus prioridades, unidades pendientes y repasos orientativos. Se genera con reglas locales, sin enviar tus datos a una IA.")
+    st.caption("Un plan pendiente no se borra automáticamente. La racha se calcula con los minutos reales registrados: puedes estudiar sin terminar una lección. Marcar una lección en My Learning no registra tiempo.")
     plans=sorted([p for p in service.data["daily_plans"] if p["plan_date"]==service.current.isoformat()],key=lambda p:p.get("created_at",""),reverse=True)
     if not plans:
         hero("HOY PUEDE SER SUFICIENTE", "Una cosa pequeña, bien hecha.", "Ve a Dashboard → My Learning, abre un curso o proyecto, ponlo En curso y añade sus lecciones. También puedes registrar un tema en Garden of Knowledge: aparecerá aquí cuando corresponda repasarlo.")
@@ -843,6 +976,8 @@ def run():
     dialog=st.session_state.get("active_dialog")
     if dialog:
         if dialog["kind"]=="track":
-            add_track_dialog(service)
+            add_track_dialog(service,**dialog["kwargs"])
         elif dialog["kind"]=="session":
             session_dialog(service,**dialog["kwargs"])
+        elif dialog["kind"]=="skill":
+            edit_skill_dialog(service,**dialog["kwargs"])

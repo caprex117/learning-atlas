@@ -33,7 +33,7 @@ Las pruebas con PGlite ejecutan SQL real en PostgreSQL WebAssembly, con Auth y t
 
 ## Fuera de esta versión
 
-OCR, conexiones privadas a plataformas educativas, comprobación externa de certificados, importación automática sin revisión y un modelo validado de memoria. El plan del día usa reglas. Descubrir requiere configurar APIs y workflow para investigar semanalmente; su selección inicial también funciona sin claves.
+OCR, lectura de carpetas privadas de Drive, conexiones privadas a plataformas educativas, comprobación externa de certificados, importación automática sin revisión y un modelo validado de memoria. El plan del día usa reglas. Learning Radar requiere configurar APIs y workflow para investigar cada 21 días; su selección inicial también funciona sin claves.
 
 ## Descubrir · contrato añadido
 
@@ -41,7 +41,7 @@ OCR, conexiones privadas a plataformas educativas, comprobación externa de cert
 |---|---|
 | Investigación separada de actividad | Cargar las 54 fichas iniciales no crea aprendizajes, horas, eventos ni credenciales. Añade 14 a la selección de 40 sin cambiar sus hechos. También permite enriquecer las 17 originales conservando sus IDs y decisiones. Repetirlo no duplica fichas ni sustituye investigación posterior o de IA. |
 | Prioridad personal y exportación | La prioridad inicial es una decisión editorial fechada para Factory Enablement y apps con IA. No mide dominio ni demanda laboral. Los bloques sugeridos no son duraciones oficiales ni presupuestos aditivos. El CSV completo incluye todas las oportunidades del usuario, sus fuentes, componentes, historial y decisiones, independientemente de los filtros. |
-| Actualización acotada | Cuatro búsquedas, hasta doce páginas leídas y hasta doce propuestas por ejecución; el catálogo acumulado no se limita a tres resultados. |
+| Actualización acotada | Hasta 20 resultados breves, diez páginas leídas, cinco fichas nuevas y tres existentes revisadas por ejecución; el catálogo acumulado no se limita a tres resultados ni a las 54 fichas iniciales. |
 | Respaldo de fuentes | Se rechazan URLs no leídas, citas ausentes, precios sin cita y fechas de actualización futuras. La validación no garantiza la exactitud semántica de toda la ficha. |
 | Continuidad | 3.8 Flash tiene un reintento ante saturación/red y pasa a 3.5 Flash-Lite. Se reutilizan las fuentes. Si ambos fallan, no cambia el catálogo ni su fecha de comprobación. |
 | Versiones | Mismo enlace actualiza la ficha existente; cambios de contenido crean versión, una comprobación sin cambios no crea otra versión. Favoritos y aprendizaje se conservan. |
@@ -49,7 +49,7 @@ OCR, conexiones privadas a plataformas educativas, comprobación externa de cert
 | Learning Pack | Al menos dos componentes con fuentes. Una unidad por componente; no se presenta como título oficial. |
 | Relevancia orientativa | Hasta 40 puntos por etiquetas prioritarias, 20 por relacionadas, 20 por habilidades sin autonomía declarada, 10 por fecha de consulta y 10 por duración dentro del presupuesto semanal. No es una medida de demanda laboral ni de calidad. |
 | Vigencia | Fecha de revisión y fecha de actualización del proveedor se muestran por separado. Ausencia de precio, fecha o duración se conserva como desconocida. |
-| Horario | Se requiere activación en app y GitHub. Una revisión manual exitosa en los seis días anteriores evita repetir la semanal. Un intento fallido no cuenta como revisión exitosa. |
+| Horario | Se requiere activación en app y GitHub. El workflow evalúa a diario si han pasado 21 días desde la última revisión completada. Un intento fallido no cuenta como revisión exitosa. |
 | Concurrencia y privacidad | Reserva de ejecución por usuario, expiración tras 15 minutos, publicación transaccional y relaciones con RLS. Un cambio de enfoque durante la búsqueda impide publicar resultados del enfoque anterior. |
 
 Los casos se ejecutan en `tests/test_catalog.py` y `tests/test_ui.py`. La conexión real con proveedores y Supabase se comprueba después de guardar las claves en las cuentas del usuario.
@@ -66,3 +66,15 @@ Los casos se ejecutan en `tests/test_catalog.py` y `tests/test_ui.py`. La conexi
 - Presupuesto Tavily de la app: 40 créditos/mes UTC; reserva hasta 8 por revisión y 2 por búsqueda de nombre. Una ejecución fallida conserva la reserva. El presupuesto no limita otros clientes de la misma cuenta.
 - Cada actualización manual exige confirmación; cancelar no llama a ninguna API. Los modelos sólo reciben fuentes y contexto acotados; los límites se aplican también en Python.
 - Migración 003 añade program_code, credential_code y document_url a credentials sin modificar datos existentes o reglas de propietario.
+
+## Edición de habilidades · 19 de octubre de 2026
+
+Editar una habilidad modifica sólo nombre, definición y área; conserva su ID, relaciones con cursos/temas/evidencias, sesiones y autoevaluaciones. No reasigna el área histórica de una sesión. Un área nueva y la edición se guardan en una misma transacción. Un nombre duplicado, campos inválidos o una revisión desactualizada se rechazan sin cambios parciales. Cancelar el formulario no escribe datos. Se utilizan las tablas y RPC existentes, sin migración adicional.
+
+## Conexiones entre pantallas y corrección de sesiones · 19 de octubre de 2026
+
+- Crear un aprendizaje desde una fase guarda curso/proyecto, unidades y vínculo en una transacción. No inventa actividad y no admite una ruta archivada. Roadmap y My Learning modifican el mismo progreso de unidades; un entregable se acepta por separado.
+- El selector de fases muestra las de rutas activas pendientes y las finalizadas hoy o ayer, según fecha local. Mostrar finalizadas permite acceder también al historial y versiones archivadas. Al editar, se mantiene disponible la fase ya asociada. Editar notas de un entregable aceptado conserva la fecha de aceptación original.
+- Editar una sesión crea un registro corregido y anula el anterior en la misma transacción. Conserva el tiempo original en el historial, anula sus eventos de práctica, crea los eventos corregidos y reasigna el bloque de Focus Plan y los trabajos existentes al registro vigente. Los trabajos conservan IDs, contenido, habilidades asociadas y adjuntos; los entregables que los referencian no pierden sus enlaces.
+- Las métricas sólo cuentan la sesión vigente. Un reintento del mismo cambio devuelve el resultado previo. Entradas inválidas o revisiones desactualizadas no dejan correcciones parciales. La fecha y zona de la sesión original se conservan en el historial; la corrección mantiene esa zona y permite ajustar la fecha explícitamente.
+- Una sesión independiente puede crear su área sin requerir un curso. Esta operación y el registro de la práctica son atómicos.

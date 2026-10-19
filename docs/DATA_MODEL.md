@@ -28,7 +28,7 @@ Las fuentes ejecutables son `supabase/migrations/001_learning_atlas.sql` y `002_
 
 | Tabla | Qué conserva |
 |---|---|
-| `discovery_settings` | Enfoque profesional actual, etiquetas prioritarias y relacionadas, consentimiento y activación semanal. Una fila por usuario. |
+| `discovery_settings` | Enfoque profesional actual, etiquetas prioritarias y relacionadas, consentimiento y activación de revisión cada 21 días. Una fila por usuario. |
 | `discovery_runs` | Cada intento, origen, estado, inicio/fin, enfoque usado, modelo, intentos de fallback, uso disponible y error resumido. Sólo una ejecución activa por usuario. |
 | `opportunities` | Ficha vigente: nombre, proveedor, tipo, URL, resumen, motivo, temas, skills, idioma, requisitos, duración, modalidad de precio, importe/moneda y fechas. Identidad estable por URL; packs por nombre normalizado. |
 | `opportunity_sources` | URLs públicas que sustentan cada ficha, cita breve y fecha de comprobación. |

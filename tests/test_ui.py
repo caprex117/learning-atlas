@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
@@ -218,3 +219,127 @@ def test_credentials_assistant_table_requires_explicit_review(monkeypatch):
     next(c for c in app.checkbox if c.label.startswith('Revisé esta tabla')).check().run()
     app.button(key='save_credentials_batch').click().run()
     assert not app.exception and len(repo.data['credentials'])==original+1
+
+
+def test_edit_skill_from_abilities_cancel_then_save_and_reopen():
+    app = start_demo()
+    repo = app.session_state["repository"]
+    skill = next(s for s in repo.data["skills"] if domain.skill_stats(repo.data, s["id"])["minutes"])
+    skill_id = skill["id"]
+    prefix = "edit_skill_" + skill_id
+    before = deepcopy(repo.data)
+    goto(app, "Habilidades")
+    app.button(key="edit_skill_button_"+skill_id).click().run()
+    assert not app.exception
+    app.text_input(key=prefix+"_name").set_value("No guardar")
+    next(b for b in app.button if b.label == "Cancelar").click().run()
+    assert not app.exception and repo.data == before
+    app.button(key="edit_skill_button_"+skill_id).click().run()
+    assert app.text_input(key=prefix+"_name").value == skill["name"]
+    app.text_input(key=prefix+"_name").set_value("Programación aplicada a mis proyectos")
+    app.text_area(key=prefix+"_definition").set_value("Crear y comprobar soluciones reproducibles.")
+    # AppTest cannot serialize newly typed selectbox options. Exercise selection
+    # here; new-area creation is covered against both service repositories.
+    existing_area = next(a["name"] for a in repo.data["areas"] if a["id"] != skill["area_id"])
+    app.selectbox(key=prefix+"_area").select(existing_area)
+    next(b for b in app.button if b.label == "Guardar cambios").click().run()
+    assert not app.exception, [error.message for error in app.exception]
+    updated = domain.by_id(repo.data["skills"])[skill_id]
+    assert updated["name"] == "Programación aplicada a mis proyectos"
+    assert domain.by_id(repo.data["areas"])[updated["area_id"]]["name"] == existing_area
+    assert domain.skill_stats(repo.data, skill_id) == domain.skill_stats(before, skill_id)
+    app.button(key="edit_skill_button_"+skill_id).click().run()
+    assert app.text_input(key=prefix+"_name").value == updated["name"]
+    assert app.selectbox(key=prefix+"_area").value == existing_area
+
+
+def test_create_from_roadmap_and_shared_progress_in_two_phases():
+    from atlas.service import LearningService
+    from uuid import uuid4
+    app = start_demo()
+    repo = app.session_state["repository"]
+    phase, second_phase = repo.data["goal_phases"][:2]
+    goto(app, "Learning Roadmap")
+    app.button(key="phase_create_"+phase["id"]).click().run()
+    app.text_input(key="newtitle").set_value("Mi proyecto desde una fase")
+    app.text_input(key="newarea").set_value("Python")
+    app.text_area(key="newunits").set_value("Leer CSV\nValidar filas")
+    next(b for b in app.button if b.label == "Crear aprendizaje").click().run()
+    assert not app.exception
+    track = next(t for t in repo.data["learning_tracks"] if t["title"] == "Mi proyecto desde una fase")
+    LearningService(repo).link_phase(second_phase["id"], [track["id"]], str(uuid4()))
+    app.run()
+    unit = domain.track_units(repo.data, track["id"])[0]
+    first_key = "route_unit_"+phase["id"]+track["id"]+unit["id"]
+    second_key = "route_unit_"+second_phase["id"]+track["id"]+unit["id"]
+    app.checkbox(key=first_key).check().run()
+    assert not app.exception and app.checkbox(key=second_key).value
+    assert domain.progress(repo.data, track["id"])["percent"] == 50
+    app.checkbox(key=second_key).uncheck().run()
+    assert not app.exception and not app.checkbox(key=first_key).value
+    app.checkbox(key=first_key).check().run()
+    app.button(key="phase_open_"+phase["id"]+track["id"]).click().run()
+    assert not app.exception
+    assert app.selectbox(key="learning_selected").value == track["id"]
+    assert app.checkbox(key="unit_"+unit["id"]).value
+    app.checkbox(key="unit_"+unit["id"]).uncheck().run()
+    goto(app, "Learning Roadmap")
+    assert not app.exception and not app.checkbox(key=first_key).value
+
+
+def test_session_edit_prefilled_cancel_save_and_preserve_original():
+    app = start_demo()
+    repo = app.session_state["repository"]
+    old = deepcopy(repo.data["study_sessions"][0])
+    before = deepcopy(repo.data)
+    total = domain.effort(repo.data)
+    goto(app, "Learning Log")
+    app.button(key="edit_session_"+old["id"]).click().run()
+    prefix = "sess_"+old["id"]+"_"
+    assert app.number_input(key=prefix+"duration").value == old["duration_minutes"]
+    assert app.text_area(key=prefix+"notes").value == old["notes"]
+    app.number_input(key=prefix+"duration").set_value(12)
+    next(b for b in app.button if b.label == "Cancelar").click().run()
+    assert repo.data == before
+    app.button(key="edit_session_"+old["id"]).click().run()
+    assert app.number_input(key=prefix+"duration").value == old["duration_minutes"]
+    app.number_input(key=prefix+"duration").set_value(12)
+    app.text_input(key=prefix+"reason").set_value("Anoté demasiados minutos")
+    next(b for b in app.button if b.label == "Guardar corrección").click().run()
+    assert not app.exception and not app.error
+    assert domain.effort(repo.data) == total-old["duration_minutes"]+12
+    assert domain.by_id(repo.data["study_sessions"])[old["id"]]["voided"]
+    assert len(repo.data["study_sessions"]) == len(before["study_sessions"])+1
+
+
+def test_phase_selector_hides_old_finished_and_toggle_restores_it():
+    from atlas.service import Batch, LearningService
+    from datetime import timedelta
+    from uuid import uuid4
+    app = start_demo()
+    repo = app.session_state["repository"]
+    service = LearningService(repo)
+    m = repo.data["milestones"][0]
+    b = Batch(service.data)
+    b.put("milestones", {**m, "accepted_on": (service.current-timedelta(days=3)).isoformat()})
+    service._commit(b, str(uuid4()), {"action": "test_earlier_completion"})
+    goto(app, "Learning Log")
+    next(b for b in app.button if b.label == "Registrar una sesión").click().run()
+    phases = next(s for s in app.selectbox if s.label == "Fase de la ruta (opcional)")
+    assert not any("finalizada" in option for option in phases.options)
+    app.checkbox(key="sess_finished").check().run()
+    assert not app.exception
+    phases = next(s for s in app.selectbox if s.label == "Fase de la ruta (opcional)")
+    assert any("finalizada" in option for option in phases.options)
+
+
+def test_empty_learning_explains_route_and_filters_do_not_claim_library_empty():
+    app = start_demo()
+    goto(app, "Mi aprendizaje")
+    app.text_input(key="learning_search").set_value("Nothing-matches-123").run()
+    assert any("coincidan con estos filtros" in i.value for i in app.info)
+    repo = app.session_state["repository"]
+    repo.data = MemoryRepository().data
+    app.run()
+    assert not app.exception
+    assert any("Tener una ruta con fases no crea" in i.value for i in app.info)

@@ -2,12 +2,14 @@
 
 La app separa **lo que planeas**, **lo que haces** y **lo que ya obtuviste**. Así un documento o un curso guardado no se convierte en aprendizaje realizado por error.
 
+Para recorrer un caso con contexto, abre [Tu proyecto de Python, paso a paso](WALKTHROUGH.md). Está disponible también en Dashboard → Overview → Recorrido completo.
+
 | Sección | Qué hace y qué información usa |
 |---|---|
 | **Dashboard → Overview** | Resume progreso, tiempo real, rachas y áreas. Lee tus cursos y sesiones; no crea actividad. |
 | **Dashboard → My Learning** | Tu biblioteca de cursos, proyectos y certificaciones: pendientes, en curso y terminados. Aquí organizas lecciones y marcas lo completado. No es sólo lo aprendido. |
 | **Dashboard → Abilities** | Reúne habilidades asociadas al temario, prácticas y trabajos. Descarga el CSV con su procedencia. La autonomía es una autoevaluación opcional. |
-| **Learning Roadmap** | Tu meta dividida en fases, fechas y entregables. Vincula aprendizajes de My Learning a cada fase. Confirmar un entregable registra ese resultado; no completa automáticamente lecciones ni añade horas. |
+| **Learning Roadmap** | Tu meta dividida en fases, fechas y entregables. Permite crear aprendizajes para una fase o vincular los de My Learning; puedes marcar sus mismas lecciones desde aquí. Confirmar un entregable registra ese resultado; no completa automáticamente lecciones ni añade horas. |
 | **Garden of Knowledge** | Temas que tú confirmas haber comprendido. La última práctica y los repasos valorados orientan el color y la siguiente sugerencia de repaso. |
 | **Learning Log** | Registro de estudio, repaso y práctica en el trabajo, con tiempo real. Alimenta horas, rachas, calendario y habilidades asociadas. Sirve tanto para un curso como para una experiencia fuera de él. |
 | **Learning Radar** | Catálogo de oportunidades con precios, temas, habilidades y fuentes. Puedes guardar favoritos o añadir algo a My Learning y a una fase. Las revisiones no sustituyen tu catálogo ni alteran el progreso. |
@@ -34,6 +36,16 @@ Puedes ver este mismo mapa dentro de **Dashboard → Overview → Cómo se conec
 - **Notas**: qué comprobaste, decisiones o pendientes. Son opcionales.
 - **Tema**: conocimiento, por ejemplo JOIN.
 - **Habilidad**: capacidad práctica, por ejemplo combinar tablas para resolver una pregunta. Que un curso la incluya no implica dominio; sus conexiones se reúnen automáticamente, pero la práctica requiere sesiones registradas. Evaluar tu autonomía es opcional.
+
+En **Dashboard → Abilities**, el botón **Editar** junto a cada habilidad abre su nombre, descripción y área. Puedes escoger un área existente o escribir una nueva y pulsar Enter. Guardar conserva el mismo registro y todos sus vínculos, minutos y autoevaluaciones; Cancelar no guarda cambios. Las sesiones mantienen su propia área original. Una capacidad distinta debe añadirse como otra habilidad.
+
+**Focus Plan y la racha:** un plan pendiente permanece guardado aunque no lo hagas. Prepararlo o marcar una lección en My Learning no registra minutos. La racha se calcula con las sesiones reales de Learning Log y el mínimo diario de Profile & Preferences. Puedes estudiar y registrar tiempo sin terminar una lección. Focus Plan muestra los planes del día; los anteriores se conservan en los datos.
+
+**Editar sesiones:** Learning Log → abre una sesión → Editar sesión. El formulario contiene los datos originales. Al guardar una corrección, sólo cuenta el registro vigente; el anterior se conserva anulado, junto con el motivo, en Historial de correcciones y anulaciones. Los trabajos, adjuntos y bloques de Focus Plan permanecen vinculados. Anular sesión se reserva para una actividad que no debe contar.
+
+**Fases y áreas:** el formulario muestra fases pendientes de rutas activas y las finalizadas hoy o ayer. Activa Mostrar finalizadas y rutas archivadas para acceder al historial; editar conserva la fase original disponible. El área se puede seleccionar o escribir como opción nueva. Sin asociar permite registrar práctica fuera de un curso.
+
+**Biblioteca y notas:** Abrir un aprendizaje permite escoger una ficha. Una ruta con fases puede existir sin cursos: Crear aprendizaje para esta fase lo añade a My Learning y lo vincula. Notas y materiales admite un resumen y enlaces; los archivos extensos pueden seguir en Drive, cuya lectura automática queda para una actualización futura.
 
 ## IA e importación
 
@@ -63,8 +75,8 @@ No contiene contraseñas, claves API ni los archivos adjuntos como PDF/DOCX. Gua
 
 ## Activar esta actualización
 
-1. Ejecuta **una vez** `supabase/migrations/003_credential_details.sql` en SQL Editor de Supabase. Añade tres campos de credenciales; no reemplaza tablas ni borra datos. No repitas 001 ni 002.
-2. En GitHub Desktop, revisa los cambios y haz commit + push. Mensaje: `Simplificar navegación y añadir asistentes de aprendizaje`.
+1. Esta revisión no requiere SQL nuevo. La migración 003 de Credentials ya fue confirmada por el usuario; no repitas 001, 002 ni 003.
+2. En GitHub Desktop, revisa los cambios y haz commit + push. Mensaje sugerido: `Conectar aprendizajes y rutas, permitir correcciones y añadir recorrido guiado`.
 3. Comprueba los tests de Actions. Streamlit desplegará los cambios; si conserva la pantalla anterior, usa Reboot.
 4. Las claves de Gemini y Tavily se conservan. En Profile & Preferences, revisa enfoque y autorizaciones. Para automatización, conserva los secretos del workflow y `ATLAS_RESEARCH_ENABLED=true`.
 

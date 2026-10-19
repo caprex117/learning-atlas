@@ -6,6 +6,8 @@ Tracker personal de aprendizaje en **Streamlit + Supabase**, con el tema claro, 
 
 **Para publicar cambios posteriores:** consulta [docs/UPDATES.md](docs/UPDATES.md). La carpeta de trabajo prevista es `C:\Users\deef3\learning-atlas`; GitHub recibe los commits mediante `push` y Streamlit actualiza la rama conectada.
 
+**Para entender cómo usarla:** sigue [un proyecto de Python de principio a fin](docs/WALKTHROUGH.md). También aparece en Dashboard → Overview → Recorrido completo. La [revisión del feedback](docs/FEEDBACK_REVIEW.md) explica los ajustes de esta entrega.
+
 ## Qué puedes hacer
 
 - Crear aprendizajes, guardar favoritos, editar su información, temario, estimaciones y prioridades.
@@ -18,7 +20,7 @@ Tracker personal de aprendizaje en **Streamlit + Supabase**, con el tema claro, 
 - Cargar una [selección personal de 54 oportunidades](docs/RESEARCH_54.md) de Factory Enablement y apps con IA, con siete Learning Packs, tres proyectos de apps y un proyecto de pruebas con Playwright, prioridad y un primer alcance sugerido.
 - Descargar todo el catálogo en CSV, incluidas fuentes, componentes e historial, independientemente de los filtros.
 - Añadir oportunidades y Learning Packs a tu aprendizaje o a una fase de tu ruta.
-- Investigar novedades bajo demanda o semanalmente con Tavily y Gemini, con fallback y conservación del catálogo ante fallos. Actívalo siguiendo [docs/DISCOVERY_SETUP.md](docs/DISCOVERY_SETUP.md).
+- Investigar novedades bajo demanda o cada 21 días con Tavily y Gemini, con confirmación, presupuesto, fallback y conservación del catálogo ante fallos. Actívalo siguiendo [docs/DISCOVERY_SETUP.md](docs/DISCOVERY_SETUP.md).
 - Importar PDF, DOCX, TXT, MD o JSON con lectura, propuesta, revisión y aprobación. Gemini es opcional; la captura manual funciona sin IA.
 - Registrar credenciales sin confundirlas con completar un curso, y exportar tus registros en JSON.
 
@@ -79,9 +81,9 @@ El workflow de GitHub Actions prepara PostgreSQL 17 desechable y ejecuta tambié
 
 ## Límites de esta versión
 
-El plan del día usa reglas. Descubrir combina una selección inicial revisada con propuestas de IA basadas en fuentes; la revisión semanal requiere activar el workflow y sus secretos. No promete sincronización continua ni investigación exhaustiva. El asistente Gemini organiza documentos y siempre requiere revisión. No hay OCR integrado, verificación automática de credenciales, integración privada con Coursera ni medición científica de memoria. DuckDB y un calendario externo no son necesarios para este tamaño de aplicación.
+El plan del día usa reglas. Learning Radar combina una selección inicial revisada con propuestas de IA basadas en fuentes; la revisión cada 21 días requiere activar el workflow y sus secretos. No promete sincronización continua ni investigación exhaustiva. El asistente Gemini organiza documentos y siempre requiere revisión. No hay OCR integrado, lectura automática de Drive, verificación automática de credenciales, integración privada con Coursera ni medición científica de memoria. DuckDB y un calendario externo no son necesarios para este tamaño de aplicación.
 
-Los adjuntos son privados; las sesiones de acceso se conservan en el servidor para esa conexión del navegador. Una recarga completa puede pedir iniciar sesión de nuevo. Las correcciones de tiempo se hacen anulando la sesión y registrando la correcta, conservando el historial. El JSON de exportación sirve como respaldo de registros, no como restauración automática ni como copia de los archivos binarios.
+Los adjuntos son privados; las sesiones de acceso se conservan en el servidor para esa conexión del navegador. Una recarga completa puede pedir iniciar sesión de nuevo. Editar sesión abre un formulario precargado y sustituye el registro vigente en una operación, conservando el original anulado en el historial. El JSON de exportación sirve como respaldo de registros, no como restauración automática ni como copia de los archivos binarios.
 
 Consulta [el contrato implementado](docs/CONTRACT.md), [el modelo y seguridad](docs/DATA_MODEL.md) y [el flujo de documentos](docs/IMPORTING.md).
 

@@ -23,6 +23,23 @@ def active_sessions(data: dict) -> list[dict]:
     return [s for s in data.get("study_sessions", []) if not s.get("voided")]
 
 
+def session_phases(data: dict, current: date, *, show_finished=False, keep_id=None) -> list[dict]:
+    """Hide old finished phases and archived routes, without deleting their history."""
+    goals = by_id(data["learning_goals"])
+    rows = []
+    for phase in data["goal_phases"]:
+        goal = goals[phase["goal_id"]]
+        milestones = [m for m in data["milestones"] if m["phase_id"] == phase["id"]]
+        finished = bool(milestones) and all(m.get("accepted_on") for m in milestones)
+        recent = finished and max(as_date(m["accepted_on"]) for m in milestones) >= current-timedelta(days=1)
+        if not (show_finished or phase["id"] == keep_id or goal["status"] == "active" and (not finished or recent)):
+            continue
+        status = "archivada" if goal["status"] != "active" else "finalizada" if finished else "pendiente"
+        rows.append({**phase, "label": f"{phase['title']} · {goal['title']} · v{goal['version']} · {status}"})
+    return sorted(rows, key=lambda p: (goals[p["goal_id"]]["status"] != "active", goals[p["goal_id"]]["title"],
+                                     -goals[p["goal_id"]]["version"], p["sort_order"]))
+
+
 def track_units(data: dict, track_id: str) -> list[dict]:
     units = by_id(data.get("units", []))
     parents = {u.get("parent_id") for u in units.values() if not u.get("archived")}
