@@ -304,7 +304,7 @@ class LearningService:
     def save_plan(self, budget, energy, request_id):
         blocks = domain.make_plan(self.data, self.current, budget, energy)
         if not blocks:
-            raise ValueError("Activa un aprendizaje con unidades pendientes o registra un tema aprendido para repasar.")
+            raise ValueError("Todavía no hay tareas disponibles. En Dashboard → My Learning, abre un aprendizaje, cambia su estado a En curso y añade al menos una lección pendiente. Los temas de Garden of Knowledge también se incluyen cuando llega su fecha de repaso.")
         b = Batch(self.data)
         pid = b.put("daily_plans", {"plan_date": self.current.isoformat(), "budget_minutes": budget, "energy": energy, "generator": "rules"})
         for block in blocks:
@@ -327,10 +327,30 @@ class LearningService:
         if fields.get("never_expires") and expires:
             raise ValueError("Elige fecha de vencimiento o sin caducidad, no ambas.")
         safe_url(fields.get("verification_url"))
+        safe_url(fields.get('document_url'))
+        for name,limit in [('program_code',100),('credential_code',200)]:
+            if len(fields.get(name,''))>limit:
+                raise ValueError('El código indicado es demasiado largo.')
+        if not credential_id:
+            fields={k:v for k,v in fields.items() if k not in {'program_code','credential_code','document_url'} or v}
         if fields.get("credential_type") not in {"professional", "course", "program", "badge"}:
             raise ValueError("Elige un tipo de credencial válido.")
         b.put("credentials", {**fields, **({"id": credential_id} if credential_id else {}), "verification_status": "self_reported"})
         return self._commit(b, request_id, {"action": "credential", "id": credential_id, "fields": fields})
+
+    def link_phase(self, phase_id, track_ids, request_id):
+        b=Batch(self.data)
+        phase=b.find('goal_phases',phase_id)
+        if b.find('learning_goals',phase['goal_id'])['status']!='active':
+            raise ValueError('Esta ruta está archivada. Usa una versión activa.')
+        for tid in track_ids:
+            b.find('learning_tracks',tid)
+        for row in list(b.data['phase_tracks']):
+            if row['phase_id']==phase_id and row['track_id'] not in track_ids:
+                b.remove('phase_tracks',row['id'])
+        for tid in set(track_ids):
+            b.link('phase_tracks',phase_id=phase_id,track_id=tid)
+        return self._commit(b,request_id,{'action':'link_phase','phase':phase_id,'tracks':sorted(set(track_ids))})
 
     def settings(self, display_name, timezone, weekly_minutes, streak_minutes, request_id):
         ZoneInfo(timezone)

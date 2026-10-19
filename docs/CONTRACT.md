@@ -53,3 +53,16 @@ OCR, conexiones privadas a plataformas educativas, comprobación externa de cert
 | Concurrencia y privacidad | Reserva de ejecución por usuario, expiración tras 15 minutos, publicación transaccional y relaciones con RLS. Un cambio de enfoque durante la búsqueda impide publicar resultados del enfoque anterior. |
 
 Los casos se ejecutan en `tests/test_catalog.py` y `tests/test_ui.py`. La conexión real con proveedores y Supabase se comprueba después de guardar las claves en las cuentas del usuario.
+
+
+## Revisión de experiencia · 18 de octubre de 2026
+
+- Dashboard agrupa Overview, My Learning y Abilities. Los cambios de navegación no alteran las identidades de los datos.
+- Abilities exporta todo el mapa, sus cursos relacionados, temas, sesiones vigentes, trabajos, credenciales asociadas y autoevaluaciones. Cobertura no equivale a competencia demostrada.
+- Los asistentes crean borradores en la sesión; el usuario revisa antes de incorporar cursos o credenciales. Una consulta pública comprueba información del programa, no la obtención personal.
+- El TXT generado por Import conserva una propuesta validada recuperable sin llamar a IA. El CSV de Credentials conserva campos opcionales y permite una revisión en lote. Las inserciones son atómicas e idempotentes, sin progreso ni tiempo derivados.
+- La revisión del catálogo incorpora como máximo cinco fichas nuevas y comprueba hasta tres existentes. No borra el catálogo ni altera aprendizajes adoptados. Los temarios anteriores se conservan al recibir un resumen parcial.
+- Revisión automática: 21 días desde la última revisión completada (incluida la selección inicial), evaluada por el workflow diario. Una verificación de nombres no reinicia ese intervalo.
+- Presupuesto Tavily de la app: 40 créditos/mes UTC; reserva hasta 8 por revisión y 2 por búsqueda de nombre. Una ejecución fallida conserva la reserva. El presupuesto no limita otros clientes de la misma cuenta.
+- Cada actualización manual exige confirmación; cancelar no llama a ninguna API. Los modelos sólo reciben fuentes y contexto acotados; los límites se aplican también en Python.
+- Migración 003 añade program_code, credential_code y document_url a credentials sin modificar datos existentes o reglas de propietario.

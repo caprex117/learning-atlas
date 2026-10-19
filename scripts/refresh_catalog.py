@@ -1,4 +1,4 @@
-"""Weekly refresh as the existing owner, under the same RLS rules as the app."""
+"""Scheduled refresh as the existing owner, under the same RLS rules as the app."""
 import os
 from pathlib import Path
 import sys
@@ -29,13 +29,13 @@ def main():
         repo = SupabaseRepository(client, str(response.user.id))
         result = refresh(repo, os.environ['TAVILY_API_KEY'], os.environ['GEMINI_API_KEY'], origin='weekly')
         if 'skipped' in result:
-            print('Sin cambios: actualización semanal desactivada o ya realizada en los últimos seis días.')
+            print('Sin cambios: revisión automática desactivada, todavía no corresponde o ya se intentó hoy.')
         else:
             print(f"Catálogo guardado: {result['added']} nuevas, {result['changed']} modificadas, modelo {result['model']}.")
         return 0
     except Exception:
         # Public Actions logs must never contain credentials, user records or raw HTTP exceptions.
-        print('No se completó la revisión. Comprueba los secretos, la migración 002 y el historial de Descubrir. Se conserva el catálogo anterior.')
+        print('No se completó la revisión. Comprueba los secretos, la migración 002 y el historial de Learning Radar. Se conserva el catálogo anterior.')
         return 1
     finally:
         if client is not None:

@@ -101,7 +101,7 @@ class Opportunity(StrictModel):
 
 
 class ResearchResult(StrictModel):
-    opportunities: list[Opportunity] = Field(min_length=1, max_length=12)
+    opportunities: list[Opportunity] = Field(min_length=0, max_length=8)
 
 
 class Focus(StrictModel):

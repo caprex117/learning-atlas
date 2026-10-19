@@ -101,7 +101,7 @@ def fake_web(primary_status=503, fallback_status=200, during=None):
         calls.append(request)
         if request.url.host=='api.tavily.com':
             if request.url.path=='/search':
-                return httpx.Response(200,json={'results':[{'url':'https://example.org/sql','title':'SQL','content':'Learn SQL queries and joins.'}],'usage':{'credits':2}})
+                return httpx.Response(200,json={'results':[{'url':'https://example.org/sql','title':'SQL','content':'Learn SQL queries and joins.'}],'usage':{'credits':1 if json.loads(request.content)['search_depth']=='basic' else 2}})
             body=json.loads(request.content)
             assert len(body['urls'])<=12
             return httpx.Response(200,json={'results':[{'url':'https://example.org/sql','raw_content':'Learn SQL queries and joins.'}],'usage':{'credits':1}})
@@ -127,7 +127,7 @@ def test_fallback_reuses_search_and_reports_model(status):
     assert result['model']=='gemini-3.5-flash-lite' and result['added']==1
     assert len([r for r in calls if r.url.path=='/search'])==4
     assert len([r for r in calls if r.url.path=='/extract'])==1
-    assert result['tavily_credits']==9
+    assert result['tavily_credits']==7
     assert len(result['attempts'])==(2 if status==404 else 3)
 
 

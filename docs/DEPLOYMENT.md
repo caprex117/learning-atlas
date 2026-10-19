@@ -105,3 +105,8 @@ Primera prueba sugerida: usa el documento ficticio de `examples/`, comprueba el 
 | Subida interrumpida antes de crear borrador | Reintenta en esa misma sesión. Si cerraste el navegador, un archivo sin referencia puede quedar en Storage; revisa y elimina sólo ese archivo huérfano desde tu proyecto. |
 
 No hace falta instalar Docker, Node ni las dependencias de pruebas en Streamlit Cloud. La app usa `requirements.txt`. Referencia: [publicación en Community Cloud](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy).
+
+
+## Actualización de navegación y asistentes
+
+Consulta [UX_GUIDE.md](UX_GUIDE.md). Para los nuevos campos de credenciales, ejecuta una vez `003_credential_details.sql` después de 002, antes de publicar esta versión. No repitas las migraciones anteriores.

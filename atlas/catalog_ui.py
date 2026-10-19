@@ -1,5 +1,7 @@
 """Discovery catalog UI; learning adoption always remains an explicit user action."""
 import streamlit as st
+from datetime import datetime, timezone
+from . import research_policy as policy
 from . import catalog
 from .catalog_export import export_csv, rankings
 from .catalog_seed import read_seed
@@ -21,57 +23,47 @@ def price_label(item):
 
 def render(service):
     from .app import action, save_and_refresh
-    heading('UN CATÁLOGO QUE CRECE CONTIGO', 'Tu próximo aprendizaje.',
-            'Oportunidades vigentes, fuentes y caminos relacionados con tu carrera. Tú decides qué incorporar a tu biblioteca y a tu ruta.')
+    heading('LEARNING RADAR', 'Tu próximo aprendizaje.',
+            'Descubre cursos, certificaciones, proyectos y Learning Packs relacionados con tu dirección profesional. Guarda favoritos o añade lo que elijas a My Learning y a tu ruta. Las revisiones amplían este catálogo y comprueban algunas fichas; no sustituyen tus aprendizajes.')
     if 'opportunities' not in service.data:
         st.info('Falta instalar la migración 002_discovery_catalog.sql en Supabase. Consulta docs/DISCOVERY_SETUP.md.')
         return
     config = catalog.settings(service)
     cfg = configuration()
     runs = sorted(service.data['discovery_runs'], key=lambda r:r['started_at'], reverse=True)
-    successful = [r for r in runs if r['status'] in ('completed','partial') and r['origin']!='seed']
-    if successful:
-        r = successful[0]
-        st.caption(f"Última revisión guardada (UTC): {r['finished_at']} · {r.get('model_id') or 'sin modelo'} · {r['details'].get('checked',0)} oportunidades comprobadas. Cada ficha conserva su propia fecha.")
-    elif service.data['opportunities']:
-        st.caption('Catálogo inicial revisado el 18 de octubre de 2026. Aún no hay una investigación con APIs completada.')
+    relevant=policy.catalog_runs(service.data)
+    last=max(relevant,key=lambda r:r['finished_at']) if relevant else None
+    due=policy.next_due(service.data)
+    used=policy.spent(service.data)
+    a,b,c=st.columns(3)
+    a.metric('Última carga / revisión', last['finished_at'][:10] if last else 'Sin revisión')
+    b.metric('Próxima revisión prevista', due.date().isoformat() if due else 'Pendiente de la primera')
+    c.metric('Tavily · presupuesto mensual', f'{used:g} / {policy.MONTHLY_CREDITS} créditos')
+    st.caption('Fechas UTC · cada 21 días. La última carga puede corresponder a la selección inicial, no a una búsqueda nueva. La fecha prevista es orientativa: la automatización requiere el workflow de GitHub activo. Este presupuesto sólo cubre llamadas realizadas por Learning Atlas; no muestra el saldo global de Tavily.')
+    with st.expander('Calendario de revisiones'):
+        render_calendar(relevant,due)
+    if runs and runs[0]['status']=='failed':
+        st.warning('Último intento sin completar: '+runs[0]['error_message']+' El catálogo guardado sigue disponible.')
+    seed=read_seed()
+    installed={o['identity_key'] for o in service.data['opportunities']}
+    from .catalog_models import Opportunity
+    missing_seed=sum(Opportunity.model_validate(o).identity() not in installed for o in seed['opportunities'])
+    if missing_seed:
+        st.info('Tienes disponible una selección inicial investigada para ti. Cargarla no consume Tavily ni Gemini. El catálogo puede seguir creciendo sin un límite de 54 fichas.')
+        if st.button('Cargar selección inicial' if not installed else 'Completar selección inicial',key='catalog_seed',width='stretch'):
+            save_and_refresh('catalog_seed', lambda rid: catalog.load_seed(service,rid), 'Selección inicial incorporada. No se registró progreso.')
+    missing=readiness(service,cfg,config)
+    if st.button('Buscar novedades',key='catalog_refresh',type='primary',disabled=bool(missing),width='stretch'):
+        st.session_state.catalog_confirm_open=True
+    if st.session_state.get('catalog_confirm_open'):
+        confirm_refresh(service)
+    if missing:
+        st.info('Para buscar novedades: '+' · '.join(missing))
     else:
-        st.caption('Todavía no hay una revisión guardada. Puedes cargar la investigación inicial.')
-    if runs and runs[0]['status'] == 'failed':
-        st.warning('Actualización pendiente. '+runs[0]['error_message']+' Último intento: '+runs[0]['started_at'])
-    elif runs and runs[0]['status'] == 'running':
-        st.info('Hay una actualización en curso o interrumpida. Una reserva interrumpida vence a los 15 minutos.')
-    if service.repo.is_demo:
-        st.caption('Demo: el catálogo inicial usa fuentes reales; los cambios son temporales. La investigación con APIs funciona en tu cuenta conectada.')
-    controls = st.columns(2)
-    seed_count = len(read_seed()['opportunities'])
-    if controls[0].button(f'Cargar / actualizar selección de {seed_count}', key='catalog_seed', width='stretch'):
-        save_and_refresh('catalog_seed', lambda rid: catalog.load_seed(service,rid), 'Catálogo inicial incorporado. No se registró progreso.')
-    ready = bool(cfg.get('tavily',{}).get('api_key') and cfg.get('gemini',{}).get('api_key') and config['external_consent'] and not service.repo.is_demo)
-    if controls[1].button('Actualizar ahora', key='catalog_refresh', type='primary', disabled=not ready, width='stretch'):
-        with st.status('Actualizando el catálogo…', expanded=True) as status:
-            try:
-                result = catalog.refresh(service.repo, cfg['tavily']['api_key'],cfg['gemini']['api_key'],notify=lambda message: status.update(label=message))
-                status.update(label='Investigación guardada',state='complete')
-                st.session_state.flash=f"Actualización: {result['added']} nuevas, {result['changed']} modificadas. Modelo: {result['model']}."
-                st.rerun()
-            except (ValueError, RepositoryError) as exc:
-                status.update(label='Actualización pendiente', state='error')
-                st.error(str(exc))
-    if not ready and not service.repo.is_demo:
-        st.caption('Para actualizar: añade las claves de Tavily y Gemini, y autoriza el uso de tu enfoque en el panel siguiente.')
-    with st.expander('Mi enfoque y actualización semanal', expanded=not bool(service.data['opportunities'])):
-        with st.form('discovery_focus'):
-            focus = st.text_area('Dirección profesional actual', config['focus'],max_chars=600)
-            primary = st.text_input('Temas prioritarios · separados por comas', ', '.join(config['primary_tags']))
-            related = st.text_input('Áreas relacionadas · separadas por comas', ', '.join(config['related_tags']))
-            consent = st.checkbox('Autorizar el envío de este enfoque y sus etiquetas a Tavily y Gemini',config['external_consent'])
-            weekly = st.checkbox('Permitir revisión semanal desde GitHub Actions',config['weekly_enabled'])
-            st.caption('Se envían el enfoque, etiquetas y URLs públicas del catálogo. Las sesiones, documentos privados, contraseñas y claves de Supabase no se incluyen en la investigación. El horario requiere configurar el workflow; marcar esta opción no lo instala.')
-            if st.form_submit_button('Guardar enfoque'):
-                values={'focus':focus,'primary_tags':[x.strip() for x in primary.split(',') if x.strip()],
-                        'related_tags':[x.strip() for x in related.split(',') if x.strip()], 'weekly_enabled':weekly,'external_consent':consent}
-                save_and_refresh('discovery_focus',lambda rid:catalog.save_settings(service,values,rid),'Enfoque guardado; la relevancia se recalcula con tus etiquetas actuales.')
+        st.caption('Conexiones configuradas. Buscar novedades pedirá confirmación antes de consumir APIs.')
+    st.caption('Por revisión: hasta 5 oportunidades nuevas y 3 fichas existentes comprobadas. Puede haber menos o ninguna novedad. Se conservan favoritos, decisiones, rutas y progreso.')
+    with st.expander('Mi enfoque y opciones de actualización'):
+        focus_settings(service)
     library, history = st.tabs(['Catálogo', 'Historial de actualizaciones'])
     with library:
         priority = rankings(service.data)
@@ -164,7 +156,7 @@ def render(service):
                     save_and_refresh('catdismiss_'+oid,lambda rid,i=oid,ch=choice:catalog.choose(service,i,ch.get('favorite',False),'interested' if ch.get('decision')=='dismissed' else 'dismissed',rid))
                 with st.expander('Añadir a mi aprendizaje o a mi ruta'):
                     with st.form('adopt_'+oid):
-                        phase=st.selectbox('Fase de una ruta activa (opcional)',[None]+list(phase_labels),format_func=lambda p:phase_labels.get(p,'Sólo a Mi aprendizaje'),key='catphase_'+oid)
+                        phase=st.selectbox('Fase de una ruta activa (opcional)',[None]+list(phase_labels),format_func=lambda p:phase_labels.get(p,'Sólo a My Learning'),key='catphase_'+oid)
                         use_topics=st.checkbox('Usar este temario como unidades de seguimiento',False,key='catunits_'+oid,disabled=item['kind']=='pack' or bool(choice.get('track_id')))
                         st.caption('Los Learning Packs crean una unidad por componente. Puedes ajustar las unidades después. No se registran horas, temas aprendidos ni credenciales. Añadir a la ruta vincula la fase sin modificar sus fechas o presupuesto.')
                         reviewed=st.checkbox('Revisé las fuentes, el precio y el temario',key='catreview_'+oid)
@@ -174,10 +166,91 @@ def render(service):
                             else:
                                 save_and_refresh('adopt_'+oid,lambda rid,i=oid,p=phase,u=use_topics:catalog.adopt(service,i,p,rid,use_topics=u),'Aprendizaje incorporado sin progreso automático.')
     with history:
-        st.caption('Revisión semanal prevista: domingo a las 12:17 UTC. GitHub Actions puede retrasarla. Consulta docs/DISCOVERY_SETUP.md para activarla; la app muestra aquí cada ejecución que logra iniciar sesión.')
+        st.caption('El workflow comprueba diariamente si han pasado 21 días desde la última revisión. Sólo entonces investiga. Las verificaciones de nombres usan el mismo presupuesto, pero no aplazan la próxima revisión del catálogo. GitHub puede retrasar la ejecución.')
         for run in runs[:30]:
             with st.expander(run['started_at']+' · '+run['status']+' · '+run['origin']):
                 st.write(run.get('model_id') or 'Sin respuesta de un modelo')
                 if run['error_message']:
                     st.write(run['error_message'])
                 st.json(run['details'])
+
+
+def readiness(service, cfg, config):
+    missing=[]
+    if service.repo.is_demo:
+        missing.append('inicia sesión con tu cuenta; la demo no utiliza APIs')
+    if not cfg.get('tavily',{}).get('api_key'):
+        missing.append('falta la clave de Tavily en Secrets')
+    if not cfg.get('gemini',{}).get('api_key'):
+        missing.append('falta la clave de Gemini en Secrets')
+    if not config['external_consent']:
+        missing.append('autoriza el uso de tu enfoque en las opciones de actualización')
+    if policy.spent(service.data)+policy.REFRESH_CREDITS>policy.MONTHLY_CREDITS:
+        missing.append('no queda presupuesto mensual suficiente para esta revisión')
+    return missing
+
+
+def dismiss_refresh():
+    st.session_state.pop('catalog_confirm_open',None)
+
+
+@st.dialog('¿Buscar novedades ahora?',on_dismiss=dismiss_refresh)
+def confirm_refresh(service):
+    st.write('Esta revisión buscará recursos relacionados con tu enfoque: hasta 5 oportunidades nuevas y 3 fichas existentes. No borra el catálogo ni modifica tu progreso.')
+    st.write('Tavily: hasta 8 créditos por ejecución con la tarifa actual. Gemini: hasta 6.000 tokens de salida por intento, con un máximo de 4 intentos entre los dos modelos. La entrada contiene fuentes acotadas y un resumen del catálogo.')
+    st.caption('Los intentos fallidos también pueden consumir cuota. Una revisión completada mueve la siguiente fecha prevista 21 días hacia delante.')
+    a,b=st.columns(2)
+    if b.button('Cancelar',key='cancel_research',width='stretch'):
+        dismiss_refresh()
+        st.rerun()
+    if a.button('Sí, buscar novedades',key='confirm_research',type='primary',width='stretch'):
+        cfg=configuration()
+        with st.status('Buscando novedades…',expanded=True) as status:
+            try:
+                result=catalog.refresh(service.repo,cfg.get('tavily',{}).get('api_key',''),cfg.get('gemini',{}).get('api_key',''),notify=lambda message:status.update(label=message))
+                status.update(label='Revisión guardada',state='complete')
+                st.session_state.flash=f"Revisión terminada: {result['added']} nuevas y {result['changed']} fichas modificadas. Se comprobó un total de {result['checked']} fichas. Tus aprendizajes se conservaron."
+                dismiss_refresh()
+                st.rerun()
+            except (ValueError,RepositoryError) as exc:
+                status.update(label='Revisión sin completar',state='error')
+                st.error(str(exc))
+
+
+def focus_settings(service):
+    from .app import save_and_refresh
+    if 'discovery_settings' not in service.data:
+        return
+    config=catalog.settings(service)
+    st.caption('Tu dirección profesional orienta las búsquedas y el orden de relevancia. Las horas de práctica y los documentos privados no se envían para investigar oportunidades.')
+    with st.form('discovery_focus'):
+        focus=st.text_area('Dirección profesional actual',config['focus'],max_chars=600)
+        primary=st.text_input('Temas prioritarios · separados por comas',', '.join(config['primary_tags']))
+        related=st.text_input('Áreas relacionadas · separadas por comas',', '.join(config['related_tags']))
+        consent=st.checkbox('Autorizar el envío del enfoque y nombres públicos a Tavily y Gemini',config['external_consent'])
+        automatic=st.checkbox('Permitir revisión automática cada 21 días',config['weekly_enabled'])
+        st.caption('Activar esta preferencia no instala la automatización: requiere los secretos y el workflow de GitHub descritos en docs/DISCOVERY_SETUP.md.')
+        if st.form_submit_button('Guardar enfoque'):
+            values={'focus':focus,'primary_tags':[x.strip() for x in primary.split(',') if x.strip()],
+                    'related_tags':[x.strip() for x in related.split(',') if x.strip()],'weekly_enabled':automatic,'external_consent':consent}
+            save_and_refresh('discovery_focus',lambda rid:catalog.save_settings(service,values,rid),'Enfoque guardado.')
+
+
+def render_calendar(runs,due):
+    import calendar
+    import pandas as pd
+    point=due.date() if due else datetime.now(timezone.utc).date()
+    days={r['finished_at'][:10] for r in runs}
+    rows=[]
+    for week in calendar.monthcalendar(point.year,point.month):
+        row=[]
+        for day in week:
+            label=str(day) if day else ''
+            iso=f'{point.year:04d}-{point.month:02d}-{day:02d}'
+            if day and iso in days: label+=' ✓'
+            if day and due and day==point.day: label+=' ◉'
+            row.append(label)
+        rows.append(row)
+    st.write(f'{point.year}-{point.month:02d}')
+    st.table(pd.DataFrame(rows,columns=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']))
+    st.caption('✓ Revisión registrada · ◉ Próxima fecha prevista. El calendario muestra el mes de la próxima revisión; el historial conserva los meses anteriores.')

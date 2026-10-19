@@ -20,7 +20,23 @@ from .seed import factory_route, initialize_dictionary, read_data
 from .service import Batch, LearningService
 from .ui import ACTIVITY, CSS, ENERGY, KIND, RATING, STATUS, e, heading, hero, metrics, minutes, pills
 
-NAV = ["Mi panorama", "Mi ruta", "Mi aprendizaje", "Habilidades", "Lo aprendido", "Actividad", "Descubrir", "Mi día libre", "Importar documentos", "Credenciales", "Mi espacio"]
+NAV = ["Dashboard", "Learning Roadmap", "Garden of Knowledge", "Learning Log", "Learning Radar", "Focus Plan", "Import", "Credentials", "Profile & Preferences"]
+NAV_ICONS = ["dashboard", "route", "yard", "history", "explore", "timer", "upload_file", "workspace_premium", "tune"]
+
+
+def navigate(page, section=None):
+    st.session_state.navigation = page
+    if page!='Learning Radar':
+        st.session_state.pop('catalog_confirm_open',None)
+    if section:
+        st.session_state.dashboard_section = section
+
+
+def dashboard(service):
+    section = st.segmented_control("Dentro de Dashboard", ["Overview", "My Learning", "Abilities"],
+                                   default="Overview", key="dashboard_section", selection_mode="single")
+    {"Overview": panorama, "My Learning": learning, "Abilities": skills_page}.get(section, panorama)(service)
+
 
 
 def action(key, callback, message="Guardado en tu espacio."):
@@ -82,7 +98,7 @@ def new_track_fields(prefix="new"):
     issuer = b.text_input("Emisor / institución", key=prefix+"issuer")
     url = st.text_input("Enlace de referencia", key=prefix+"url")
     lessons = st.text_area("Lecciones o unidades · una por línea", key=prefix+"units", height=100,
-                           help="Sin unidades, el progreso aparecerá como ‘Sin definir’. Unidades con el mismo peso; puedes importar módulos y pesos mediante JSON.")
+                           help="Sin unidades, el progreso aparecerá como ‘Sin definir’. Estas lecciones tienen el mismo peso. Para organizar un programa con módulos, usa Import y revisa la propuesta antes de guardarla.")
     topics = st.text_input("Temas cubiertos · separados por comas", key=prefix+"topics")
     notes = st.text_area("Notas", key=prefix+"notes", height=80)
     return dict(title=title, kind=kind, area=area, official_name=official, platform=platform, issuer=issuer,
@@ -249,7 +265,18 @@ def download_attachment(service, attachment):
 
 def panorama(service):
     data = service.data
-    heading("CRECE A TU RITMO", "Cada pequeño paso cuenta.", "Un lugar para ver lo que estás construyendo, conectar tus habilidades y elegir qué viene después.")
+    heading("DASHBOARD · OVERVIEW", "Tu aprendizaje de un vistazo.", "Consulta tu progreso, tiempo de práctica y constancia. Abre My Learning para gestionar cursos y proyectos, o Abilities para ver las habilidades relacionadas con lo que haces.")
+    with st.expander("Cómo se conectan las secciones · un ejemplo con SQL"):
+        st.markdown("""
+| Sección | Para qué la usas | Ejemplo |
+|---|---|---|
+| **My Learning** | Organizar cada curso o proyecto y completar sus lecciones. | Curso de SQL: 3 de 10 lecciones completadas. |
+| **Learning Roadmap** | Reunir esos aprendizajes en fases hacia una meta con fechas. | Aprender SQL y Python para construir un dashboard en tres meses. |
+| **Focus Plan** | Elegir unos bloques pequeños para el tiempo que tienes hoy. | Dedicar 25 minutos a la próxima lección de SQL. |
+| **Learning Log** | Registrar lo que hiciste y cuánto tiempo real te tomó. | Hoy practiqué consultas SQL durante 30 minutos. |
+| **Abilities** | Ver qué habilidades cubres, cuáles practicas y de dónde vienen. | Consultar datos: relacionada con el curso y con la sesión registrada. |
+""")
+        st.caption("Puedes empezar con un solo curso, sin crear una ruta. Añádelo con ‘Añadir aprendizaje’, desde Learning Radar o mediante Import. Planificar un bloque no registra actividad: después confirmas lo que hiciste. Marcar una lección y registrar minutos son acciones distintas.")
     active = [t for t in data["learning_tracks"] if t["status"] == "active"]
     recent = sum(s["duration_minutes"] for s in domain.active_sessions(data) if domain.as_date(s["occurred_on"]) >= service.current-timedelta(days=6))
     learned = [t for t in data["topics"] if domain.review_state(data, t["id"], service.current)]
@@ -264,7 +291,7 @@ def panorama(service):
         hero("TU NORTE · " + goal["title"], current["title"] if current else "Una ruta con intención.",
              f"{minutes(goal['weekly_minutes'])} por semana · {goal['starts_on']} → {goal['target_on']}. " + (current["topics"] if current else goal["outcome"]))
     else:
-        hero("EMPIEZA CON LO QUE IMPORTA", "Dale un lugar a tu próximo paso.", "Añade un aprendizaje o abre Mi ruta para cargar el plan Factory Enablement. Tu avance empieza desde cero.")
+        hero("EMPIEZA CON LO QUE IMPORTA", "Dale un lugar a tu próximo paso.", "Añade un aprendizaje o abre Learning Roadmap para cargar el plan Factory Enablement. Tu avance empieza desde cero.")
     st.subheader("Tu mesa de trabajo")
     tracks = sorted(active, key=lambda t: (not t.get("favorite"), t["priority"], t["title"]))[:4]
     if tracks:
@@ -273,7 +300,7 @@ def panorama(service):
             with cols[i % 2]:
                 track_card(service, track)
     else:
-        st.info("Aún no hay aprendizajes en curso. Puedes activar uno desde Mi aprendizaje.")
+        st.info("Aún no hay aprendizajes en curso. Puedes activar uno desde Dashboard → My Learning.")
     st.subheader("Una mirada a tus áreas")
     sessions = domain.active_sessions(data)
     if sessions:
@@ -287,7 +314,8 @@ def panorama(service):
 
 
 def learning(service):
-    heading("TU BIBLIOTECA VIVA", "Aprender, con intención.", "Cursos, certificaciones, proyectos y temas. Cada uno con su contenido, su ritmo y su lugar en tu historia.")
+    heading("DASHBOARD · MY LEARNING", "Lo que eliges aprender.", "Aquí están tus cursos, certificaciones y proyectos: pendientes, en curso y terminados. Abre uno para organizar sus lecciones, marcar lo completado y registrar práctica. Los temas que ya comprendiste viven en Garden of Knowledge.")
+    st.caption("Cada ficha reúne un aprendizaje y sus lecciones. Puedes añadirlo manualmente, traerlo de Learning Radar o prepararlo en Import. Learning Roadmap te permite agrupar varios de estos aprendizajes en fases hacia una meta.")
     a, b, c = st.columns([2, 1, 1])
     query = a.text_input("Buscar", placeholder="Python, redes, una plataforma…")
     state = b.selectbox("Estado", [None]+list(STATUS), format_func=lambda v: "Todos" if v is None else STATUS[v])
@@ -301,7 +329,8 @@ def learning(service):
 
 
 def route_page(service):
-    heading("UN NORTE, MUCHOS PASOS", "Tu ruta de crecimiento.", "El calendario organiza la intención. Los entregables aceptados y las sesiones cuentan lo que realmente hiciste.")
+    heading("LEARNING ROADMAP", "Un plan hacia tu próxima meta.", "Organiza tu objetivo en fases con fechas y resultados concretos. Vincula aprendizajes a cada fase y confirma los entregables que terminaste; el tiempo real se registra en Learning Log.")
+    st.caption("Ejemplo: tu ruta para Factory Enablement puede combinar un curso de Python, otro de SQL y un proyecto. Sus lecciones se siguen en My Learning; aquí decides en qué fase va cada uno y qué resultado quieres conseguir.")
     data = service.data
     if not data["learning_goals"]:
         hero("FACTORY ENABLEMENT", "De Python a un piloto reproducible.", "12 oct 2026 → 3 ene 2027 · 8 h semanales · 88 h de trabajo y 8 h de margen. La ruta se crea sin avances registrados.")
@@ -328,16 +357,24 @@ def route_page(service):
                 for learning_track in data["learning_tracks"]:
                     if learning_track["id"] in linked_ids:
                         st.write("Aprendizaje vinculado: "+learning_track["title"])
+                with st.expander("Elegir aprendizajes para esta fase"):
+                    with st.form('phase_links_'+phase['id']):
+                        labels={t['id']:t['title'] for t in data['learning_tracks']}
+                        selected=st.multiselect('Cursos o proyectos relacionados',list(labels),default=list(linked_ids),format_func=labels.get,key='phase_selection_'+phase['id'])
+                        st.caption('Puedes vincular aquí lo que hayas creado en My Learning o Import. Esto organiza la ruta sin marcar progreso.')
+                        if st.form_submit_button('Guardar aprendizajes de la fase',disabled=goal['status']!='active'):
+                            save_and_refresh('phase_links_'+phase['id'],lambda rid,pid=phase['id'],chosen=selected:service.link_phase(pid,chosen,rid))
                 if ms:
                     with st.expander("Entregable · " + ms["title"]):
                         st.text(ms["criteria"])
+                        st.caption("Marca la casilla cuando hayas terminado este resultado. Puedes asociar un trabajo registrado en Learning Log o Import, y dejar notas. Esto no completa lecciones ni añade horas.")
                         with st.form("milestone_"+ms["id"]):
                             accepted = st.checkbox("Revisé el resultado y cumple los criterios", bool(ms.get("accepted_on")))
-                            evidence = select_record("Evidencia vinculada (opcional)", data["learning_evidence"], field="title", optional=True, default=ms.get("evidence_id"), key="mev_"+ms["id"])
-                            notes = st.text_area("Notas de revisión", ms.get("notes", ""))
-                            if st.form_submit_button("Guardar revisión"):
+                            evidence = select_record("Trabajo que respalda el resultado (opcional)", data["learning_evidence"], field="title", optional=True, default=ms.get("evidence_id"), key="mev_"+ms["id"])
+                            notes = st.text_area("Qué comprobaste o qué queda pendiente (opcional)", ms.get("notes", ""), placeholder="Ej.: el script procesa el CSV y las pruebas pasan; falta documentarlo.")
+                            if st.form_submit_button("Guardar estado del entregable"):
                                 save_and_refresh("milestone_"+ms["id"], lambda rid: service.accept_milestone(ms["id"], accepted, notes, evidence, rid))
-        with st.expander("Replanificar conservando esta versión"):
+        with st.expander("Opciones avanzadas · crear otra versión de la ruta"):
             st.caption("Edita la propuesta y guarda una versión nueva. La anterior y sus sesiones permanecerán en tu historial.")
             draft = {"title": goal["title"], "outcome": goal["outcome"], "weekly_minutes": goal["weekly_minutes"], "phases": []}
             for phase in phases:
@@ -350,8 +387,11 @@ def route_page(service):
 
 
 def skills_page(service):
-    heading("LO QUE ESTÁS CONECTANDO", "Tu mapa de habilidades.", "Distingue el contenido que has encontrado, la práctica que has registrado y lo que ahora puedes hacer con más autonomía.")
+    heading("DASHBOARD · ABILITIES", "Lo que estás aprendiendo a hacer.", "Consulta qué habilidades aparecen en tus cursos, dónde las has practicado y qué trabajos las respaldan. Estas conexiones se reúnen automáticamente a partir de tus registros; valorar tu autonomía es opcional.")
     data = service.data
+    from .exports import abilities_csv
+    st.download_button("Descargar todas mis habilidades · CSV", abilities_csv(data), "learning-atlas-abilities.csv", mime="text/csv", key="abilities_csv", width="stretch")
+    st.caption("Ejemplo: JOIN es un tema; combinar tablas para resolver una consulta es una habilidad. Un curso indica que la cubre, una sesión registra práctica y una autoevaluación expresa tu autonomía.")
     with st.expander("Añadir una habilidad"):
         with st.form("newskill"):
             name = st.text_input("Habilidad")
@@ -392,7 +432,7 @@ def skills_page(service):
                 if evo["rows"]:
                     st.dataframe(pd.DataFrame(evo["rows"])[["occurred_on", "level", "context"]], hide_index=True, width="stretch")
             with st.form("assess_"+skill["id"]):
-                st.write("Una autoevaluación, con contexto")
+                st.write("Opcional · ¿qué puedes hacer por tu cuenta?")
                 when = st.date_input("Fecha", service.current, max_value=service.current)
                 level = st.selectbox("Qué puedes hacer", [0,1,2,3], format_func=lambda v:["0 · Todavía no puedo", "1 · Con guía", "2 · Por mi cuenta", "3 · Lo explico y compruebo"][v])
                 context = st.text_area("Describe la tarea concreta")
@@ -403,7 +443,7 @@ def skills_page(service):
 
 
 def knowledge_page(service):
-    heading("QUE LO APRENDIDO SE QUEDE CONTIGO", "Tu jardín de conocimiento.", "Un mapa de temas y momentos de práctica. El color sugiere qué podrías retomar; tú decides cuándo hacerlo.")
+    heading("GARDEN OF KNOWLEDGE", "Cuida lo que ya aprendiste.", "Añade los temas que ya comprendiste y registra cuándo los practicas o repasas. El color te ayuda a decidir qué retomar; practicar en el trabajo también cuenta cuando lo registras.")
     data = service.data
     with st.expander("Ya aprendí algo · añadir al mapa"):
         with st.form("learnedtopic"):
@@ -437,7 +477,7 @@ def knowledge_page(service):
 
 
 def activity_page(service):
-    heading("EL RITMO QUE VAS CONSTRUYENDO", "Tu aprendizaje, en el tiempo.", "Cuenta el tiempo real, también cuando practicas en el trabajo. Una sesión se cuenta una vez, aunque conecte muchas habilidades.")
+    heading("LEARNING LOG", "Un registro de tu práctica real.", "Anota cuánto tiempo estudiaste, repasaste o aplicaste algo en el trabajo. Puedes vincular la sesión a un curso, una fase, temas y habilidades. Este registro alimenta tus horas, rachas y calendario.")
     if st.button("Registrar una sesión", type="primary"):
         open_dialog("session")
     data = service.data
@@ -503,7 +543,7 @@ def discovery_page(service):
 
 
 def day_page(service):
-    heading("UN POCO DE ESTRUCTURA, SIN PRESIÓN", "¿Y si hoy empiezas por algo pequeño?", "Elige el tiempo y la energía que tienes. Te proponemos hasta tres bloques para avanzar sin llenar todo el día.")
+    heading("FOCUS PLAN", "Decide qué hacer con el tiempo que tienes.", "Elige tus minutos disponibles y tu energía. Recibirás hasta tres bloques de lecciones pendientes o repasos, con pausas. Preparar el plan no cuenta como estudio: registra el tiempo real cuando lo hagas.")
     with st.form("dayplan"):
         a,b=st.columns(2)
         budget=a.select_slider("Tiempo disponible",[20,30,45,60,90,120],value=45,format_func=minutes)
@@ -513,7 +553,10 @@ def day_page(service):
     st.caption("El plan usa tus prioridades, unidades pendientes y repasos orientativos. Se genera con reglas locales, sin enviar tus datos a una IA.")
     plans=sorted([p for p in service.data["daily_plans"] if p["plan_date"]==service.current.isoformat()],key=lambda p:p.get("created_at",""),reverse=True)
     if not plans:
-        hero("HOY PUEDE SER SUFICIENTE", "Una cosa pequeña, bien hecha.", "Activa un aprendizaje con unidades o añade un tema aprendido para recibir una sugerencia.")
+        hero("HOY PUEDE SER SUFICIENTE", "Una cosa pequeña, bien hecha.", "Ve a Dashboard → My Learning, abre un curso o proyecto, ponlo En curso y añade sus lecciones. También puedes registrar un tema en Garden of Knowledge: aparecerá aquí cuando corresponda repasarlo.")
+        a,b=st.columns(2)
+        a.button("Abrir My Learning",key="focus_to_learning",on_click=navigate,args=("Dashboard","My Learning"))
+        b.button("Abrir Garden of Knowledge",key="focus_to_garden",on_click=navigate,args=("Garden of Knowledge",))
         return
     pid=select_record("Plan de hoy",plans,field="created_at",key="today_plan",default=plans[0]["id"])
     plan=domain.by_id(plans)[pid]
@@ -530,7 +573,9 @@ def day_page(service):
 
 
 def import_page(service):
-    heading("DE TUS DOCUMENTOS A TU MAPA", "Trae lo que quieres aprender.", "Lee el archivo, revisa su organización y decide qué guardar. Nada se convierte en avance por aparecer en un documento.")
+    heading("IMPORT", "Convierte información en un plan que puedas seguir.", "Sube un documento, escribe la información o prepara una propuesta conversando con Gemini. Revisa lo organizado antes de guardarlo: los cursos van a My Learning, las rutas con fases a Learning Roadmap y las habilidades quedan relacionadas en Abilities.")
+    from .assistant_ui import render_import_assistant
+    render_import_assistant(service)
     data=service.data
     with st.expander("1 · Añadir un documento",expanded=True):
         uploaded=st.file_uploader("PDF, DOCX, TXT, MD o una propuesta JSON",type=["pdf","docx","txt","md","json"],max_upload_size=10,key="import_upload")
@@ -546,6 +591,11 @@ def import_page(service):
                 if Path(uploaded.name).suffix.lower()==".json":
                     proposal=ImportProposal.model_validate_json(extracted["text"])
                     st.session_state.proposal_editor=json.dumps(proposal.model_dump(mode="json"),ensure_ascii=False,indent=2)
+                elif Path(uploaded.name).suffix.lower()==".txt":
+                    from .assistant import proposal_from_text
+                    proposal=proposal_from_text(extracted['text'])
+                    if proposal:
+                        st.session_state.proposal_editor=proposal.model_dump_json(indent=2)
             except (ValueError,Exception) as exc:
                 st.error(str(exc) if isinstance(exc,ValueError) else "No se pudo leer el documento.")
         source=st.session_state.get("import_source")
@@ -568,20 +618,30 @@ def import_page(service):
                     st.error(str(exc))
             if not gemini.get("api_key") or not gemini.get("model"):
                 st.caption("Gemini requiere una cuenta conectada y una clave configurada. La captura manual y la importación JSON funcionan sin IA.")
-    with st.expander("2 · Organizar y validar",expanded=bool(st.session_state.get("import_source"))):
-        st.caption("Puedes crear una propuesta manual con este formulario o editar JSON para módulos, habilidades, evidencias y fases de una ruta.")
-        with st.form("manualproposal"):
-            payload=new_track_fields("importmanual_")
-            if st.form_submit_button("Preparar propuesta manual"):
-                try:
-                    proposal=ImportProposal(tracks=[TrackDraft.model_validate(payload)])
-                    st.session_state.proposal_editor=json.dumps(proposal.model_dump(mode="json"),ensure_ascii=False,indent=2)
-                    st.session_state.pop("import_model",None)
-                    st.rerun()
-                except ValueError as exc:
-                    st.error(str(exc))
-        raw=st.text_area("Propuesta JSON · editable",key="proposal_editor",height=260)
-        st.download_button("Descargar esquema JSON",json.dumps(ImportProposal.model_json_schema(),ensure_ascii=False,indent=2),"learning-atlas-import.schema.json",mime="application/json")
+    with st.expander("2 · Organizar y validar",expanded=bool(st.session_state.get("import_source") or st.session_state.get("proposal_editor"))):
+        st.caption("Prepara la información con el formulario o el asistente. JSON es un archivo estructurado que permite a la app conservar lecciones y relaciones; no necesitas escribirlo.")
+        with st.expander("Captura manual · preparar sin IA"):
+            with st.form("manualproposal"):
+                payload=new_track_fields("importmanual_")
+                if st.form_submit_button("Preparar propuesta manual"):
+                    try:
+                        proposal=ImportProposal(tracks=[TrackDraft.model_validate(payload)])
+                        st.session_state.proposal_editor=json.dumps(proposal.model_dump(mode="json"),ensure_ascii=False,indent=2)
+                        st.session_state.pop("import_model",None)
+                        st.rerun()
+                    except ValueError as exc:
+                        st.error(str(exc))
+        raw=st.session_state.get("proposal_editor", "")
+        if raw:
+            try:
+                proposed=ImportProposal.model_validate_json(raw)
+                st.write("Propuesta preparada: "+", ".join(t.title for t in proposed.tracks))
+            except ValueError:
+                st.warning("La propuesta necesita correcciones antes de guardarla.")
+        with st.expander("Avanzado · formato JSON"):
+            st.caption("JSON guarda campos y relaciones en texto. Úsalo sólo si quieres editar la estructura o intercambiarla con otra herramienta; el asistente y el formulario lo preparan por ti.")
+            raw=st.text_area("Propuesta JSON · editable",key="proposal_editor",height=260)
+            st.download_button("Descargar esquema JSON",json.dumps(ImportProposal.model_json_schema(),ensure_ascii=False,indent=2),"learning-atlas-import.schema.json",mime="application/json")
         duplicate=bool(source and any(j["sha256"]==source["sha256"] and j["status"]!="cancelled" for j in data["import_jobs"]))
         allow_duplicate=False
         if duplicate:
@@ -635,7 +695,7 @@ def import_page(service):
                     st.dataframe(pd.DataFrame([{"Fase":p.title,"Inicio":p.starts_on,"Fin":p.ends_on,"Minutos":p.budget_minutes,"Entregable":p.milestone} for p in proposal.route.phases]),hide_index=True,width="stretch")
                 for evidence in proposal.evidence:
                     st.write("Evidencia declarada: "+evidence.title+" · "+str(evidence.occurred_on or evidence.period_label or "Fecha sin precisar"))
-                with st.expander("Editar estructura completa · JSON"):
+                with st.expander("Avanzado · editar la estructura JSON"):
                     edited=st.text_area("Propuesta a guardar",json.dumps(job["proposal"],ensure_ascii=False,indent=2),height=230,key="draft_"+job["id"])
                 if st.button("Validar cambios del borrador",key="editdraft_"+job["id"]):
                     info={k:job.get(k) for k in ["filename","sha256","storage_path","mime_type","extractor_version","model_id","prompt_version"]}
@@ -661,7 +721,7 @@ def import_page(service):
                         st.rerun()
             elif job["status"]=="imported":
                 st.success("Contenido guardado. Reabrir esta importación no lo vuelve a insertar.")
-                st.json(job["result"],expanded=False)
+                st.caption("Consulta My Learning para los cursos, Learning Roadmap para las fases y Learning Log para los trabajos importados. El temario no se marca como aprendido automáticamente.")
             elif job.get("storage_path") and st.button("Reintentar limpieza del archivo cancelado",key="cleanup_"+job["id"]):
                 answer=action("cleanup_"+job["id"],lambda rid,j=job:service.cancel_import(j["id"],rid))
                 if answer:
@@ -669,8 +729,12 @@ def import_page(service):
 
 
 def credentials_page(service):
-    heading("LOGROS CON SU PROPIO CONTEXTO", "Tus credenciales.", "Un certificado de curso, un programa y una certificación profesional son cosas distintas. Regístralos con su nombre y emisor.")
+    heading("CREDENTIALS", "Tus títulos y certificados, bien organizados.", "Registra credenciales que ya obtuviste, con nombre, emisor, fechas y enlaces. Gemini puede ayudarte a preparar una tabla; tú revisas y eliges qué guardar. Una credencial no completa cursos ni registra horas automáticamente.")
+    from .assistant_ui import render_credentials_assistant
+    render_credentials_assistant(service)
+    from .exports import credentials_csv
     data=service.data
+    st.download_button("Descargar mis credenciales · CSV", credentials_csv(data["credentials"]), "learning-atlas-credentials.csv", mime="text/csv")
     with st.expander("Registrar una credencial obtenida"):
         credential_form(service)
     for credential in data["credentials"]:
@@ -681,6 +745,10 @@ def credentials_page(service):
             st.write(credential.get("notes", ""))
             if credential.get("verification_url"):
                 st.link_button("Consultar credencial ↗",credential["verification_url"],key="clink_"+credential["id"])
+            if credential.get('program_code') or credential.get('credential_code'):
+                st.caption('Programa/examen: '+(credential.get('program_code') or 'sin código')+' · ID personal: '+(credential.get('credential_code') or 'sin ID'))
+            if credential.get('document_url'):
+                st.link_button('Abrir mis documentos',credential['document_url'],key='cdoc_'+credential['id'])
             with st.expander("Corregir información de la credencial"):
                 credential_form(service,credential)
     if not data["credentials"]:
@@ -700,16 +768,19 @@ def credential_form(service,credential=None):
         period=st.text_input("Período si no recuerdas el día",row.get("period_label",""),placeholder="Ej. Fall 2024")
         expires=st.date_input("Fecha de caducidad conocida (opcional)",value=domain.as_date(row["expires_on"]) if row.get("expires_on") else None)
         never=st.checkbox("El emisor declara que no caduca",row.get("never_expires",False))
-        url=st.text_input("URL de verificación (opcional)",row.get("verification_url") or "")
+        code=st.text_input("Código del examen o programa (opcional)",row.get("program_code", ""),help="Ej.: PL-300. No es el número personal de tu certificado.")
+        credential_id=st.text_input("ID de tu credencial (opcional)",row.get("credential_code", ""))
+        url=st.text_input("Enlace de verificación del emisor (opcional)",row.get("verification_url") or "")
+        document_url=st.text_input("Enlace a tu certificado o carpeta de Drive (opcional)",row.get("document_url") or "",help="Un enlace a Drive sirve para consultar tus documentos; no equivale a verificación del emisor.")
         notes=st.text_area("Notas",row.get("notes",""))
         if st.form_submit_button("Guardar credencial",type="primary"):
             fields=dict(official_name=name,issuer=issuer,credential_type=ctype,track_id=track,earned_on=earned.isoformat() if earned else None,period_label=period,
-                expires_on=expires.isoformat() if expires else None,never_expires=never,verification_url=url or None,notes=notes)
+                expires_on=expires.isoformat() if expires else None,never_expires=never,verification_url=url or None,notes=notes,program_code=code,credential_code=credential_id,document_url=document_url or None)
             save_and_refresh(key,lambda rid:service.add_credential(fields,rid,credential_id=row.get("id")))
 
 
 def settings_page(service):
-    heading("HECHO A TU MEDIDA", "Tu espacio, tus reglas.", "Ajusta tu ritmo y conserva una copia de tus datos cuando quieras.")
+    heading("PROFILE & PREFERENCES", "Ajusta la app a tu ritmo y dirección.", "Configura tu disponibilidad, zona horaria y constancia diaria. Define tu enfoque para Learning Radar y descarga una copia de tus registros. Cambiar preferencias no modifica automáticamente tu ruta existente.")
     with st.form("settings"):
         name=st.text_input("Nombre de tu espacio",service.profile["display_name"])
         zone=st.text_input("Zona horaria IANA",service.profile["timezone"],help="Ejemplos: America/Puerto_Rico, America/La_Paz")
@@ -718,9 +789,11 @@ def settings_page(service):
         st.caption("La zona horaria aplica a nuevas fechas; no cambia las fechas locales de sesiones previas. Cambiar disponibilidad no modifica las versiones de tu ruta.")
         if st.form_submit_button("Guardar preferencias",type="primary"):
             save_and_refresh("settings",lambda rid:service.settings(name,zone,weekly,threshold,rid))
+    from .catalog_ui import focus_settings
+    focus_settings(service)
     st.subheader("Tu copia de los datos")
     st.download_button("Exportar mis datos · JSON",export_json(service.data),"learning-atlas-export.json",mime="application/json",type="primary")
-    st.caption("Incluye registros e historial; no contraseñas, tokens ni el contenido binario de adjuntos. Es una exportación de respaldo, no el formato de propuestas del importador. Descarga los adjuntos desde sus aprendizajes o evidencias.")
+    st.caption("Incluye perfil, cursos, lecciones, rutas, sesiones, temas, habilidades, credenciales, importaciones, planes y catálogo con sus relaciones e historial; no contraseñas, tokens ni el contenido binario de adjuntos. Es una exportación de respaldo, no el formato de propuestas del importador. Descarga los adjuntos desde sus aprendizajes o evidencias.")
     if st.button("Actualizar desde la base de datos"):
         st.rerun()
     st.caption("Persistencia: "+("demo temporal en esta sesión" if service.repo.is_demo else "Supabase · datos privados de tu usuario"))
@@ -749,7 +822,13 @@ def run():
         if st.button("＋ Añadir aprendizaje",type="primary",width="stretch",key="add_learning"):
             open_dialog("track")
         st.divider()
-        page=st.radio("Tu espacio",NAV,key="navigation",label_visibility="collapsed")
+        if st.session_state.get("navigation") not in NAV:
+            st.session_state.navigation="Dashboard"
+        with st.container(key="navigation_menu"):
+            for name, icon in zip(NAV, NAV_ICONS):
+                st.button(name, icon=f":material/{icon}:", type="primary" if st.session_state.navigation==name else "tertiary",
+                          key="nav_"+icon, width="stretch", on_click=navigate, args=(name,))
+        page=st.session_state.navigation
         st.divider()
         st.caption(service.profile["display_name"])
         st.caption(minutes(service.profile["weekly_minutes"])+" por semana · "+("Demo" if repo.is_demo else "Conectado a Supabase"))
@@ -759,7 +838,7 @@ def run():
         st.caption("ESPACIO DE DEMOSTRACIÓN · Datos ficticios y cambios temporales; no reflejan tu avance real.")
     if "flash" in st.session_state:
         st.success(st.session_state.pop("flash"))
-    pages=dict(zip(NAV,[panorama,route_page,learning,skills_page,knowledge_page,activity_page,discovery_page,day_page,import_page,credentials_page,settings_page]))
+    pages=dict(zip(NAV,[dashboard,route_page,knowledge_page,activity_page,discovery_page,day_page,import_page,credentials_page,settings_page]))
     pages[page](service)
     dialog=st.session_state.get("active_dialog")
     if dialog:

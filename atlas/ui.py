@@ -24,7 +24,14 @@ h1{font-size:3.2rem!important;line-height:1.1!important}h2{font-size:2rem!import
 .stButton button,.stFormSubmitButton button{border-radius:10px;min-height:2.6rem}
 [data-testid="stVerticalBlockBorderWrapper"]>div{border-radius:18px}
 [data-testid="stMetricValue"]{font-family:Georgia,serif}
-[data-testid="stSidebar"] [data-testid="stRadio"] label p{font-size:.86rem}
+.st-key-navigation_menu{gap:.25rem!important}
+.st-key-navigation_menu button{justify-content:flex-start!important;text-align:left;min-height:2.95rem;padding:.55rem .8rem;border-radius:10px}
+.st-key-navigation_menu button>div{width:100%;display:flex;justify-content:flex-start!important}
+.st-key-navigation_menu button>div>span{justify-content:flex-start!important}
+.st-key-navigation_menu button p{font-size:1.04rem!important;font-weight:600}
+.st-key-navigation_menu button[kind="tertiary"]{color:#3c5148}
+.st-key-navigation_menu button:hover{background:#e2eadd}
+.st-key-navigation_menu button:focus-visible{outline:2px solid #23684f;outline-offset:2px}
 @media(max-width:700px){h1{font-size:2.35rem!important}.block-container{padding:4.5rem 1rem 2rem}.hero{padding:21px}.metric{min-height:110px;padding:16px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric .value{font-size:1.65rem}}
 </style>
 """
@@ -58,7 +65,7 @@ def minutes(value):
     return f"{h} h {m:02d} min" if h else f"{m} min"
 
 
-KIND = {"course": "Curso", "certification": "Certificación", "topic": "Tema / ruta", "project": "Proyecto", "lab": "Laboratorio", "paper": "Paper", "pack": "Learning Pack"}
+KIND = {"course": "Curso", "certification": "Certificación", "topic": "Tema", "project": "Proyecto", "lab": "Laboratorio", "paper": "Paper", "pack": "Learning Pack"}
 STATUS = {"planned": "Por empezar", "active": "En curso", "paused": "En pausa", "completed": "Completado", "archived": "Archivado"}
 ENERGY = {"low": "Con calma", "medium": "A buen ritmo", "high": "Con energía"}
 ACTIVITY = {"study": "Estudio", "review": "Repaso", "work_practice": "Práctica en el trabajo"}

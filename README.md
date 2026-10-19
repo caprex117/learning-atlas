@@ -84,3 +84,8 @@ El plan del día usa reglas. Descubrir combina una selección inicial revisada c
 Los adjuntos son privados; las sesiones de acceso se conservan en el servidor para esa conexión del navegador. Una recarga completa puede pedir iniciar sesión de nuevo. Las correcciones de tiempo se hacen anulando la sesión y registrando la correcta, conservando el historial. El JSON de exportación sirve como respaldo de registros, no como restauración automática ni como copia de los archivos binarios.
 
 Consulta [el contrato implementado](docs/CONTRACT.md), [el modelo y seguridad](docs/DATA_MODEL.md) y [el flujo de documentos](docs/IMPORTING.md).
+
+
+## Navegación y asistentes
+
+Dashboard reúne Overview, My Learning y Abilities. La [guía del flujo](docs/UX_GUIDE.md) explica Learning Roadmap, Garden of Knowledge, Learning Log, Learning Radar, Focus Plan, Import, Credentials y Profile & Preferences. Para actualizar una instalación existente, ejecuta únicamente la nueva migración `003_credential_details.sql`, y publica el código.

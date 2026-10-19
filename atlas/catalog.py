@@ -7,7 +7,7 @@ from uuid import uuid4
 from .catalog_models import Focus, Opportunity, defaults
 from .models import TrackDraft, canonical_hash, normalized
 from .service import Batch, LearningService
-from . import research
+from . import research, research_policy as policy
 
 
 def now():
@@ -29,11 +29,12 @@ def save_settings(service, values, request_id):
     return service._commit(b, request_id, {'action': 'discovery_settings', **values})
 
 
-def begin(service, origin, request_id):
+def begin(service, origin, request_id, *, reserved_credits=0, purpose="catalog"):
     current = now()
     config = settings(service)
     if origin != 'seed' and not config['external_consent']:
-        raise ValueError('Autoriza el envío del enfoque a Tavily y Gemini en los ajustes de Descubrir.')
+        raise ValueError('Autoriza el envío del enfoque a Tavily y Gemini en Profile & Preferences.')
+    policy.check_allowance(service.data, reserved_credits, current)
     b = Batch(service.data)
     for run in b.data['discovery_runs']:
         if run['status'] == 'running':
@@ -44,7 +45,7 @@ def begin(service, origin, request_id):
     rid = b.put('discovery_runs', {'status': 'running', 'origin': origin, 'started_at': current.isoformat(),
                                   'finished_at': None, 'model_id': None, 'focus_snapshot': {
                                       k: config[k] for k in ('focus', 'primary_tags', 'related_tags')},
-                                  'details': {}, 'error_message': ''})
+                                  'details': {'purpose':purpose, 'reserved_credits':reserved_credits}, 'error_message': ''})
     service._commit(b, request_id, {'action': 'discovery_begin', 'origin': origin}, {'run_id': rid})
     return rid
 
@@ -52,6 +53,8 @@ def begin(service, origin, request_id):
 def publish(service, run_id, items, details, request_id, *, checked_at=None, origin='ai'):
     """A batch changes catalog records only; learning and personal decisions are preserved."""
     items = [i if isinstance(i, Opportunity) else Opportunity.model_validate(i) for i in items]
+    if origin=='ai':
+        items=bounded_items(service.data['opportunities'],items)
     b = Batch(service.data)
     run = b.find('discovery_runs', run_id)
     if run['status'] != 'running':
@@ -64,7 +67,13 @@ def publish(service, run_id, items, details, request_id, *, checked_at=None, ori
         if key in seen:
             continue
         seen.add(key)
-        old = next((o for o in b.data['opportunities'] if o['identity_key'] == key), None)
+        old = match_existing(b.data['opportunities'], item)
+        if old:
+            key=old['identity_key']
+        if origin=='ai' and ((old and changed>=policy.MAX_RECHECK) or (not old and added>=policy.MAX_NEW)):
+            continue
+        if old and origin=='ai':
+            item=preserve_details(b.data, old, item)
         # Loading the bundled seed again only fills missing entries, never rolls back live research.
         if origin == 'curated' and old:
             continue
@@ -90,7 +99,7 @@ def publish(service, run_id, items, details, request_id, *, checked_at=None, ori
             b.put('opportunity_sources', {'opportunity_id': oid, **source.model_dump(), 'checked_at': checked_at})
         for i, part in enumerate(item.components):
             b.put('pack_components', {'opportunity_id': oid, **part.model_dump(), 'sort_order': i})
-    summary = {**details, 'added': added, 'changed': changed, 'checked': len(seen)}
+    summary = {**run.get('details',{}), **details, 'added': added, 'changed': changed, 'checked': len(seen)}
     b.put('discovery_runs', {**run, 'status': 'partial' if details.get('rejected') or details.get('warnings') else 'completed',
                             'finished_at': now().isoformat(), 'model_id': details.get('model'), 'details': summary})
     return service._commit(b, request_id, {'action': 'discovery_publish', 'run_id': run_id,
@@ -102,27 +111,31 @@ def refresh(repository, tavily_key, gemini_key, *, origin='manual', transport=No
     config = settings(service)
     if origin == 'weekly':
         if not config['weekly_enabled'] or not config['external_consent']:
-            return {'skipped': 'La actualización semanal está desactivada.'}
-        recent = [r for r in service.data['discovery_runs'] if r['origin'] != 'seed' and r['status'] in ('completed','partial')]
-        if recent and now()-max(stamp(r['finished_at']) for r in recent) < timedelta(days=6):
-            return {'skipped': 'Ya hubo una actualización reciente.'}
+            return {'skipped': 'La revisión automática está desactivada.'}
+        due=policy.next_due(service.data)
+        if due and now()<due:
+            return {'skipped': 'La próxima revisión todavía no corresponde (cada 21 días).'}
+        recent_attempt=[r for r in service.data['discovery_runs'] if r['origin']=='weekly' and now()-stamp(r['started_at'])<timedelta(days=1)]
+        if recent_attempt:
+            return {'skipped': 'Ya se intentó una revisión automática hoy.'}
     if not tavily_key or not gemini_key:
         raise research.ResearchError('Añade las claves de Tavily y Gemini antes de actualizar.')
-    rid = begin(service, origin, str(uuid4()))
-    details = {}
+    rid = begin(service, origin, str(uuid4()), reserved_credits=policy.REFRESH_CREDITS)
+    details = {'reserved_credits':policy.REFRESH_CREDITS, 'purpose':'catalog'}
     try:
         public_focus = {k: config[k] for k in ('focus', 'primary_tags', 'related_tags')}
         sources, credits, warnings = research.retrieve(tavily_key, public_focus, service.data['opportunities'], transport=transport, notify=notify)
-        details = {'tavily_credits': credits, 'sources_read': len(sources), 'warnings': warnings}
+        details.update({'tavily_credits': credits, 'sources_read': len(sources), 'warnings': warnings})
         options = {'transport': transport, 'notify': notify}
         if sleep is not None:
             options['sleep'] = sleep
-        items, model_info = research.analyze(gemini_key, public_focus, sources, **options)
+        items, model_info = research.analyze(gemini_key, public_focus, sources, existing=service.data['opportunities'], **options)
         details.update(model_info)
         # Preserve any personal edits made while external research was running.
         service = LearningService(repository)
         if public_focus != {k: settings(service)[k] for k in public_focus}:
             raise research.ResearchError('Tu enfoque cambió durante la investigación. Actualiza con el enfoque nuevo.')
+        items=bounded_items(service.data['opportunities'],items)
         return publish(service, rid, items, details, str(uuid4()))
     except Exception as exc:
         if isinstance(exc, research.ResearchError):
@@ -219,3 +232,53 @@ def relevance(service, item):
     reasons = (['Enfoque: '+', '.join(core)] if core else []) + (['Áreas relacionadas: '+', '.join(related)] if related else [])
     reasons += [f'{len(gaps)} habilidades sin autonomía declarada', f'Fuentes comprobadas hace {age} días']
     return score, ' · '.join(reasons)
+
+
+def match_existing(rows, item):
+    return next((o for o in rows if o['identity_key']==item.identity() or
+                 (normalized(o['title'])==normalized(item.title) and normalized(o['provider'])==normalized(item.provider))),None)
+
+
+def bounded_items(existing, items):
+    result=[]; new=0; checked=0; seen=set()
+    for item in items:
+        old=match_existing(existing,item)
+        key=old['id'] if old else item.identity()
+        if key in seen:
+            continue
+        seen.add(key)
+        if old:
+            if checked>=policy.MAX_RECHECK: continue
+            checked+=1
+        else:
+            if new>=policy.MAX_NEW: continue
+            new+=1
+        result.append(item)
+    return result
+
+
+def preserve_details(data, old, item):
+    # A short web read must not erase a detailed, manually researched syllabus.
+    values=item.model_dump(mode='json')
+    for key in ('topics','skills','tags'):
+        combined=list(old[key])
+        seen={normalized(v) for v in combined}
+        for value in values[key]:
+            if normalized(value) not in seen:
+                combined.append(value); seen.add(normalized(value))
+        values[key]=combined[:{'topics':80,'skills':30,'tags':20}[key]]
+    for key in ('duration_minutes','provider_updated_on'):
+        if values[key] is None: values[key]=old.get(key)
+    if values['price_kind']=='unknown':
+        for key in ('price_kind','price_amount','currency','price_note','price_evidence'):
+            values[key]=old.get(key)
+    if old['syllabus_scope']=='published_outline' and item.syllabus_scope=='summary':
+        values['syllabus_scope']='published_outline'
+    # Preserve sources supporting retained fields and original pack components.
+    prior=[s for s in data['opportunity_sources'] if s['opportunity_id']==old['id']]
+    sources={s['url']:{k:s[k] for k in ('url','title','evidence')} for s in prior}
+    sources.update({s['url']:s for s in values['sources']})
+    required=[values['url']] if values['kind']!='pack' else [c['url'] for c in values['components']]
+    order=list(dict.fromkeys(required+list(sources)))
+    values['sources']=[sources[u] for u in order if u in sources][:8]
+    return Opportunity.model_validate(values)

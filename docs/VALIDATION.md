@@ -83,3 +83,14 @@ Se corrigió la respuesta de sentencias sin `RETURNING` y se unificaron las exce
 **Resultado local después del cambio: 89 aprobadas, 1 omitida en 20,55 segundos.** Incluye la suite SQL con PGlite, las cuatro regresiones del driver simulado y las cinco pruebas de interfaz. Las comprobaciones del paquete también pasaron. La omisión sigue siendo la prueba de dos conexiones simultáneas.
 
 Falta ejecutar esta corrección en GitHub Actions con PostgreSQL 17 después del nuevo commit y push. El resultado local no se presenta como una ejecución aprobada en GitHub ni como una prueba de Supabase en producción. El aviso informativo sobre `ubuntu-latest` no fue la causa del fallo mostrado.
+
+
+## Rediseño y asistentes · 18 de octubre de 2026
+
+Suite final: **158 passed, 1 skipped**, 47,91 segundos, repetida después de añadir la guía de secciones en Dashboard y aclarar My Learning frente a Learning Roadmap. El test omitido requiere dos conexiones de PostgreSQL real y se ejecuta en CI; el resto del SQL usa PGlite temporal. Comprobación del paquete correcta.
+
+Se verificaron la navegación con iconos y subsecciones, exportación de habilidades con procedencia, asociación de aprendizajes a fases, propuesta por conversación antes de guardar, TXT recuperable sin IA, CSV de credenciales y caracteres especiales, guardado atómico/idempotente de lotes, fechas futuras rechazadas, preservación del borrador acumulado y ausencia de progreso inventado.
+
+La confirmación de búsqueda se prueba en AppTest: abrir y cancelar no llama al servicio; confirmar llama una vez. Se probaron el presupuesto compartido, reserva de intentos fallidos, intervalo de 21 días, consultas de nombres sin alterar la fecha del catálogo, cero novedades válidas y límites de cinco nuevas/tres existentes.
+
+Revisión visual local con datos ficticios: menú, Dashboard y Abilities. Las llamadas Gemini/Tavily son simuladas en las pruebas; no se consumieron claves reales ni se escribió en Supabase de producción. La publicación y la migración 003 quedan pendientes de ejecutar en las cuentas del usuario.

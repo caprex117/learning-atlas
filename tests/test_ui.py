@@ -3,7 +3,7 @@ from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
 
-from atlas.app import NAV
+from atlas.app import NAV, NAV_ICONS
 from atlas.models import ImportProposal,TrackDraft
 from atlas import domain
 from atlas.repository import MemoryRepository
@@ -17,11 +17,23 @@ def start_demo():
     return app
 
 
+def goto(app,page):
+    aliases={'Mi aprendizaje':('Dashboard','My Learning'),'Habilidades':('Dashboard','Abilities'),'Mi ruta':('Learning Roadmap',None),'Importar documentos':('Import',None),'Descubrir':('Learning Radar',None)}
+    page,section=aliases.get(page,(page,None))
+    app.button(key='nav_'+NAV_ICONS[NAV.index(page)]).click().run()
+    if section:
+        app.button_group(key='dashboard_section').set_value(section).run()
+    return app
+
+
 def test_all_pages_render_without_errors():
     app=start_demo()
     for page in NAV:
-        app.radio(key="navigation").set_value(page).run()
+        goto(app,page)
         assert not app.exception, (page,[x.message for x in app.exception])
+    goto(app,'Habilidades')
+    assert not app.exception
+    assert any('Descargar todas mis habilidades' in b.proto.label for b in app.get('download_button'))
 
 
 def test_create_course_from_sidebar_and_complete_unit():
@@ -36,7 +48,7 @@ def test_create_course_from_sidebar_and_complete_unit():
     repo=app.session_state["repository"]
     track=next(t for t in repo.data["learning_tracks"] if t["title"]=="Curso de prueba de interfaz")
     assert domain.progress(repo.data,track["id"])["percent"]==0
-    app.radio(key="navigation").set_value("Mi aprendizaje").run()
+    goto(app,"Mi aprendizaje")
     unit=domain.track_units(repo.data,track["id"])[0]
     app.checkbox(key="unit_"+unit["id"]).check().run()
     assert not app.exception
@@ -45,7 +57,7 @@ def test_create_course_from_sidebar_and_complete_unit():
 
 def test_import_manual_json_review_then_save():
     app=start_demo()
-    app.radio(key="navigation").set_value("Importar documentos").run()
+    goto(app,"Importar documentos")
     proposal=ImportProposal(tracks=[TrackDraft(title="Importado desde interfaz",kind="course",units=[{"key":"u","title":"Unidad"}])])
     app.text_area(key="proposal_editor").set_value(proposal.model_dump_json()).run()
     next(b for b in app.button if b.label=="Validar y guardar borrador").click().run()
@@ -107,12 +119,12 @@ def test_sign_in_and_sign_out_clear_session_data(monkeypatch):
 
 def test_catalog_review_then_adopt_to_route_and_filter():
     app=start_demo()
-    app.radio(key='navigation').set_value('Descubrir').run()
+    goto(app,'Descubrir')
     app.button(key='catalog_seed').click().run()
     assert not app.exception
     repo=app.session_state['repository']
     assert len(repo.data['opportunities'])==54
-    assert app.button(key='catalog_seed').label=='Cargar / actualizar selección de 54'
+    assert not any(b.key=='catalog_seed' for b in app.button)
     assert next(s for s in app.selectbox if s.label=='Ordenar').value=='Prioridad personal'
     assert any('Descargar catálogo completo' in b.proto.label for b in app.get('download_button'))
     app.text_input(key='catalog_search').set_value('Primer mapa de integración').run()
@@ -133,7 +145,7 @@ def test_catalog_review_then_adopt_to_route_and_filter():
     choice=next(c for c in repo.data['opportunity_choices'] if c['opportunity_id']==oid)
     assert any(r['track_id']==choice['track_id'] and r['phase_id']==phase for r in repo.data['phase_tracks'])
     assert domain.progress(repo.data,choice['track_id'])['percent']==0
-    app.radio(key='navigation').set_value('Mi ruta').run()
+    goto(app,'Mi ruta')
     assert not app.exception
 
 
@@ -141,6 +153,68 @@ def test_catalog_missing_migration_shows_setup_help():
     app=start_demo()
     repo=app.session_state['repository']
     del repo.data['opportunities']
-    app.radio(key='navigation').set_value('Descubrir').run()
+    goto(app,'Descubrir')
     assert not app.exception
     assert any('002_discovery_catalog.sql' in i.value for i in app.info)
+
+
+def test_research_dialog_cancel_does_not_call_api(monkeypatch):
+    from atlas import catalog
+    from atlas.service import LearningService
+    from atlas.catalog_models import defaults
+    from uuid import uuid4
+    app=start_demo()
+    repo=app.session_state['repository'];repo.is_demo=False
+    app.secrets['tavily']={'api_key':'fake-tavily'}
+    app.secrets['gemini']={'api_key':'fake-gemini','model':'fake-model'}
+    catalog.save_settings(LearningService(repo),{**defaults(),'external_consent':True},str(uuid4()))
+    calls=[]
+    def fake_refresh(*args,**kwargs):
+        calls.append(True)
+        return {'added':0,'changed':0,'checked':0}
+    monkeypatch.setattr(catalog,'refresh',fake_refresh)
+    goto(app,'Learning Radar')
+    app.button(key='catalog_refresh').click().run()
+    assert not calls and not app.exception
+    app.button(key='cancel_research').click().run()
+    assert not calls and not app.exception
+    app.button(key='catalog_refresh').click().run()
+    app.button(key='confirm_research').click().run()
+    assert calls==[True] and not app.exception
+
+
+def test_import_assistant_prepares_draft_before_any_database_write(monkeypatch):
+    from atlas import assistant
+    app=start_demo()
+    repo=app.session_state['repository'];repo.is_demo=False
+    app.secrets['gemini']={'api_key':'fake-gemini','model':'fake-model'}
+    proposal=ImportProposal(tracks=[TrackDraft(title='Conversational course',kind='course')])
+    monkeypatch.setattr(assistant,'converse',lambda *a,**k:assistant.Reply(message='Revisa la propuesta.',proposal=proposal))
+    goto(app,'Import')
+    app.text_area(key='assistant_import_message').set_value('Quiero organizar un curso')
+    app.checkbox(key='assistant_import_consent').check()
+    next(b for b in app.button if b.label=='Enviar a Gemini').click().run()
+    assert not app.exception
+    assert not repo.data['import_jobs']
+    app.button(key='assistant_to_import').click().run()
+    assert not app.exception
+    assert 'Conversational course' in app.text_area(key='proposal_editor').value
+    assert not repo.data['import_jobs']
+
+
+def test_credentials_assistant_table_requires_explicit_review(monkeypatch):
+    from atlas import assistant
+    from atlas.credential_drafts import CredentialDraft
+    app=start_demo();repo=app.session_state['repository'];repo.is_demo=False
+    app.secrets['gemini']={'api_key':'fake-gemini','model':'fake-model'}
+    original=len(repo.data['credentials'])
+    monkeypatch.setattr(assistant,'converse',lambda *a,**k:assistant.Reply(message='Revisa la tabla.',credentials=[CredentialDraft(official_name='UI certificate',issuer='UI provider',credential_code='ABC-123')]))
+    goto(app,'Credentials')
+    app.text_area(key='assistant_credentials_message').set_value('Ya obtuve este certificado')
+    app.checkbox(key='assistant_credentials_consent').check()
+    next(b for b in app.button if b.label=='Enviar a Gemini').click().run()
+    assert not app.exception
+    assert app.button(key='save_credentials_batch').disabled and len(repo.data['credentials'])==original
+    next(c for c in app.checkbox if c.label.startswith('Revisé esta tabla')).check().run()
+    app.button(key='save_credentials_batch').click().run()
+    assert not app.exception and len(repo.data['credentials'])==original+1
